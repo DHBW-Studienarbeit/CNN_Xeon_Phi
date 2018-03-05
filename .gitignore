@@ -1,0 +1,5 @@
+#ignore all contents of the build folder
+build/**
+
+# ignore python caches
+**/__pycache__/**
