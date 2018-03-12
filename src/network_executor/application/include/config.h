@@ -1,0 +1,10 @@
+#ifndef CONFIG_H_INCLUDED
+#define CONFIG_H_INCLUDED
+
+
+#define CONFIG_FLOATTYPE_DOUBLE
+
+
+
+
+#endif /*CONFIG_H_INCLUDED*/
