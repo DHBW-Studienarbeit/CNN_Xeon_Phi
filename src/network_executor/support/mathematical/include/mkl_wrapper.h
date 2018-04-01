@@ -18,11 +18,13 @@
 #define MATH_VECT_VECT_SCAL_ADD_MUL(n, a, x, incx, b, y, incy) cblas_daxpby(n, a, x, incx, b, y, incy)
 
 // BLAS lvl 2
-#define MATH_MULT_MAT_VECT cblas_dgmv(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+#define MATH_MULT_MAT_VECT(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy) cblas_dgmv(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 
 // BLAS lvl 3
 #define MATH_MULT_MAT_MAT(layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc) cblas_dgemm(layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 
+//mBLAS extensions
+#define MATH_BATCH_MULT_MAT_MAT(layout, transa_array, transb_array, m_array, n_array, k_array, alpha_array, a_array, lda_array, b_array, ldb_array, beta_array, c_array, ldc_array, group_count, group_size) cblas_dgemm_batch(layout, transa_array, transb_array, m_array, n_array, k_array, alpha_array, a_array, lda_array, b_array, ldb_array, beta_array, c_array, ldc_array, group_count, group_size)
 
 
 #else /*CONFIG_FLOATTYPE_DOUBLE*/

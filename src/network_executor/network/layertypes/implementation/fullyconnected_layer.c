@@ -3,8 +3,8 @@
 #include "mathematics.h"
 
 
-void layer_fullcon_forward(const    FullyConnectedLayer_p   layerinfo,
-                                    Float_p                 activations_start )
+INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo,
+                            Float_p activations_start )
 {
     Float_p z_vector_start = shared_tmp_floats;
     // multiply input batch with weight matrix
@@ -46,10 +46,10 @@ void layer_fullcon_forward(const    FullyConnectedLayer_p   layerinfo,
             ) ;
 }
 
-void layer_fullcon_backward(const   FullyConnectedLayer_p   layerinfo,
-                                    Float_p                 activations_start,
-                                    Float_p                 activations_deriv_start,
-                                    Float_p                 weight_errors_start)
+INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
+                            Float_p activations_start,
+                            Float_p activations_deriv_start,
+                            Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
     Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
@@ -79,7 +79,7 @@ void layer_fullcon_backward(const   FullyConnectedLayer_p   layerinfo,
                         cost_deriv_z,
                         layerinfo->single_output_count,
                         0.0f,
-                        activations_deriv_start + layerinfo->weights_offset,
+                        activations_deriv_start + layerinfo->input_activation_offset,
                         layerinfo->single_input_count
                      );
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
@@ -108,13 +108,13 @@ void layer_fullcon_backward(const   FullyConnectedLayer_p   layerinfo,
                         layerinfo->single_output_count,
                         activations_start + layerinfo->input_activation_offset,
                         layerinfo->single_input_count,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->weights_offset,
                         layerinfo->single_input_count
                      );
 }
 
-void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
+INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
                                 Float_p activations_start,
                                 Float_p input_start)
 {
@@ -158,7 +158,11 @@ void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
             ) ;
 }
 
-void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start)
+INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo,
+                                    Float_p activations_start,
+                                    Float_p input_start,
+                                    Float_p activations_deriv_start,
+                                    Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
     Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
@@ -201,13 +205,14 @@ void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo, Float_p
                         layerinfo->single_output_count,
                         input_start,
                         layerinfo->single_input_count,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->weights_offset,
                         layerinfo->single_input_count
                      );
 }
 
-Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo, Float_p activations_start)
+INLINE Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo,
+                                 Float_p activations_start)
 {
     return activations_start + layerinfo->output_activation_offset;
 }

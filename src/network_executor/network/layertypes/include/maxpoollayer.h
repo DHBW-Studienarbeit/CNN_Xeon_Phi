@@ -13,14 +13,14 @@ typedef struct
     Int_t relevant_entries_count;
     Int_t num_of_lines;
     Int_t relevant_columns_per_line;
-    Int_t relevant_columns[MAXPOOLING_LAYOUT_MAX_ELEMENT_COUNT];
+    Int_p relevant_columns;
 } PoolingTableLayout_t, *PoolingTableLayout_p;
 
 // subset of PoolingTableLayout
 typedef struct
 {
     Int_t relevant_entries_count;
-    Int_t relevant_columns[MAXPOOLING_LAYOUT_MAX_ELEMENT_COUNT];
+    Int_t relevant_columns_offset;
 } PoolingTableDefinite_t, *PoolingTableDefinite_p;
 
 
@@ -34,30 +34,16 @@ typedef struct
     Int_t output_activation_offset;
     Int_t output_activation_count;
     // weights
-    // weight dimension
-    Int_t feature_count;
-    Int_t input_x_count;
-    Int_t input_y_count;
-    Int_t filter_x_count;
-    Int_t filter_y_count;
-    Int_t batch_count;
-    // size of the weight section
-    // note that in this layertype weightdata is stored as integer
-    Int_t weight_layout_total_count;
-    Int_t weight_layout_colums_per_line
-    // relative position for weight derivations
-    Int_t weight_realisation_offset;
-    Int_t weights_realisation_total_count;
-    // absolute position of the weights
-    Int_p weight_layout_start;
+    PoolingTableLayout_t pooling_layout;
+    PoolingTableDefinite_t weight_shape;
 } MaxPoolingLayer_t, *MaxPoolingLayer_p
 
 
-INLINE void layer_maxpool_forward(const MaxPoolingLayer_p layerinfo, Float_p activations_start);
-INLINE void layer_maxpool_backward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_maxpool_forward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, const Int_p int_weights_start);
+INLINE void layer_maxpool_backward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, const Int_p int_weights_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
-INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, Float_p input_start);
-INLINE void layer_maxpool_first_backward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, const Int_p int_weights_start, Float_p input_start);
+INLINE void layer_maxpool_first_backward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, const Int_p int_weights_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
 INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo, Float_p activations_start);
 

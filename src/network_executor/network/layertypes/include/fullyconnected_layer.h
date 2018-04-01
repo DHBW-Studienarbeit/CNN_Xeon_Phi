@@ -30,12 +30,12 @@ typedef struct
 } FullyConnectedLayer_t, *FullyConnectedLayer_p
 
 
-void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo, Float_p activations_start);
-void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo, Float_p activations_start);
+INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
-void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p input_start);
-void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p input_start);
+INLINE void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
-Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo, Float_p activations_start);
+INLINE Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo, Float_p activations_start);
 
 #endif /*FULLYCONNECTEDLAYER_H_INCLUDED*/

@@ -4,6 +4,7 @@
 #include "layer_commons.h"
 
 
+
 typedef struct
 {
     // activations
@@ -20,6 +21,16 @@ typedef struct
     Int_t filter_y_count;
     Int_t filter_feature_output_count;
     Int_t batch_count;
+    // further matrix dimensions
+    Int_t filter_matrix_width;
+    Int_t input_matrix_height;
+    Int_t input_matrix_width;
+    Int_t input_matrix_toplayer_elements_count;
+    Int_t partial_output_matrix_count;
+    Int_t full_output_matrix_width;
+    // partial matrix dimensions
+    Int_t filter_x_pos_count;
+    Int_t filter_y_pos_count;
     // size of the weight (derivation) section
     Int_t weights_total_count;
     // relative position for weight derivations
@@ -31,13 +42,13 @@ typedef struct
 } ConvolutionalLayer_t, *ConvolutionalLayer_p
 
 
-void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
-void layer_conv_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
+INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
-void layer_conv_first_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start);
-void layer_conv_first_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_conv_first_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start);
+INLINE void layer_conv_first_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
 
-Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
+INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
 
 
 #endif /*CONV_LAYER_H_INCLUDED*/
