@@ -3,11 +3,11 @@
 #include "mathematics.h"
 
 
-INLINE Int_t get_poolshape_entry( const MaxPoolingLayer_p layerinfo,
-                                    const Int_p int_weights_start,
-                                    Int_p output_index,
-                                    Int_p column_index
-                                )
+static INLINE Int_t get_poolshape_entry( const MaxPoolingLayer_p layerinfo,
+                                        const Int_p int_weights_start,
+                                        Int_p output_index,
+                                        Int_p column_index
+                                       )
 {
     return layerinfo->input_activation_offset
      + layerinfo->pooling_layout.relevant_columns[
@@ -104,7 +104,7 @@ INLINE void layer_maxpool_first_backward(   const MaxPoolingLayer_p layerinfo,
                                             Float_p weight_errors_start
                                         )
 {
-    //nothing to do here
+    // nothing to do here
 }
 
 INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo, Float_p activations_start)

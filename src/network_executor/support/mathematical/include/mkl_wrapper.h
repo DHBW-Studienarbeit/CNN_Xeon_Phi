@@ -11,7 +11,11 @@
 #define MATH_VECT_ADD(n, a, b, y) vdAdd(n, a, b, y)
 #define MATH_VECT_SUB(n, a, b, y) vdSub(n, a, b, y)
 #define MATH_VECT_MUL(n, a, b, y) vdMul(n, a, b, y)
+#define MATH_VECT_DIV(n, a, b, y) vdMul(n, a, b, y)
 #define MATH_VECT_TANH(n, a, y) vdTanh(n, a, y)
+#define MATH_VECT_EXP(n, a, y) vdExp(n, a, y)
+#define MATH_VECT_LOG(n, a, y) vdLn(n, a, y)
+#define MATH_VECT_ELEM_SUM(n, x, incx) cblas_dasum (n, x, incx)
 
 // BLAS lvl 1
 #define MATH_VECT_SCAL_MUL(n, a, x, incx) cblas_dscal(n, a, x, incx)
