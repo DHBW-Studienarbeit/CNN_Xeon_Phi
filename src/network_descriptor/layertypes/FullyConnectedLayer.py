@@ -15,3 +15,18 @@ class FullyConnectedLayer(Layer):
         self._act_out_off = act_out_off
         self._weight_off = weight_off
         self._bias_off = weight_off + self.get_weight_shape().get_count_output() * self.get_weight_shape().get_count_input()
+
+    def get_C_typename(self):
+        return "FullyConnectedLayer_"
+
+    def get_C_forwardname(self, first):
+        if first == True:
+            return "layer_fullcon_first_forward"
+        else:
+            return "layer_fullcon_forward"
+
+    def get_C_backwardname(self, first):
+        if first == True:
+            return "layer_fullcon_first_backward"
+        else:
+            return "layer_fullcon_backward"

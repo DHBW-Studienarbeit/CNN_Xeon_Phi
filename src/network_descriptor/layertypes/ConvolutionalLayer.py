@@ -14,3 +14,18 @@ class ConvolutionalLayer(Layer):
         self._act_in_off = act_in_off
         self._act_out_off = act_out_off
         self._weight_off = weight_off
+
+    def get_C_typename(self):
+        return "ConvolutionalLayer_"
+
+    def get_C_forwardname(self, first):
+        if first == True:
+            return "layer_conv_first_forward"
+        else:
+            return "layer_conv_forward"
+
+    def get_C_backwardname(self, first):
+        if first == True:
+            return "layer_conv_first_backward"
+        else:
+            return "layer_conv_backward"

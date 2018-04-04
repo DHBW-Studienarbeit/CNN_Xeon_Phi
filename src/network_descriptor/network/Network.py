@@ -40,7 +40,8 @@ class Network:
             else:
                 current.apply_consts(act_pos_in, act_pos_out, weight_f_pos)
                 weight_f_pos = weight_f_pos + current.get_weight_shape().get_count_total()
-            act_pos_in = act_pos_out + current.get_output_shape().get_count_total()
+            # next layers input is current layers output
+            act_pos_in = act_pos_out
         self._activation_size = act_pos_in
         self._act_mem_i_size = act_mem_i_pos
         self._weights_f_size = weight_f_pos
