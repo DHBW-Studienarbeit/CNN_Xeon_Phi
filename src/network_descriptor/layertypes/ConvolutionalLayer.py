@@ -9,3 +9,8 @@ class ConvolutionalLayer(Layer):
         input_count = filter_size_x * filter_size_y * input_shape.get_count_features()
         weight_shape = StdWeightShape(input_count, count_output_features)
         super().__init__(input_shape, output_shape, weight_shape)
+
+    def apply_consts(self, act_in_off, act_out_off, weight_off):
+        self._act_in_off = act_in_off
+        self._act_out_off = act_out_off
+        self._weight_off = weight_off

@@ -7,7 +7,7 @@
 #define RANDGEN_MEAN        0.0f
 #define RANDGEN_RANGESIZE   5.0f
 
-void weightgen_generate(Int_t count, Float_p target, Float_t sigma)
+void weightgen_generate(Int_t count, Float_p target)
 {
     VSLStreamStatePtr stream;
     vslNewStream( &stream, RANDGEN_GENMODE, RANDGEN_SEED );

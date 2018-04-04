@@ -27,6 +27,24 @@ class Network:
 
     def generate(self):
         self._output_shape = self._last_shape
+        act_pos_in = 0
+        act_mem_i_pos = 0;
+        weight_f_pos = 0
+        weight_i_pos = 0
+        for current in self._layers:
+            act_pos_out = act_pos_in + current.get_input_shape().get_count_total()
+            if current.__class__.__name__ == "MaxPoolingLayer":
+                current.apply_consts(act_pos_in, act_pos_out, weight_i_pos, act_mem_i_pos)
+                weight_i_pos = weight_i_pos + current.get_weight_shape().get_count_total()
+                act_mem_i_pos = act_mem_i_pos + current.get_weight_shape().get_count_output()
+            else:
+                current.apply_consts(act_pos_in, act_pos_out, weight_f_pos)
+                weight_f_pos = weight_f_pos + current.get_weight_shape().get_count_total()
+            act_pos_in = act_pos_out + current.get_output_shape().get_count_total()
+        self._activation_size = act_pos_in
+        self._act_mem_i_size = act_mem_i_pos
+        self._weights_f_size = weight_f_pos
+        self._weights_i_size = weight_i_pos
 
     def get_input_shape(self):
         return self._input_shape

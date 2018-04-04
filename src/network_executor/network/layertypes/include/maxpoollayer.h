@@ -3,11 +3,9 @@
 
 
 #include "layer_commons.h"
-#include "shared_arrays.h"
 
-#define MAXPOOLING_LAYOUT_MAX_ELEMENT_COUNT SHARED_ARRAY_SIZE
 
-// pooling matrix is stored in the CSR format (zero-based)
+// Layout defines which inputs have to be compared for each output
 typedef struct
 {
     Int_t relevant_entries_count;

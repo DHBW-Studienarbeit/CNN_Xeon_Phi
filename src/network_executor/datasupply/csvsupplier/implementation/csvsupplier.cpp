@@ -5,10 +5,10 @@
 #include <sstream>
 
 
-void datasupply_load_batch(DataSupplier_p supplier)
+static inline void datasupply_load_batch(DataSupplier_p supplier)
 {
     std::string csv_file = supplier->foldername + "/"
-                         + std::to_string(this->file_index) + ".csv";
+                         + std::to_string(supplier->file_index) + ".csv";
 	std::ifstream infile(csv_file);
 	for(int i=0; i<NUM_DATASETS_PER_FILE; i++)
 	{
@@ -27,6 +27,21 @@ void datasupply_load_batch(DataSupplier_p supplier)
     	}
 	}
     supplier->file_index++;
+}
+
+void datasupply_next_batch(DataSupplier_p supplier)
+{
+    supplier->batch_index++;
+    if(supplier->batch_index >= NUM_BATCHES_PER_FILE)
+    {
+        supplier->batch_index = 0;
+        supplier->file_index++;
+        if(supplier->file_index >= supplier->num_of_files)
+        {
+            supplier->file_index = 0;
+        }
+        datasupply_load_batch(supplier);
+    }
 }
 
 Float_p datasupply_get_input(DataSupplier_p supplier)

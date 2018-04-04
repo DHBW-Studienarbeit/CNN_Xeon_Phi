@@ -27,7 +27,7 @@ typedef struct
 extern "C" {
 #endif
 
-void datasupply_load_batch(DataSupplier_p supplier);
+void datasupply_next_batch(DataSupplier_p supplier);
 Float_p datasupply_get_input(DataSupplier_p supplier);
 Float_p datasupply_get_output(DataSupplier_p supplier);
 
