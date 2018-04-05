@@ -29,8 +29,9 @@ typedef struct
     Int_t partial_output_matrix_count;
     Int_t full_output_matrix_width;
     // partial matrix dimensions
-    Int_t filter_x_pos_count;
-    Int_t filter_y_pos_count;
+		// seems to be unused
+    //Int_t filter_x_pos_count;
+    //Int_t filter_y_pos_count;
     // size of the weight (derivation) section
     Int_t weights_total_count;
     // relative position for weight derivations

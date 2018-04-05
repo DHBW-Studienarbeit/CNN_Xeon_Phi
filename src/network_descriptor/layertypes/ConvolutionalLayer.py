@@ -14,6 +14,7 @@ class ConvolutionalLayer(Layer):
         self._act_in_off = act_in_off
         self._act_out_off = act_out_off
         self._weight_off = weight_off
+        self._bias_off = weight_off + self.get_weight_shape().get_count_output() * self.get_weight_shape().get_count_input()
 
     def get_C_typename(self):
         return "ConvolutionalLayer_"

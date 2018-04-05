@@ -7,7 +7,7 @@ class FullyConnectedLayer(Layer):
     def __init__(self, input_shape, output_feature_count):
         batch_size = input_shape.get_count_probes()
         output_shape = StdActivationShape(batch_size, 1, 1, output_feature_count)
-        weight_shape = StdWeightShape(input_shape.get_count_total(), output_feature_count)
+        weight_shape = StdWeightShape(input_shape.get_count_total()//batch_size, output_feature_count)
         super().__init__(input_shape, output_shape, weight_shape)
 
     def apply_consts(self, act_in_off, act_out_off, weight_off):

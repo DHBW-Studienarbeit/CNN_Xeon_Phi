@@ -31,8 +31,14 @@ class Network:
         act_mem_i_pos = 0;
         weight_f_pos = 0
         weight_i_pos = 0
+        first_run = True
         for current in self._layers:
-            act_pos_out = act_pos_in + current.get_input_shape().get_count_total()
+            if first_run == True:
+                # first input is not stored in activations
+                act_pos_out = 0
+                first_run = False
+            else:
+                act_pos_out = act_pos_in + current.get_input_shape().get_count_total()
             if current.__class__.__name__ == "MaxPoolingLayer":
                 current.apply_consts(act_pos_in, act_pos_out, weight_i_pos, act_mem_i_pos)
                 weight_i_pos = weight_i_pos + current.get_weight_shape().get_count_total()
