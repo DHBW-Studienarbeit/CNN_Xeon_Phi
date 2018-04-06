@@ -196,18 +196,18 @@ int main(void)
 {
     Int_t iteration=1;
     Float_t test_cost;
-
+    // generate weights for the network
     weightgen_generate(NETWORK_WEIGHTS_F_SIZE, net_weights_f);
-
+    // initialize suppliers to read input data and labels
     datasupply_init(trainsupplier, CONFIG_NUM_TRAINFILES, CONFIG_DIR_TRAIN);
     datasupply_init(testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
-
+    // test with random weights first; just for later comparison
     test_cost = exec_testsession(network, supplier);
     printf("Initial cost: ");
     printf(FLOAT_T_ESCAPE, test_cost);
     printf("\n");
-
-    for(iteration=1; iteration>0; iteration++)
+    // do iterations consisting of training and testing
+    for(iteration=1; iteration<CONFIG_NUM_OF_ITERATIONS; iteration++)
     {
         exec_trainsession(network, supplier, CONFIG_TRAININGS_PER_TEST);
         test_cost = exec_testsession(network, supplier, 1);
