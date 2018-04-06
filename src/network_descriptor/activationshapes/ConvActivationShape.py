@@ -16,7 +16,7 @@ class ConvActivationShape(ActivationShape):
         self._output_section_size = num_output_section_columns * count_output_features
 
     def get_position(self, p, y, x, feature):
-        input_start_position = self._input_shape.get_position(p, y, x, 0) // input_shape.get_count_features()
+        input_start_position = self._input_shape.get_position(p, y, x, 0) // self._input_shape.get_count_features()
         output_section_index = input_start_position % self._filter_size_x
         inner_section_column = input_start_position // self._filter_size_x
         return output_section_index * self._output_section_size + inner_section_column * self.get_count_features() + feature

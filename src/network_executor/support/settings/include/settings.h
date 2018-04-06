@@ -1,6 +1,8 @@
 #ifndef SETTINGS_H_INCLUDED
 #define SETTINGS_H_INCLUDED
 
+#include "config.h"
+
 #ifdef CONFIG_FLOATTYPE_FLOAT
 typedef float Float_t, *Float_p
 #endif

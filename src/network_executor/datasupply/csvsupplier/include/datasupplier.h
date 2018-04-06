@@ -6,10 +6,24 @@
 #define NUM_DATASETS_PER_FILE   1000
 #define FOLDERNAME_MAX_LENGTH   100
 
-#define NUM_DATASETS_PER_BATCH	20
-#define NUM_BATCHES_PER_FILE	50
-#define DATASET_INPUT_SIZE		786
-#define DATASET_OUTPUT_SIZE		10
+/* [[[cog
+import cog
+from network_descriptor.NetInstance import net
+
+cog.outl("#define NUM_DATASETS_PER_BATCH " + str(net.get_input_shape().get_count_probes()))
+cog.outl("#define DATASET_INPUT_SIZE " + str(net.get_input_shape().get_count_x() \
+ 											* net.get_input_shape().get_count_y() \
+											* net.get_input_shape().get_count_features()))
+cog.outl("#define DATASET_OUTPUT_SIZE " + str(net.get_output_shape().get_count_x() \
+ 											* net.get_output_shape().get_count_y() \
+											* net.get_output_shape().get_count_features()))
+]]] */
+#define NUM_DATASETS_PER_BATCH 10
+#define DATASET_INPUT_SIZE 784
+#define DATASET_OUTPUT_SIZE 10
+// [[[end]]]
+
+#define NUM_BATCHES_PER_FILE	(NUM_DATASETS_PER_FILE / NUM_DATASETS_PER_BATCH)
 
 
 typedef struct

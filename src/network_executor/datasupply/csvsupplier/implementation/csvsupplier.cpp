@@ -18,12 +18,22 @@ static inline void datasupply_load_batch(DataSupplier_p supplier)
     	for(int i=0; i<INPUT_SIZE; i++)
     	{
     		std::getline(lineStream,cell, ',');
-    		supplier->inputs[i] = std::stof(cell);
+#ifdef CONFIG_FLOATTYPE_DOUBLE
+            supplier->labels[i] = std::stod(cell);
+#endif
+#ifdef CONFIG_FLOATTYPE_FLOAT
+            supplier->labels[i] = std::stof(cell);
+#endif
     	}
     	for(int i=0; i<OUTPUT_SIZE; i++)
     	{
     		std::getline(lineStream,cell, ',');
-    		supplier->labels[i] = (float)std::stod(cell);
+#ifdef CONFIG_FLOATTYPE_DOUBLE
+            supplier->labels[i] = std::stod(cell);
+#endif
+#ifdef CONFIG_FLOATTYPE_FLOAT
+            supplier->labels[i] = std::stof(cell);
+#endif
     	}
 	}
     supplier->file_index++;
