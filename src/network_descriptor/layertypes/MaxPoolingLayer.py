@@ -36,3 +36,6 @@ class MaxPoolingLayer(Layer):
             return "layer_maxpool_first_backward"
         else:
             return "layer_maxpool_backward"
+
+    def get_C_outputname(self):
+        return "layer_maxpool_get_output"

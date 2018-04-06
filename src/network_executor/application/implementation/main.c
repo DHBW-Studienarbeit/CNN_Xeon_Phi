@@ -1,3 +1,7 @@
+#include <stdio>
+
+#include "settings.h"
+#include "trainsession.h"
 #include "testsession.h"
 #include "network.h"
 
@@ -77,7 +81,7 @@ cog.outl("};")
 ]]] */
 const NeuronalNetwork_t network =
 {
-.layer_0 = 
+.layer_0 =
 {
 // convolutional
 .input_activation_offset = 0,
@@ -102,27 +106,27 @@ const NeuronalNetwork_t network =
 .weights_start = net_weights_f + 0,
 .biases_start = net_weights_f + 150
 },
-.layer_1 = 
+.layer_1 =
 {
 // maxpooling
 .input_activation_offset = 0,
 .input_activation_count = 46350,
 .output_activation_offset = 46350,
 .output_activation_count = 8640,
-.pooling_layout = 
+.pooling_layout =
 {
 .relevant_entries_count = 34560,
 .num_of_lines = 8640,
 .relevant_columns_per_line = 4,
 .relevant_columns = net_weights_i + 0
 },
-.weight_shape = 
+.weight_shape =
 {
 .relevant_entries_count = 8640,
 .relevant_columns_offset = 0
 }
 },
-.layer_2 = 
+.layer_2 =
 {
 // convolutional
 .input_activation_offset = 46350,
@@ -147,27 +151,27 @@ const NeuronalNetwork_t network =
 .weights_start = net_weights_f + 156,
 .biases_start = net_weights_f + 1356
 },
-.layer_3 = 
+.layer_3 =
 {
 // maxpooling
 .input_activation_offset = 54990,
 .input_activation_count = 11120,
 .output_activation_offset = 66110,
 .output_activation_count = 1280,
-.pooling_layout = 
+.pooling_layout =
 {
 .relevant_entries_count = 5120,
 .num_of_lines = 1280,
 .relevant_columns_per_line = 4,
 .relevant_columns = net_weights_i + 34560
 },
-.weight_shape = 
+.weight_shape =
 {
 .relevant_entries_count = 1280,
 .relevant_columns_offset = 8640
 }
 },
-.layer_4 = 
+.layer_4 =
 {
 // fully connected
 .input_activation_offset = 66110,
@@ -186,8 +190,29 @@ const NeuronalNetwork_t network =
 };
 // [[[end]]]
 
+DataSupplier_t trainsupplier, testsupplier;
 
 int main(void)
 {
-    exec_testsession(network, supplier);
+    Int_t iteration=1;
+    Float_t test_cost;
+
+    weightgen_generate(NETWORK_WEIGHTS_F_SIZE, net_weights_f);
+
+    datasupply_init(trainsupplier, CONFIG_NUM_TRAINFILES, CONFIG_DIR_TRAIN);
+    datasupply_init(testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
+
+    test_cost = exec_testsession(network, supplier);
+    printf("Initial cost: ");
+    printf(FLOAT_T_ESCAPE, test_cost);
+    printf("\n");
+
+    for(iteration=1; iteration>0; iteration++)
+    {
+        exec_trainsession(network, supplier, CONFIG_TRAININGS_PER_TEST);
+        test_cost = exec_testsession(network, supplier, 1);
+        printf("Iteration %d: ", iteration);
+        printf(FLOAT_T_ESCAPE, test_cost);
+        printf("\n");
+    }
 }

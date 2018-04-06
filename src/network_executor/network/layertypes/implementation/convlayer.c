@@ -115,7 +115,7 @@ INLINE void layer_conv_backward(   const ConvolutionalLayer_p layerinfo,
                         layerinfo->filter_feature_output_count,
                         shared_ones_floats,
                         1,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->biases_offset,
                         1
                     );
@@ -239,7 +239,7 @@ INLINE void layer_conv_first_backward( const ConvolutionalLayer_p layerinfo,
                         layerinfo->filter_feature_output_count,
                         shared_ones_floats,
                         1,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->biases_offset,
                         1
                     );

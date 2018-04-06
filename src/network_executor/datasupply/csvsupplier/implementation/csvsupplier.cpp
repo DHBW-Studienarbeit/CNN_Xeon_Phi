@@ -39,6 +39,15 @@ static inline void datasupply_load_batch(DataSupplier_p supplier)
     supplier->file_index++;
 }
 
+
+void datasupply_init(DataSupplier_p supplier, Int_t num_of_files, char *foldername)
+{
+    supplier->batch_index = -1;
+	supplier->file_index = 0;
+	supplier->num_of_files = num_of_files;
+	strcpy(supplier->foldername, foldername);
+}
+
 void datasupply_next_batch(DataSupplier_p supplier)
 {
     supplier->batch_index++;

@@ -30,3 +30,6 @@ class FullyConnectedLayer(Layer):
             return "layer_fullcon_first_backward"
         else:
             return "layer_fullcon_backward"
+
+    def get_C_outputname(self):
+        return "layer_fullcon_get_output"

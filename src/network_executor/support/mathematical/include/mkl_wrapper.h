@@ -15,11 +15,12 @@
 #define MATH_VECT_TANH(n, a, y) vdTanh(n, a, y)
 #define MATH_VECT_EXP(n, a, y) vdExp(n, a, y)
 #define MATH_VECT_LOG(n, a, y) vdLn(n, a, y)
-#define MATH_VECT_ELEM_SUM(n, x, incx) cblas_dasum (n, x, incx)
 
 // BLAS lvl 1
+#define MATH_VECT_ELEM_SUM(n, x, incx) cblas_dasum (n, x, incx)
 #define MATH_VECT_SCAL_MUL(n, a, x, incx) cblas_dscal(n, a, x, incx)
 #define MATH_VECT_VECT_SCAL_ADD_MUL(n, a, x, incx, b, y, incy) cblas_daxpby(n, a, x, incx, b, y, incy)
+#define MATH_VECT_VECT_SCAL_ADD(n, a, x, incx, y, incy) cblas_daxpy(n, a, x, incx, y, incy)
 
 // BLAS lvl 2
 #define MATH_MULT_MAT_VECT(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy) cblas_dgmv(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy)

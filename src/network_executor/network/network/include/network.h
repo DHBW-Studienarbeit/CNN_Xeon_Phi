@@ -2,7 +2,6 @@
 #define NETWORK_H_INCLUDED
 
 #include "settings.h"
-#include "datasupplier.h"
 #include "fullyconnected_layer.h"
 #include "convlayer.h"
 #include "maxpoollayer.h"
@@ -51,10 +50,11 @@ typedef struct
     // [[[end]]]
 } NeuronalNetwork_t, *NeuronalNetwork_p
 
-void network_forward(NeuronalNetwork_p network, DataSupplier_p input_supply);
-void network_backward(NeuronalNetwork_p network, DataSupplier_p input_supply);
+void network_forward(NeuronalNetwork_p network, Float_p input);
+void network_backward(NeuronalNetwork_p network, Float_p input);
 
-void network_reset_errors(NeuronalNetwork_p network);
-void network_gradient_descent(NeuronalNetwork_p network);
+Float_p network_get_cost(NeuronalNetwork_p network, Float_p labels);
+void network_derive_cost(NeuronalNetwork_p network, Float_p labels);
+void network_gradient_descent(NeuronalNetwork_p network, Float_t learn_rate)
 
 #endif /* NETWORK_H_INCLUDED */

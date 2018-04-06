@@ -30,3 +30,6 @@ class ConvolutionalLayer(Layer):
             return "layer_conv_first_backward"
         else:
             return "layer_conv_backward"
+
+    def get_C_outputname(self):
+        return "layer_conv_get_output"

@@ -92,7 +92,7 @@ INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->single_output_count,
                         shared_ones_floats,
                         1,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->biases_offset,
                         1
                     );
@@ -189,7 +189,7 @@ INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo
                         layerinfo->single_output_count,
                         shared_ones_floats,
                         1,
-                        1.0f,
+                        0.0f,
                         weight_errors_start + layerinfo->biases_offset,
                         1
                     );
