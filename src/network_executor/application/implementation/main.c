@@ -1,16 +1,17 @@
-#include <stdio>
+#include <stdio.h>
 
 #include "settings.h"
 #include "trainsession.h"
 #include "testsession.h"
 #include "network.h"
+#include "weightgenerator.h"
 
 // initialize network structure based on net mode
 /* [[[cog
 import cog
 from network_descriptor.NetInstance import net
 
-cog.outl("const NeuronalNetwork_t network =")
+cog.outl("NeuronalNetwork_t network =")
 cog.outl("{")
 i=0
 for current in net._layers:
@@ -79,7 +80,7 @@ for current in net._layers:
         cog.outl("")
 cog.outl("};")
 ]]] */
-const NeuronalNetwork_t network =
+NeuronalNetwork_t network =
 {
 .layer_0 =
 {
@@ -199,20 +200,21 @@ int main(void)
     // generate weights for the network
     weightgen_generate(NETWORK_WEIGHTS_F_SIZE, net_weights_f);
     // initialize suppliers to read input data and labels
-    datasupply_init(trainsupplier, CONFIG_NUM_TRAINFILES, CONFIG_DIR_TRAIN);
-    datasupply_init(testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
+    datasupply_init(&trainsupplier, CONFIG_NUM_TRAINFILES, CONFIG_DIR_TRAIN);
+    datasupply_init(&testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
     // test with random weights first; just for later comparison
-    test_cost = exec_testsession(network, supplier);
+    test_cost = exec_testsession(&network, &testsupplier, 1);
     printf("Initial cost: ");
     printf(FLOAT_T_ESCAPE, test_cost);
     printf("\n");
     // do iterations consisting of training and testing
     for(iteration=1; iteration<CONFIG_NUM_OF_ITERATIONS; iteration++)
     {
-        exec_trainsession(network, supplier, CONFIG_TRAININGS_PER_TEST);
-        test_cost = exec_testsession(network, supplier, 1);
+        exec_trainsession(&network, &trainsupplier, CONFIG_TRAININGS_PER_TEST);
+        test_cost = exec_testsession(&network, &testsupplier, 1);
         printf("Iteration %d: ", iteration);
         printf(FLOAT_T_ESCAPE, test_cost);
         printf("\n");
     }
+    return 0;
 }

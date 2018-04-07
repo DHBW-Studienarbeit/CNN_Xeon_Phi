@@ -40,7 +40,7 @@ typedef struct
     // absolute position of the weights
     Float_p weights_start;
     Float_p biases_start;
-} ConvolutionalLayer_t, *ConvolutionalLayer_p
+} ConvolutionalLayer_t, *ConvolutionalLayer_p;
 
 
 INLINE void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start);

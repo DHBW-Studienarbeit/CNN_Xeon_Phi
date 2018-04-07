@@ -52,7 +52,7 @@ INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
                             Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
+    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
@@ -165,7 +165,7 @@ INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo
                                     Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
+    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,

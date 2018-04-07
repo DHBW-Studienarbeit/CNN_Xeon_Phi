@@ -34,7 +34,7 @@ typedef struct
     // weights
     PoolingTableLayout_t pooling_layout;
     PoolingTableDefinite_t weight_shape;
-} MaxPoolingLayer_t, *MaxPoolingLayer_p
+} MaxPoolingLayer_t, *MaxPoolingLayer_p;
 
 
 INLINE void layer_maxpool_forward(const MaxPoolingLayer_p layerinfo, Float_p activations_start, const Int_p int_weights_start);

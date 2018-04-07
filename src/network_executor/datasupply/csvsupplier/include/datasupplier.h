@@ -26,13 +26,7 @@ cog.outl("#define DATASET_OUTPUT_SIZE " + str(net.get_output_shape().get_count_x
 #define NUM_BATCHES_PER_FILE	(NUM_DATASETS_PER_FILE / NUM_DATASETS_PER_BATCH)
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-typedef struct
-{
+typedef struct {
 	Float_t inputs[NUM_DATASETS_PER_FILE*DATASET_INPUT_SIZE];
 	Float_t labels[NUM_DATASETS_PER_FILE*DATASET_OUTPUT_SIZE];
 	Int_t batch_index;
@@ -40,6 +34,11 @@ typedef struct
 	Int_t num_of_files;
 	char foldername[FOLDERNAME_MAX_LENGTH];
 } DataSupplier_t, *DataSupplier_p;
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 void datasupply_init(DataSupplier_p supplier, Int_t num_of_files, char *foldername);

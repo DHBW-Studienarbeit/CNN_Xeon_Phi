@@ -18,10 +18,11 @@ INLINE void sigmoid_derivation(Int_t count, Float_p activation, Float_p derivati
 INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels, Float_p temporary)
 {
     Int_t count = count_probes * probe_size;
+    Int_t i;
     Float_p temp2 = temporary + count;
     // do softmax first, scaled vector will be stored in temporary
     Float_t sum;
-    for(Int_t i=0; i<count_probes; i++)
+    for(i=0; i<count_probes; i++)
     {
         MATH_VECT_EXP(probe_size, output, temporary+i*probe_size);
         sum = MATH_VECT_ELEM_SUM(probe_size, temporary+i*probe_size, 1);

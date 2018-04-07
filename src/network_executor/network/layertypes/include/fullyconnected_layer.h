@@ -27,7 +27,7 @@ typedef struct
     // absolute position of the weights
     Float_p weights_start;
     Float_p biases_start;
-} FullyConnectedLayer_t, *FullyConnectedLayer_p
+} FullyConnectedLayer_t, *FullyConnectedLayer_p;
 
 
 INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo, Float_p activations_start);

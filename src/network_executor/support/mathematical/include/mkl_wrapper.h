@@ -2,7 +2,8 @@
 #define MKL_WRAPPER_H_INCLUDED
 
 #include "settings.h"
-#include "mkl_blas.h"
+#include "mkl_cblas.h"
+#include "mkl_vml.h"
 
 
 #ifdef CONFIG_FLOATTYPE_DOUBLE
@@ -23,7 +24,7 @@
 #define MATH_VECT_VECT_SCAL_ADD(n, a, x, incx, y, incy) cblas_daxpy(n, a, x, incx, y, incy)
 
 // BLAS lvl 2
-#define MATH_MULT_MAT_VECT(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy) cblas_dgmv(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+#define MATH_MULT_MAT_VECT(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy) cblas_dgemv(layout, trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 
 // BLAS lvl 3
 #define MATH_MULT_MAT_MAT(layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc) cblas_dgemm(layout, transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)

@@ -8,9 +8,10 @@ INLINE void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p act
     Float_p z_vector_start = shared_tmp_floats;
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
-    for(int j=0; j<layerinfo->filter_y_count; j++)
+    Int_t i, j;
+    for(j=0; j<layerinfo->filter_y_count; j++)
     {
-        for(int i=0; i<layerinfo->filter_x_count; i++)
+        for(i=0; i<layerinfo->filter_x_count; i++)
         {
             MATH_MULT_MAT_MAT(  CblasColMajor,
                                 CblasTrans,
@@ -47,7 +48,7 @@ INLINE void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p act
                         1,
                         1.0f,
                         z_vector_start,
-                        layerinfo->single_output_count
+                        layerinfo->filter_feature_output_count
                     ) ;
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
@@ -62,8 +63,9 @@ INLINE void layer_conv_backward(   const ConvolutionalLayer_p layerinfo,
                             Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
+    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
+    Int_t i, j;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
                         activations_start + layerinfo->output_activation_offset,
@@ -79,9 +81,10 @@ INLINE void layer_conv_backward(   const ConvolutionalLayer_p layerinfo,
     // calc cost_deriv_x from cost_deriv_z and weights
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
-    for(int j=0; j<layerinfo->filter_y_count; j++)
+
+    for(j=0; j<layerinfo->filter_y_count; j++)
     {
-        for(int i=0; i<layerinfo->filter_x_count; i++)
+        for(i=0; i<layerinfo->filter_x_count; i++)
         {
         MATH_MULT_MAT_MAT(  CblasColMajor,
                             CblasNoTrans,
@@ -121,9 +124,9 @@ INLINE void layer_conv_backward(   const ConvolutionalLayer_p layerinfo,
                     );
     // calc cost_deriv_weights
     beta=0.0f;
-    for(int j=0; j<layerinfo->filter_y_count; j++)
+    for(j=0; j<layerinfo->filter_y_count; j++)
     {
-        for(int i=0; i<layerinfo->filter_x_count; i++)
+        for(i=0; i<layerinfo->filter_x_count; i++)
         {
             MATH_MULT_MAT_MAT(  CblasRowMajor,
                                 CblasTrans,
@@ -159,9 +162,10 @@ INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
     Float_p z_vector_start = shared_tmp_floats;
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
-    for(int j=0; j<layerinfo->filter_y_count; j++)
+    Int_t i, j;
+    for(j=0; j<layerinfo->filter_y_count; j++)
     {
-        for(int i=0; i<layerinfo->filter_x_count; i++)
+        for(i=0; i<layerinfo->filter_x_count; i++)
         {
             MATH_MULT_MAT_MAT(  CblasColMajor,
                                 CblasTrans,
@@ -198,7 +202,7 @@ INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
                         1,
                         1.0f,
                         z_vector_start,
-                        layerinfo->single_output_count
+                        layerinfo->filter_feature_output_count
                     ) ;
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
@@ -215,8 +219,9 @@ INLINE void layer_conv_first_backward( const ConvolutionalLayer_p layerinfo,
                                 Float_p weight_errors_start )
 {
     Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + output_activation_count;
+    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
+    Int_t i, j;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
                         activations_start + layerinfo->output_activation_offset,
@@ -244,10 +249,10 @@ INLINE void layer_conv_first_backward( const ConvolutionalLayer_p layerinfo,
                         1
                     );
     // calc cost_deriv_weights
-    beta=0.0f;
-    for(int j=0; j<layerinfo->filter_y_count; j++)
+    Float_t beta=0.0f;
+    for(j=0; j<layerinfo->filter_y_count; j++)
     {
-        for(int i=0; i<layerinfo->filter_x_count; i++)
+        for(i=0; i<layerinfo->filter_x_count; i++)
         {
             MATH_MULT_MAT_MAT(  CblasRowMajor,
                                 CblasTrans,

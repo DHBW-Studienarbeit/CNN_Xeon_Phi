@@ -12,8 +12,8 @@
 #define CONFIG_NUM_TRAINFILES 55
 #define CONFIG_NUM_TESTFILES 10
 
-#define CONFIG_DIR_TRAIN "train"
-#define CONFIG_DIR_TEST "test"
+#define CONFIG_DIR_TRAIN "train/"
+#define CONFIG_DIR_TEST "test/"
 
 
 #endif /*CONFIG_H_INCLUDED*/

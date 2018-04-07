@@ -28,7 +28,7 @@ extern Float_t net_activations_errors[NETWORK_ACTIVATION_SIZE];
 extern Int_t net_pooling_mem[NETWORK_POOLING_MEM_SIZE];
 extern Float_t net_weights_f[NETWORK_WEIGHTS_F_SIZE];
 extern Float_t net_weights_f_errors[NETWORK_WEIGHTS_F_SIZE];
-extern Int_t net_weights_i[NETWORK_WEIGHTS_I_SIZE];
+extern const Int_t net_weights_i[NETWORK_WEIGHTS_I_SIZE];
 
 
 typedef struct
@@ -48,13 +48,13 @@ typedef struct
     MaxPoolingLayer_t layer_3;
     FullyConnectedLayer_t layer_4;
     // [[[end]]]
-} NeuronalNetwork_t, *NeuronalNetwork_p
+} NeuronalNetwork_t, *NeuronalNetwork_p;
 
 void network_forward(NeuronalNetwork_p network, Float_p input);
 void network_backward(NeuronalNetwork_p network, Float_p input);
 
-Float_p network_get_cost(NeuronalNetwork_p network, Float_p labels);
+Float_t network_get_cost(NeuronalNetwork_p network, Float_p labels);
 void network_derive_cost(NeuronalNetwork_p network, Float_p labels);
-void network_gradient_descent(NeuronalNetwork_p network, Float_t learn_rate)
+void network_gradient_descent(NeuronalNetwork_p network, Float_t learn_rate);
 
 #endif /* NETWORK_H_INCLUDED */
