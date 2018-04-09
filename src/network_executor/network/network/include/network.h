@@ -16,7 +16,7 @@ cog.outl("#define NETWORK_POOLING_MEM_SIZE " + str(net._act_mem_i_size))
 cog.outl("#define NETWORK_WEIGHTS_F_SIZE " + str(net._weights_f_size))
 cog.outl("#define NETWORK_WEIGHTS_I_SIZE " + str(net._weights_i_size))
 ]]] */
-#define NETWORK_ACTIVATION_SIZE 67390
+#define NETWORK_ACTIVATION_SIZE 67490
 #define NETWORK_POOLING_MEM_SIZE 9920
 #define NETWORK_WEIGHTS_F_SIZE 2654
 #define NETWORK_WEIGHTS_I_SIZE 39680

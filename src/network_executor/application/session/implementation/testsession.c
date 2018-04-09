@@ -1,6 +1,7 @@
 #include "testsession.h"
 
-Float_t exec_testsession(const NeuronalNetwork_p network, DataSupplier_p supplier, Float_t num_of_batches)
+
+Float_t exec_testsession(const NeuronalNetwork_p network, DataSupplier_p supplier, Int_t num_of_batches)
 {
     Float_t mean_cost=0.0f;
     Float_t current_cost=0.0f;

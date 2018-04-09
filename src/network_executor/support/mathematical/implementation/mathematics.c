@@ -24,7 +24,7 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
     Float_t sum;
     for(i=0; i<count_probes; i++)
     {
-        MATH_VECT_EXP(probe_size, output, temporary+i*probe_size);
+        MATH_VECT_EXP(probe_size, output+i*probe_size, temporary+i*probe_size);
         sum = MATH_VECT_ELEM_SUM(probe_size, temporary+i*probe_size, 1);
         MATH_VECT_SCAL_MUL(probe_size, (1.0f/sum), temporary+i*probe_size, 1);
     }

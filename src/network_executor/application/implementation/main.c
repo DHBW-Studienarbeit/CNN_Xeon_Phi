@@ -191,11 +191,13 @@ NeuronalNetwork_t network =
 };
 // [[[end]]]
 
+
 DataSupplier_t trainsupplier, testsupplier;
+
 
 int main(void)
 {
-    Int_t iteration=1;
+    Int_t iteration;
     Float_t test_cost;
     // generate weights for the network
     weightgen_generate(NETWORK_WEIGHTS_F_SIZE, net_weights_f);
@@ -204,11 +206,12 @@ int main(void)
     datasupply_init(&testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
     // test with random weights first; just for later comparison
     test_cost = exec_testsession(&network, &testsupplier, 1);
+    dump_weights();
     printf("Initial cost: ");
     printf(FLOAT_T_ESCAPE, test_cost);
     printf("\n");
     // do iterations consisting of training and testing
-    for(iteration=1; iteration<CONFIG_NUM_OF_ITERATIONS; iteration++)
+    for(iteration=1; iteration<=CONFIG_NUM_OF_ITERATIONS; iteration++)
     {
         exec_trainsession(&network, &trainsupplier, CONFIG_TRAININGS_PER_TEST);
         test_cost = exec_testsession(&network, &testsupplier, 1);
@@ -216,5 +219,6 @@ int main(void)
         printf(FLOAT_T_ESCAPE, test_cost);
         printf("\n");
     }
+    dump_weights();
     return 0;
 }

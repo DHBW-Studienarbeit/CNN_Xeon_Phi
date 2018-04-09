@@ -3,8 +3,6 @@
 #include "shared_arrays.h"
 
 
-
-
 void network_forward(NeuronalNetwork_p network, Float_p input)
 {
     /* [[[cog

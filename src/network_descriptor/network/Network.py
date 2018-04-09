@@ -48,7 +48,7 @@ class Network:
                 weight_f_pos = weight_f_pos + current.get_weight_shape().get_count_total()
             # next layers input is current layers output
             act_pos_in = act_pos_out
-        self._activation_size = act_pos_in
+        self._activation_size = act_pos_in + self._layers[-1].get_output_shape().get_count_total()
         self._act_mem_i_size = act_mem_i_pos
         self._weights_f_size = weight_f_pos
         self._weights_i_size = weight_i_pos

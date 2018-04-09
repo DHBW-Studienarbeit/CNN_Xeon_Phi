@@ -6,38 +6,38 @@
 #include <sstream>
 
 
-static inline void datasupply_load_batch(DataSupplier_p supplier)
+static inline void datasupply_load_file(DataSupplier_p supplier)
 {
+    Int_t i,j;
     std::string csv_file = supplier->foldername
                          + std::to_string(supplier->file_index) + ".csv";
 	std::ifstream infile(csv_file);
-	for(int i=0; i<NUM_DATASETS_PER_FILE; i++)
+	for(j=0; j<NUM_DATASETS_PER_FILE; j++)
 	{
 		std::string line, cell;
 		std::getline(infile,line);
         std::stringstream lineStream(line);
-    	for(int i=0; i<DATASET_INPUT_SIZE; i++)
+    	for(i=0; i<DATASET_INPUT_SIZE; i++)
     	{
     		std::getline(lineStream,cell, ',');
 #ifdef CONFIG_FLOATTYPE_DOUBLE
-            supplier->labels[i] = std::stod(cell);
+            supplier->inputs[j * DATASET_INPUT_SIZE + i] = std::stod(cell);
 #endif
 #ifdef CONFIG_FLOATTYPE_FLOAT
-            supplier->labels[i] = std::stof(cell);
+            supplier->inputs[j * DATASET_INPUT_SIZE + i] = std::stof(cell);
 #endif
     	}
-    	for(int i=0; i<DATASET_OUTPUT_SIZE; i++)
+    	for(i=0; i<DATASET_OUTPUT_SIZE; i++)
     	{
     		std::getline(lineStream,cell, ',');
 #ifdef CONFIG_FLOATTYPE_DOUBLE
-            supplier->labels[i] = std::stod(cell);
+            supplier->labels[j * DATASET_OUTPUT_SIZE + i] = std::stod(cell);
 #endif
 #ifdef CONFIG_FLOATTYPE_FLOAT
-            supplier->labels[i] = std::stof(cell);
+            supplier->labels[j * DATASET_OUTPUT_SIZE + i] = std::stof(cell);
 #endif
     	}
 	}
-    supplier->file_index++;
 }
 
 
@@ -47,6 +47,7 @@ void datasupply_init(DataSupplier_p supplier, Int_t num_of_files, char *folderna
 	supplier->file_index = 0;
 	supplier->num_of_files = num_of_files;
 	std::strcpy(supplier->foldername, foldername);
+    datasupply_load_file(supplier);
 }
 
 void datasupply_next_batch(DataSupplier_p supplier)
@@ -60,7 +61,7 @@ void datasupply_next_batch(DataSupplier_p supplier)
         {
             supplier->file_index = 0;
         }
-        datasupply_load_batch(supplier);
+        datasupply_load_file(supplier);
     }
 }
 
@@ -72,6 +73,6 @@ Float_p datasupply_get_input(DataSupplier_p supplier)
 
 Float_p datasupply_get_output(DataSupplier_p supplier)
 {
-    return supplier->inputs + DATASET_OUTPUT_SIZE * NUM_DATASETS_PER_BATCH
+    return supplier->labels + DATASET_OUTPUT_SIZE * NUM_DATASETS_PER_BATCH
                             * (supplier->batch_index);
 }
