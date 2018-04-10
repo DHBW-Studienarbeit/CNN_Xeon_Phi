@@ -2,7 +2,7 @@
 build/**
 
 # ignore
-#.sconsign.dblite
+.sconsign.dblite
 
 # ignore python caches
 **/__pycache__/**
