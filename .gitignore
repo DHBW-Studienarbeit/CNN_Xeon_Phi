@@ -1,5 +1,8 @@
 #ignore all contents of the build folder
 build/**
 
+# ignore
+#.sconsign.dblite
+
 # ignore python caches
 **/__pycache__/**
