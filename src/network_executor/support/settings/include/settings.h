@@ -2,7 +2,7 @@
 #define SETTINGS_H_INCLUDED
 
 #include "config.h"
-#include "testing.h"
+
 
 
 #ifdef CONFIG_FLOATTYPE_FLOAT
@@ -19,5 +19,9 @@ typedef int Int_t, *Int_p;
 
 //#define INLINE inline
 #define INLINE
+
+
+
+#include "testing.h"
 
 #endif /*SETTINGS_H_INCLUDED*/

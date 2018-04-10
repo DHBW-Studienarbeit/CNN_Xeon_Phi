@@ -29,6 +29,7 @@ source_file_list = [ \
 'build/network_executor/network/layertypes/implementation/convlayer.c', \
 'build/network_executor/network/layertypes/implementation/maxpoollayer.c', \
 'build/network_executor/support/mathematical/implementation/mathematics.c', \
+'build/network_executor/support/mathematical/implementation/mkl_vector_prl.c', \
 'build/network_executor/network/network/implementation/net_arrays.c', \
 'build/network_executor/support/shared_data/implementation/shared_arrays.c', \
 'build/network_executor/support/testing/implementation/testing.c'\

@@ -53,3 +53,14 @@ void dump_output_labels(void)
     printf("\n");
     wait_for_user_ack();
 }
+
+void dump_array(char *name, Int_t count, Float_p data)
+{
+    Int_t i;
+    for(i=0;i<count;i++)
+    {
+        printf("%s[%d] = ", name, i);
+        printf(FLOAT_T_ESCAPE, data[i]);
+        printf("\n");
+    }
+}

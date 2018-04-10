@@ -29,11 +29,9 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
         MATH_VECT_SCAL_MUL(probe_size, (1.0f/sum), temporary+i*probe_size, 1);
     }
     // calculate cost by cross entropy
-    sum=0.0f;
     MATH_VECT_LOG(count, temporary, temp2);
     MATH_VECT_MUL(count, temp2, labels, temporary);
-    sum = MATH_VECT_ELEM_SUM(count, temporary, 1);
-    return (-1.0f) * sum;
+    return MATH_VECT_ELEM_SUM(count, temporary, 1);
 }
 
 INLINE void get_cost_derivatives(Int_t count, Float_p output, Float_p labels, Float_p derivatives)

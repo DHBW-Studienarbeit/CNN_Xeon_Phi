@@ -206,7 +206,6 @@ int main(void)
     datasupply_init(&testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
     // test with random weights first; just for later comparison
     test_cost = exec_testsession(&network, &testsupplier, 1);
-    dump_weights();
     printf("Initial cost: ");
     printf(FLOAT_T_ESCAPE, test_cost);
     printf("\n");
@@ -219,6 +218,5 @@ int main(void)
         printf(FLOAT_T_ESCAPE, test_cost);
         printf("\n");
     }
-    dump_weights();
     return 0;
 }
