@@ -3,8 +3,17 @@
 
 #include "settings.h"
 
-#define SHARED_ARRAY_SIZE 67490
-#define SHARED_TMP_ARRAY_SIZE 134980
+
+/* [[[cog
+import cog
+from network_descriptor.NetInstance import net
+
+cog.outl("#define SHARED_ARRAY_SIZE " + str(net._max_act_count))
+cog.outl("#define SHARED_TMP_ARRAY_SIZE " + str(2 * net._max_act_count))
+]]] */
+#define SHARED_ARRAY_SIZE 463500
+#define SHARED_TMP_ARRAY_SIZE 927000
+// [[[end]]]
 
 extern Float_t shared_ones_floats[SHARED_ARRAY_SIZE];
 

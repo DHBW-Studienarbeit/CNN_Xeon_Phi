@@ -5,10 +5,11 @@ from network_descriptor.layertypes.MaxPoolingLayer import *
 
 class Network:
 
-    def __init__(self, input_shape):
+    def __init__(self, input_shape, netconfig):
         self._layers = []
         self._input_shape = input_shape
         self._last_shape = input_shape
+        self._netconfig = netconfig
 
     def add_fullyconnected_layer(self, output_feature_count):
         next_layer = FullyConnectedLayer(self._last_shape, output_feature_count)
@@ -26,7 +27,9 @@ class Network:
         self._layers.append(next_layer)
 
     def generate(self):
+        alignment = int(self._netconfig['CONFIG_ARRAY_ALIGNMENT'])
         self._output_shape = self._last_shape
+        self._max_act_count = 0
         act_pos_in = 0
         act_mem_i_pos = 0;
         weight_f_pos = 0
@@ -39,6 +42,8 @@ class Network:
                 first_run = False
             else:
                 act_pos_out = act_pos_in + current.get_input_shape().get_count_total()
+                if act_pos_out % alignment != 0:
+                    act_pos_out = act_pos_out + alignment - (act_pos_out % alignment)
             if current.__class__.__name__ == "MaxPoolingLayer":
                 current.apply_consts(act_pos_in, act_pos_out, weight_i_pos, act_mem_i_pos)
                 weight_i_pos = weight_i_pos + current.get_weight_shape().get_count_total()
@@ -46,6 +51,10 @@ class Network:
             else:
                 current.apply_consts(act_pos_in, act_pos_out, weight_f_pos)
                 weight_f_pos = weight_f_pos + current.get_weight_shape().get_count_total()
+                if weight_f_pos % alignment != 0:
+                    weight_f_pos = weight_f_pos + alignment - (weight_f_pos % alignment)
+            if self._max_act_count < current.get_output_shape().get_count_total():
+                self._max_act_count = current.get_output_shape().get_count_total()
             # next layers input is current layers output
             act_pos_in = act_pos_out
         self._activation_size = act_pos_in + self._layers[-1].get_output_shape().get_count_total()

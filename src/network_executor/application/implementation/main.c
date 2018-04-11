@@ -82,111 +82,111 @@ cog.outl("};")
 ]]] */
 NeuronalNetwork_t network =
 {
-.layer_0 =
+.layer_0 = 
 {
 // convolutional
 .input_activation_offset = 0,
 .input_activation_count = 7840,
 .output_activation_offset = 0,
-.output_activation_count = 46350,
+.output_activation_count = 463500,
 .filter_feature_input_count = 1,
 .filter_feature_input_count = 1,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 6,
+.filter_feature_output_count = 60,
 .batch_count = 10,
 .filter_matrix_width = 25,
 .input_matrix_height = 5,
 .input_matrix_width = 1545,
 .input_matrix_toplayer_elements_count = 28,
-.partial_output_matrix_count = 9270,
+.partial_output_matrix_count = 92700,
 .full_output_matrix_width = 7725,
-.weights_total_count = 156,
+.weights_total_count = 1560,
 .weights_offset = 0,
-.biases_offset = 150,
+.biases_offset = 1500,
 .weights_start = net_weights_f + 0,
-.biases_start = net_weights_f + 150
+.biases_start = net_weights_f + 1500
 },
-.layer_1 =
+.layer_1 = 
 {
 // maxpooling
 .input_activation_offset = 0,
-.input_activation_count = 46350,
-.output_activation_offset = 46350,
-.output_activation_count = 8640,
-.pooling_layout =
+.input_activation_count = 463500,
+.output_activation_offset = 463504,
+.output_activation_count = 86400,
+.pooling_layout = 
 {
-.relevant_entries_count = 34560,
-.num_of_lines = 8640,
+.relevant_entries_count = 345600,
+.num_of_lines = 86400,
 .relevant_columns_per_line = 4,
 .relevant_columns = net_weights_i + 0
 },
-.weight_shape =
+.weight_shape = 
 {
-.relevant_entries_count = 8640,
+.relevant_entries_count = 86400,
 .relevant_columns_offset = 0
 }
 },
-.layer_2 =
+.layer_2 = 
 {
 // convolutional
-.input_activation_offset = 46350,
-.input_activation_count = 8640,
-.output_activation_offset = 54990,
-.output_activation_count = 11120,
-.filter_feature_input_count = 6,
-.filter_feature_input_count = 6,
+.input_activation_offset = 463504,
+.input_activation_count = 86400,
+.output_activation_offset = 549904,
+.output_activation_count = 111200,
+.filter_feature_input_count = 60,
+.filter_feature_input_count = 60,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 8,
+.filter_feature_output_count = 80,
 .batch_count = 10,
-.filter_matrix_width = 150,
-.input_matrix_height = 30,
+.filter_matrix_width = 1500,
+.input_matrix_height = 300,
 .input_matrix_width = 278,
-.input_matrix_toplayer_elements_count = 72,
-.partial_output_matrix_count = 2224,
+.input_matrix_toplayer_elements_count = 720,
+.partial_output_matrix_count = 22240,
 .full_output_matrix_width = 1390,
-.weights_total_count = 1208,
-.weights_offset = 156,
-.biases_offset = 1356,
-.weights_start = net_weights_f + 156,
-.biases_start = net_weights_f + 1356
+.weights_total_count = 120080,
+.weights_offset = 1568,
+.biases_offset = 121568,
+.weights_start = net_weights_f + 1568,
+.biases_start = net_weights_f + 121568
 },
-.layer_3 =
+.layer_3 = 
 {
 // maxpooling
-.input_activation_offset = 54990,
-.input_activation_count = 11120,
-.output_activation_offset = 66110,
-.output_activation_count = 1280,
-.pooling_layout =
+.input_activation_offset = 549904,
+.input_activation_count = 111200,
+.output_activation_offset = 661104,
+.output_activation_count = 12800,
+.pooling_layout = 
 {
-.relevant_entries_count = 5120,
-.num_of_lines = 1280,
+.relevant_entries_count = 51200,
+.num_of_lines = 12800,
 .relevant_columns_per_line = 4,
-.relevant_columns = net_weights_i + 34560
+.relevant_columns = net_weights_i + 345600
 },
-.weight_shape =
+.weight_shape = 
 {
-.relevant_entries_count = 1280,
-.relevant_columns_offset = 8640
+.relevant_entries_count = 12800,
+.relevant_columns_offset = 86400
 }
 },
-.layer_4 =
+.layer_4 = 
 {
 // fully connected
-.input_activation_offset = 66110,
-.input_activation_count = 1280,
-.output_activation_offset = 67390,
+.input_activation_offset = 661104,
+.input_activation_count = 12800,
+.output_activation_offset = 673904,
 .output_activation_count = 100,
-.single_input_count = 128,
+.single_input_count = 1280,
 .single_output_count = 10,
 .batch_count = 10,
-.weights_count_total = 1290,
-.weights_offset = 1364,
-.biases_offset = 2644,
-.weights_start = net_weights_f + 1364,
-.biases_start = net_weights_f + 2644
+.weights_count_total = 12810,
+.weights_offset = 121648,
+.biases_offset = 134448,
+.weights_start = net_weights_f + 121648,
+.biases_start = net_weights_f + 134448
 }
 };
 // [[[end]]]

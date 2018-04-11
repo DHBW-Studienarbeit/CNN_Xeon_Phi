@@ -15,6 +15,7 @@ static INLINE Int_t get_poolshape_entry( const MaxPoolingLayer_p layerinfo,
          + column_index ];
 }
 
+
 INLINE void layer_maxpool_forward(  const MaxPoolingLayer_p layerinfo,
                                     Float_p activations_start,
                                     const Int_p int_weights_start

@@ -1,1 +1,1 @@
-__all__ = ["NetInstance"]
+__all__ = ["NetInstance", "NetConfig"]
