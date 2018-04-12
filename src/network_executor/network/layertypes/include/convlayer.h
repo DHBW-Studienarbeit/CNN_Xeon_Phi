@@ -37,19 +37,22 @@ typedef struct
     // relative position for weight derivations
     Int_t weights_offset;
     Int_t biases_offset;
-    // absolute position of the weights
-    Float_p weights_start;
-    Float_p biases_start;
 } ConvolutionalLayer_t, *ConvolutionalLayer_p;
 
 
-INLINE void layer_conv_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
-INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p activations_deriv_start, Float_p weight_errors_start);
+INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo,
+                                NetState_p netstate);
+INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
+                                NetState_p netstate);
+INLINE void layer_conv_first_forward(const ConvolutionalLayer_p layerinfo,
+                                     NetState_p netstate,
+                                     const Float_p input_start);
+INLINE void layer_conv_first_backward(const ConvolutionalLayer_p layerinfo,
+                                      NetState_p netstate,
+                                      const Float_p input_start);
+INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo,
+                                     NetState_p netstate);
 
-INLINE void layer_conv_first_forward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start);
-INLINE void layer_conv_first_backward(const ConvolutionalLayer_p layerinfo, Float_p activations_start, Float_p input_start, Float_p activations_deriv_start, Float_p weight_errors_start);
-
-INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo, Float_p activations_start);
 
 
 #endif /*CONV_LAYER_H_INCLUDED*/

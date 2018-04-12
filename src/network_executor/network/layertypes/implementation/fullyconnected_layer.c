@@ -3,8 +3,9 @@
 #include "mathematics.h"
 
 
-INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo,
-                            Float_p activations_start )
+INLINE void layer_fullcon_forward(  const FullyConnectedLayer_p layerinfo,
+                                    NetState_p netstate
+                                 )
 {
     Float_p z_vector_start = shared_tmp_floats;
     // multiply input batch with weight matrix
@@ -15,9 +16,9 @@ INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->batch_count,
                         layerinfo->single_input_count,
                         1.0f,
-                        layerinfo->weights_start,
+                        netstate->weights_f + layerinfo->weights_offset,
                         layerinfo->single_input_count,
-                        activations_start + layerinfo->input_activation_offset,
+                        netstate->activations + layerinfo->input_activation_offset,
                         layerinfo->single_input_count,
                         0.0f,
                         z_vector_start,
@@ -31,7 +32,7 @@ INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->batch_count,
                         1,
                         1.0f,
-                        layerinfo->biases_start,
+                        netstate->weights_f + layerinfo->biases_offset,
                         layerinfo->single_output_count,
                         shared_ones_floats,
                         1,
@@ -42,28 +43,27 @@ INLINE void layer_fullcon_forward(const FullyConnectedLayer_p layerinfo,
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
                 z_vector_start,
-                activations_start + layerinfo->output_activation_offset
+                netstate->activations + layerinfo->output_activation_offset
             ) ;
 }
 
-INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
-                            Float_p activations_start,
-                            Float_p activations_deriv_start,
-                            Float_p weight_errors_start )
+INLINE void layer_fullcon_backward( const FullyConnectedLayer_p layerinfo,
+                                    NetState_p netstate
+                                  )
 {
     Float_p y_deriv_z = shared_tmp_floats;
     Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
-                        activations_start + layerinfo->output_activation_offset,
+                        netstate->activations + layerinfo->output_activation_offset,
                         y_deriv_z,
                         rev_sigmoid_buffer
                       );
     // calc cost_deriv_z from y_deriv_z and cost_deriv_y
     MATH_VECT_MUL(  layerinfo->output_activation_count,
                     y_deriv_z,
-                    activations_deriv_start + layerinfo->output_activation_offset,
+                    netstate->activations_errors + layerinfo->output_activation_offset,
                     cost_deriv_z
                  );
     // calc cost_deriv_x from cost_deriv_z and weights
@@ -74,12 +74,12 @@ INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->batch_count,
                         layerinfo->single_output_count,
                         1.0f,
-                        layerinfo->weights_start,
+                        netstate->weights_f + layerinfo->weights_offset,
                         layerinfo->single_input_count,
                         cost_deriv_z,
                         layerinfo->single_output_count,
                         0.0f,
-                        activations_deriv_start + layerinfo->input_activation_offset,
+                        netstate->activations_errors + layerinfo->input_activation_offset,
                         layerinfo->single_input_count
                      );
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
@@ -93,7 +93,7 @@ INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
                         shared_ones_floats,
                         1,
                         0.0f,
-                        weight_errors_start + layerinfo->biases_offset,
+                        netstate->weights_f_errors + layerinfo->biases_offset,
                         1
                     );
     // calc cost_deriv_weights
@@ -106,17 +106,18 @@ INLINE void layer_fullcon_backward(const FullyConnectedLayer_p layerinfo,
                         1.0f,
                         cost_deriv_z,
                         layerinfo->single_output_count,
-                        activations_start + layerinfo->input_activation_offset,
+                        netstate->activations + layerinfo->input_activation_offset,
                         layerinfo->single_input_count,
                         0.0f,
-                        weight_errors_start + layerinfo->weights_offset,
+                        netstate->weights_f_errors + layerinfo->weights_offset,
                         layerinfo->single_input_count
                      );
 }
 
 INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
-                                Float_p activations_start,
-                                Float_p input_start)
+                                        NetState_p netstate,
+                                        const Float_p input_start
+                                       )
 {
     Float_p z_vector_start = shared_tmp_floats;
     // multiply input batch with weight matrix
@@ -127,7 +128,7 @@ INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->batch_count,
                         layerinfo->single_input_count,
                         1.0f,
-                        layerinfo->weights_start,
+                        netstate->weights_f + layerinfo->weights_offset,
                         layerinfo->single_input_count,
                         input_start,
                         layerinfo->single_input_count,
@@ -143,7 +144,7 @@ INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
                         layerinfo->batch_count,
                         1,
                         1.0f,
-                        layerinfo->biases_start,
+                        netstate->weights_f + layerinfo->biases_offset,
                         layerinfo->single_output_count,
                         shared_ones_floats,
                         1,
@@ -154,29 +155,28 @@ INLINE void layer_fullcon_first_forward(const FullyConnectedLayer_p layerinfo,
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
                 z_vector_start,
-                activations_start + layerinfo->output_activation_offset
+                netstate->activations + layerinfo->output_activation_offset
             ) ;
 }
 
-INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo,
-                                    Float_p activations_start,
-                                    Float_p input_start,
-                                    Float_p activations_deriv_start,
-                                    Float_p weight_errors_start )
+INLINE void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo,
+                                         NetState_p netstate,
+                                         const Float_p input_start
+                                        )
 {
     Float_p y_deriv_z = shared_tmp_floats;
     Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
-                        activations_start + layerinfo->output_activation_offset,
+                        netstate->activations + layerinfo->output_activation_offset,
                         y_deriv_z,
                         rev_sigmoid_buffer
                       );
     // calc cost_deriv_z from y_deriv_z and cost_deriv_y
     MATH_VECT_MUL(  layerinfo->output_activation_count,
                     y_deriv_z,
-                    activations_deriv_start + layerinfo->output_activation_offset,
+                    netstate->activations_errors + layerinfo->output_activation_offset,
                     cost_deriv_z
                  );
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
@@ -190,7 +190,7 @@ INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo
                         shared_ones_floats,
                         1,
                         0.0f,
-                        weight_errors_start + layerinfo->biases_offset,
+                        netstate->weights_f_errors + layerinfo->biases_offset,
                         1
                     );
     // calc cost_deriv_weights
@@ -206,13 +206,14 @@ INLINE void layer_fullcon_first_backward(  const FullyConnectedLayer_p layerinfo
                         input_start,
                         layerinfo->single_input_count,
                         0.0f,
-                        weight_errors_start + layerinfo->weights_offset,
+                        netstate->weights_f_errors + layerinfo->weights_offset,
                         layerinfo->single_input_count
                      );
 }
 
 INLINE Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo,
-                                 Float_p activations_start)
+                                        NetState_p netstate
+                                       )
 {
-    return activations_start + layerinfo->output_activation_offset;
+    return netstate->activations + layerinfo->output_activation_offset;
 }

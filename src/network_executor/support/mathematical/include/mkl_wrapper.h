@@ -8,6 +8,7 @@
 
 #ifdef CONFIG_FLOATTYPE_DOUBLE
 
+#define MATH_GET_MAX_INDEX(n, x, incx) cblas_idamax(n, x, incx)
 // vector mathematical functions
 #define MATH_VECT_ADD_SERIAL(n, a, b, y) vdAdd(n, a, b, y)
 #define MATH_VECT_SUB_SERIAL(n, a, b, y) vdSub(n, a, b, y)
@@ -28,6 +29,7 @@
 
 #else /*CONFIG_FLOATTYPE_DOUBLE*/
 
+#define MATH_GET_MAX_INDEX(n, x, incx) cblas_isamax(n, x, incx)
 // vector mathematical functions
 #define MATH_VECT_ADD_SERIAL(n, a, b, y) vfAdd(n, a, b, y)
 #define MATH_VECT_SUB_SERIAL(n, a, b, y) vfSub(n, a, b, y)

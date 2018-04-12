@@ -34,6 +34,22 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
     return MATH_VECT_ELEM_SUM(count, temporary, 1);
 }
 
+INLINE Float_t get_accuracy(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels)
+{
+    Int_t i, sum=0, prediction, desired;
+    Float_t accuracy;
+    for(i=0; i<count_probes; i++)
+    {
+        prediction = MATH_GET_MAX_INDEX(probe_size, output + probe_size*i, 1);
+        desired = MATH_GET_MAX_INDEX(probe_size, labels + probe_size*i, 1);
+        if(prediction==desired)
+        {
+            sum++;
+        }
+    }
+    return ((Float_t)sum)/((Float_t)count_probes);
+}
+
 INLINE void get_cost_derivatives(Int_t count, Float_p output, Float_p labels, Float_p derivatives)
 {
     MATH_VECT_SUB(count, output, labels, derivatives);
