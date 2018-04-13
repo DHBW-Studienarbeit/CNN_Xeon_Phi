@@ -2,34 +2,10 @@
 #define NETWORK_H_INCLUDED
 
 #include "settings.h"
-#include "layer_commons.h"
+#include "netstate.h"
 #include "fullyconnected_layer.h"
 #include "convlayer.h"
 #include "maxpoollayer.h"
-
-
-/* [[[cog
-import cog
-from network_descriptor.NetInstance import net
-
-cog.outl("#define NETWORK_ACTIVATION_SIZE " + str(net._activation_size))
-cog.outl("#define NETWORK_POOLING_MEM_SIZE " + str(net._act_mem_i_size))
-cog.outl("#define NETWORK_WEIGHTS_F_SIZE " + str(net._weights_f_size))
-cog.outl("#define NETWORK_WEIGHTS_I_SIZE " + str(net._weights_i_size))
-]]] */
-#define NETWORK_ACTIVATION_SIZE 134884
-#define NETWORK_POOLING_MEM_SIZE 19840
-#define NETWORK_WEIGHTS_F_SIZE 7712
-#define NETWORK_WEIGHTS_I_SIZE 79360
-// [[[end]]]
-
-
-extern Float_t net_activations[NETWORK_ACTIVATION_SIZE];
-extern Float_t net_activations_errors[NETWORK_ACTIVATION_SIZE];
-extern Int_t net_pooling_mem[NETWORK_POOLING_MEM_SIZE];
-extern Float_t net_weights_f[NETWORK_WEIGHTS_F_SIZE];
-extern Float_t net_weights_f_errors[NETWORK_WEIGHTS_F_SIZE];
-extern const Int_t net_weights_i[NETWORK_WEIGHTS_I_SIZE];
 
 
 typedef struct
@@ -51,7 +27,8 @@ typedef struct
     // [[[end]]]
 } NeuronalNetwork_t, *NeuronalNetwork_p;
 
-void netstate_init(NetState_p netstate);
+
+void netstate_init(const NeuronalNetwork_p network, NetState_p netstate);
 
 void network_forward(const NeuronalNetwork_p network, NetState_p netstate, const Float_p input);
 void network_backward(const NeuronalNetwork_p network, NetState_p netstate, const Float_p input);

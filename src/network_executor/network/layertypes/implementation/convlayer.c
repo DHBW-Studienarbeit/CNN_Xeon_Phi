@@ -292,3 +292,18 @@ INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo,
 {
     return netstate->activations + layerinfo->output_activation_offset;
 }
+
+INLINE Int_t layer_conv_get_output_position(const ConvolutionalLayer_p layerinfo,
+                                            NetState_p netstate,
+                                            Int_t p,
+                                            Int_t y,
+                                            Int_t x,
+                                            Int_t f
+                                           )
+{
+    Int_t input_start_position = x + y*layerinfo->input_x_count + p*layerinfo->input_xy_count;
+    Int_t output_section_index = input_start_position % layerinfo->filter_x_count;
+    Int_t inner_section_column = input_start_position / layerinfo->filter_x_count;
+    Int_t output_section_size = layerinfo->input_matrix_width * layerinfo->filter_feature_output_count;
+    return output_section_index * output_section_size + inner_section_column * layerinfo->filter_feature_output_count + f;
+}

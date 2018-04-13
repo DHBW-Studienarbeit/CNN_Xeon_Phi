@@ -217,3 +217,15 @@ INLINE Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo,
 {
     return netstate->activations + layerinfo->output_activation_offset;
 }
+
+
+INLINE Int_t layer_fullcon_get_output_position( const FullyConnectedLayer_p layerinfo,
+                                                NetState_p netstate,
+                                                Int_t p,
+                                                Int_t y,
+                                                Int_t x,
+                                                Int_t f
+                                              )
+{
+    return f + p * layerinfo->single_output_count;
+}

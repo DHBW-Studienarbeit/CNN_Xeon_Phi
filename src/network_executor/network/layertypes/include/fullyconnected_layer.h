@@ -39,5 +39,11 @@ INLINE void layer_fullcon_first_backward(const FullyConnectedLayer_p layerinfo,
                                          const Float_p input_start);
 INLINE Float_p layer_fullcon_get_output(const FullyConnectedLayer_p layerinfo,
                                         NetState_p netstate);
+INLINE Int_t layer_fullcon_get_output_position( const FullyConnectedLayer_p layerinfo,
+                                                NetState_p netstate,
+                                                Int_t p,
+                                                Int_t y,
+                                                Int_t x,
+                                                Int_t f);
 
 #endif /*FULLYCONNECTEDLAYER_H_INCLUDED*/

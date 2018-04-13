@@ -31,6 +31,12 @@ typedef struct
     // relative description of the output activations
     Int_t output_activation_offset;
     Int_t output_activation_count;
+    // shape
+        // used for maxpool weight generation
+    Int_t output_p;
+    Int_t output_y;
+    Int_t output_x;
+    Int_t output_f;
     // weights
     PoolingTableLayout_t pooling_layout;
     PoolingTableDefinite_t weight_shape;
@@ -49,6 +55,12 @@ INLINE void layer_maxpool_first_backward(   const MaxPoolingLayer_p layerinfo,
                                             const Float_p input_start);
 INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo,
                                         NetState_p netstate);
+INLINE Int_t layer_maxpool_get_output_position( const MaxPoolingLayer_p layerinfo,
+                                                NetState_p netstate,
+                                                Int_t p,
+                                                Int_t y,
+                                                Int_t x,
+                                                Int_t f);
 
 
 #endif /*MAXPOOLING_LAYER_H_INCLUDED*/

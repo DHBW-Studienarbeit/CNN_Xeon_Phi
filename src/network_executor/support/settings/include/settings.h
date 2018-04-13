@@ -22,6 +22,4 @@ typedef int Int_t, *Int_p;
 
 
 
-#include "testing.h"
-
 #endif /*SETTINGS_H_INCLUDED*/

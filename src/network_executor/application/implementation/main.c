@@ -3,9 +3,9 @@
 #include "settings.h"
 #include "trainsession.h"
 #include "testsession.h"
-#include "layer_commons.h"
 #include "network.h"
 #include "weightgenerator.h"
+#include "testing.h"
 
 // initialize network structure based on net mode
 /* [[[cog
@@ -37,7 +37,6 @@ for current in net._layers:
         cog.outl(".output_activation_offset = " + str(current._act_out_off) + ",")
         cog.outl(".output_activation_count = " + str(current.get_output_shape().get_count_total()) + ",")
         cog.outl(".filter_feature_input_count = " + str(current.get_input_shape().get_count_features()) + ",")
-        cog.outl(".filter_feature_input_count = " + str(current.get_input_shape().get_count_features()) + ",")
         cog.outl(".filter_x_count = " + str(current.get_output_shape()._filter_size_x) + ",")
         cog.outl(".filter_y_count = " + str(current.get_output_shape()._filter_size_y) + ",")
         cog.outl(".filter_feature_output_count = " + str(current.get_output_shape().get_count_features()) + ",")
@@ -48,6 +47,8 @@ for current in net._layers:
         cog.outl(".input_matrix_toplayer_elements_count = " + str(current.get_input_shape().get_count_x()*current.get_input_shape().get_count_features()) + ",")
         cog.outl(".partial_output_matrix_count = " + str(current.get_output_shape()._output_section_size) + ",")
         cog.outl(".full_output_matrix_width = " + str(current.get_output_shape()._num_output_section_columns * current.get_output_shape()._filter_size_y) + ",")
+        cog.outl(".input_x_count = " + str(current.get_input_shape().get_count_x()) + ",")
+        cog.outl(".input_xy_count = " + str(current.get_input_shape().get_count_x()*current.get_input_shape().get_count_y()) + ",")
         cog.outl(".weights_total_count = " + str(current.get_weight_shape()._count_total) + ",")
         cog.outl(".weights_offset = " + str(current._weight_off) + ",")
         cog.outl(".biases_offset = " + str(current._bias_off) + ",")
@@ -57,6 +58,12 @@ for current in net._layers:
         cog.outl(".input_activation_count = " + str(current.get_input_shape().get_count_total()) + ",")
         cog.outl(".output_activation_offset = " + str(current._act_out_off) + ",")
         cog.outl(".output_activation_count = " + str(current.get_output_shape().get_count_total()) + ",")
+
+        cog.outl(".output_p = " + str(current.get_output_shape().get_count_probes()) + ",")
+        cog.outl(".output_y = " + str(current.get_output_shape().get_count_y()) + ",")
+        cog.outl(".output_x = " + str(current.get_output_shape().get_count_x()) + ",")
+        cog.outl(".output_f = " + str(current.get_output_shape().get_count_features()) + ",")
+
         cog.outl(".pooling_layout = ")
         cog.outl("{")
         cog.outl(".relevant_entries_count = " + str(current.get_weight_shape().get_count_total()) + ",")
@@ -79,14 +86,13 @@ cog.outl("};")
 ]]] */
 const NeuronalNetwork_t network =
 {
-.layer_0 = 
+.layer_0 =
 {
 // convolutional
 .input_activation_offset = 0,
 .input_activation_count = 7840,
 .output_activation_offset = 0,
 .output_activation_count = 92700,
-.filter_feature_input_count = 1,
 .filter_feature_input_count = 1,
 .filter_x_count = 5,
 .filter_y_count = 5,
@@ -98,38 +104,43 @@ const NeuronalNetwork_t network =
 .input_matrix_toplayer_elements_count = 28,
 .partial_output_matrix_count = 18540,
 .full_output_matrix_width = 7725,
+.input_x_count = 28,
+.input_xy_count = 784,
 .weights_total_count = 312,
 .weights_offset = 0,
 .biases_offset = 300,
 },
-.layer_1 = 
+.layer_1 =
 {
 // maxpooling
 .input_activation_offset = 0,
 .input_activation_count = 92700,
 .output_activation_offset = 92704,
 .output_activation_count = 17280,
-.pooling_layout = 
+.output_p = 10,
+.output_y = 12,
+.output_x = 12,
+.output_f = 12,
+.pooling_layout =
 {
 .relevant_entries_count = 69120,
 .num_of_lines = 17280,
 .relevant_columns_per_line = 4,
 .relevant_columns_offset = 0
 },
-.weight_shape = 
+.weight_shape =
 {
 .relevant_entries_count = 17280,
 .relevant_entries_offset = 0
 }
 },
-.layer_2 = 
+.layer_2 =
 {
 // convolutional
 .input_activation_offset = 92704,
 .input_activation_count = 17280,
 .output_activation_offset = 109984,
 .output_activation_count = 22240,
-.filter_feature_input_count = 12,
 .filter_feature_input_count = 12,
 .filter_x_count = 5,
 .filter_y_count = 5,
@@ -141,31 +152,37 @@ const NeuronalNetwork_t network =
 .input_matrix_toplayer_elements_count = 144,
 .partial_output_matrix_count = 4448,
 .full_output_matrix_width = 1390,
+.input_x_count = 12,
+.input_xy_count = 144,
 .weights_total_count = 4816,
 .weights_offset = 320,
 .biases_offset = 5120,
 },
-.layer_3 = 
+.layer_3 =
 {
 // maxpooling
 .input_activation_offset = 109984,
 .input_activation_count = 22240,
 .output_activation_offset = 132224,
 .output_activation_count = 2560,
-.pooling_layout = 
+.output_p = 10,
+.output_y = 4,
+.output_x = 4,
+.output_f = 16,
+.pooling_layout =
 {
 .relevant_entries_count = 10240,
 .num_of_lines = 2560,
 .relevant_columns_per_line = 4,
 .relevant_columns_offset = 69120
 },
-.weight_shape = 
+.weight_shape =
 {
 .relevant_entries_count = 2560,
 .relevant_entries_offset = 17280
 }
 },
-.layer_4 = 
+.layer_4 =
 {
 // fully connected
 .input_activation_offset = 132224,
@@ -191,8 +208,9 @@ int main(void)
 {
     Int_t iteration;
     Float_t test_accuracy;
+    printf("do some initialization stuff\n");
     // allocate memory nor network execution
-    netstate_init(&netstate);
+    netstate_init(&network, &netstate);
     // generate weights for the network
     weightgen_generate(NETWORK_WEIGHTS_F_SIZE, netstate.weights_f);
     // initialize suppliers to read input data and labels

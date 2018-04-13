@@ -28,10 +28,10 @@ typedef struct
     Int_t input_matrix_toplayer_elements_count;
     Int_t partial_output_matrix_count;
     Int_t full_output_matrix_width;
-    // partial matrix dimensions
-		// seems to be unused
-    //Int_t filter_x_pos_count;
-    //Int_t filter_y_pos_count;
+    // input shape dimensions
+		// used for maxpool shape generation
+    Int_t input_x_count;
+    Int_t input_xy_count;
     // size of the weight (derivation) section
     Int_t weights_total_count;
     // relative position for weight derivations
@@ -52,7 +52,12 @@ INLINE void layer_conv_first_backward(const ConvolutionalLayer_p layerinfo,
                                       const Float_p input_start);
 INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo,
                                      NetState_p netstate);
-
+INLINE Int_t layer_conv_get_output_position(const ConvolutionalLayer_p layerinfo,
+                                         NetState_p netstate,
+                                         Int_t p,
+                                         Int_t y,
+                                         Int_t x,
+                                         Int_t f);
 
 
 #endif /*CONV_LAYER_H_INCLUDED*/

@@ -1,6 +1,8 @@
 src/network_executor/application/implementation/main.c
 src/network_executor/datasupply/csvsupplier/include/datasupplier.h
 src/network_executor/network/network/implementation/network.c
+src/network_executor/network/network/implementation/net_init.c
 src/network_executor/network/network/include/network.h
+src/network_executor/network/network/include/netstate.h
 src/network_executor/support/shared_data/include/shared_arrays.h
 src/network_executor/application/include/config.h

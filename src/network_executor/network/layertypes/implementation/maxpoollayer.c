@@ -111,3 +111,16 @@ INLINE Float_p layer_maxpool_get_output(    const MaxPoolingLayer_p layerinfo,
 {
     return netstate->activations + layerinfo->output_activation_offset;
 }
+
+INLINE Int_t layer_maxpool_get_output_position( const MaxPoolingLayer_p layerinfo,
+                                                NetState_p netstate,
+                                                Int_t p,
+                                                Int_t y,
+                                                Int_t x,
+                                                Int_t f
+                                              )
+{
+    return f + x * layerinfo->output_f
+     + y * layerinfo->output_f * layerinfo->output_x
+     + p * layerinfo->output_f * layerinfo->output_x * layerinfo->output_y;
+}
