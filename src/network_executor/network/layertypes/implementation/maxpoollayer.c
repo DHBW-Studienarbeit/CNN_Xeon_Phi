@@ -3,7 +3,7 @@
 #include "mathematics.h"
 
 
-static INLINE Int_t get_poolshape_entry(const MaxPoolingLayer_p layerinfo,
+static inline Int_t get_poolshape_entry(const MaxPoolingLayer_p layerinfo,
                                         const Int_p int_weights_start,
                                         Int_t output_index,
                                         Int_t column_index
@@ -20,12 +20,13 @@ INLINE void layer_maxpool_forward(  const MaxPoolingLayer_p layerinfo,
                                     NetState_p netstate
                                  )
 {
-    Int_t i, current_index;
+    Int_t i;
     // for each output of the whole batch (parallel)
     #pragma omp parallel for
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
         // initialize with first relevant input
+        Int_t current_index;
         Int_t max_index = 0;
         Float_t current_value;
         Float_t max_value = netstate->activations[get_poolshape_entry(layerinfo, netstate->weights_i, i, 0)];
@@ -39,7 +40,7 @@ INLINE void layer_maxpool_forward(  const MaxPoolingLayer_p layerinfo,
                 max_index = current_index;
             }
         }
-        // write max relevant input to output activation and intweights(for reusing it during backpropagation)
+        // write max relevant input to output activation and pooling_mem(for reusing it during backpropagation)
         netstate->pooling_mem[layerinfo->weight_shape.relevant_entries_offset + i] = get_poolshape_entry(layerinfo, netstate->weights_i, i, max_index);
         netstate->activations[layerinfo->output_activation_offset + i] = max_value;
     }
@@ -60,7 +61,7 @@ INLINE void layer_maxpool_backward( const MaxPoolingLayer_p layerinfo,
     #pragma omp parallel for
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
-        // copy the output error to the responsible input error (position found in intweights)
+        // copy the output error to the responsible input error (position found in pooling_mem)
         netstate->activations_errors[ netstate->pooling_mem[layerinfo->weight_shape.relevant_entries_offset + i] ]
          = netstate->activations_errors[layerinfo->output_activation_offset + i];
     }
@@ -71,13 +72,14 @@ INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo,
                                         const Float_p input_start
                                        )
 {
-    Int_t i, current_index;
+    Int_t i;
     // for each output of the whole batch (parallel)
     #pragma omp parallel for
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
         // initialize with first relevant input
         Int_t max_index = 0;
+        Int_t current_index;
         Float_t current_value;
         Float_t max_value = input_start[get_poolshape_entry(layerinfo, netstate->weights_i, i, 0)];
         // find max relevant input
@@ -90,8 +92,7 @@ INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo,
                 max_index = current_index;
             }
         }
-        // write max relevant input to output activation and intweights(for reusing it during backpropagation)
-        netstate->weights_i[layerinfo->weight_shape.relevant_entries_offset + i] = get_poolshape_entry(layerinfo, netstate->weights_i, i, max_index);
+        // write max relevant input to output activation; pooling_mem not needed
         netstate->activations[layerinfo->output_activation_offset + i] = max_value;
     }
 }

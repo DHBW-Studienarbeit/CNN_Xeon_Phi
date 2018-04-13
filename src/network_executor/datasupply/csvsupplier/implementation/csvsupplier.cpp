@@ -12,7 +12,7 @@ static inline void datasupply_load_file(DataSupplier_p supplier)
     std::string csv_file = supplier->foldername
                          + std::to_string(supplier->file_index) + ".csv";
 	std::ifstream infile(csv_file);
-	for(j=0; j<NUM_DATASETS_PER_FILE; j++)
+	for(j=0; j<CONFIG_NUM_DATASETS_PER_FILE; j++)
 	{
 		std::string line, cell;
 		std::getline(infile,line);

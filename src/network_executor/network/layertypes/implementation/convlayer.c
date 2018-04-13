@@ -82,7 +82,6 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
     // calc cost_deriv_x from cost_deriv_z and weights
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
-
     for(j=0; j<layerinfo->filter_y_count; j++)
     {
         for(i=0; i<layerinfo->filter_x_count; i++)
@@ -109,12 +108,17 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
         beta=1.0f;
     }
 
+    // learn reduction factor
+    // conv weights are used much more often than std weights
+    // learn speed per use must be decreased
+    Float_t learn_reduction = 1.0f / (layerinfo->full_output_matrix_width);
+
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
     MATH_MULT_MAT_VECT( CblasColMajor,
                         CblasNoTrans,
                         layerinfo->filter_feature_output_count,
                         layerinfo->full_output_matrix_width,
-                        1.0f,
+                        learn_reduction,
                         cost_deriv_z,
                         layerinfo->filter_feature_output_count,
                         shared_ones_floats,
@@ -124,6 +128,7 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
                         1
                     );
     // calc cost_deriv_weights
+    learn_reduction = 1.0f / (layerinfo->input_matrix_width);
     beta=0.0f;
     for(j=0; j<layerinfo->filter_y_count; j++)
     {
@@ -135,7 +140,7 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
                                 layerinfo->filter_feature_output_count,
                                 layerinfo->input_matrix_height,
                                 layerinfo->input_matrix_width,
-                                1.0f,
+                                learn_reduction,
                                 cost_deriv_z
                                  + i * layerinfo->partial_output_matrix_count,
                                 layerinfo->filter_feature_output_count,

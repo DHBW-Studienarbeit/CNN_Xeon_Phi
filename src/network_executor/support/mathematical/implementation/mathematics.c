@@ -21,10 +21,11 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
     Int_t i;
     Float_p temp2 = temporary + count;
     // do softmax first, scaled vector will be stored in temporary
-    Float_t sum;
+    #pragma omp parallel for
     for(i=0; i<count_probes; i++)
     {
-        MATH_VECT_EXP(probe_size, output+i*probe_size, temporary+i*probe_size);
+        Float_t sum;
+        MATH_VECT_EXP_SERIAL(probe_size, output+i*probe_size, temporary+i*probe_size);
         sum = MATH_VECT_ELEM_SUM(probe_size, temporary+i*probe_size, 1);
         MATH_VECT_SCAL_MUL(probe_size, (1.0f/sum), temporary+i*probe_size, 1);
     }
@@ -37,7 +38,6 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
 INLINE Float_t get_accuracy(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels)
 {
     Int_t i, sum=0, prediction, desired;
-    Float_t accuracy;
     for(i=0; i<count_probes; i++)
     {
         prediction = MATH_GET_MAX_INDEX(probe_size, output + probe_size*i, 1);
@@ -50,7 +50,19 @@ INLINE Float_t get_accuracy(Int_t count_probes, Int_t probe_size, Float_p output
     return ((Float_t)sum)/((Float_t)count_probes);
 }
 
-INLINE void get_cost_derivatives(Int_t count, Float_p output, Float_p labels, Float_p derivatives)
+INLINE void get_cost_derivatives(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels, Float_p derivatives, Float_p temporary)
 {
-    MATH_VECT_SUB(count, output, labels, derivatives);
+    Int_t i;
+    Int_t count = count_probes * probe_size;
+    // do softmax first, scaled vector will be stored in temporary
+    #pragma omp parallel for
+    for(i=0; i<count_probes; i++)
+    {
+        Float_t sum;
+        MATH_VECT_EXP_SERIAL(probe_size, output+i*probe_size, temporary+i*probe_size);
+        sum = MATH_VECT_ELEM_SUM(probe_size, temporary+i*probe_size, 1);
+        MATH_VECT_SCAL_MUL(probe_size, (1.0f/sum), temporary+i*probe_size, 1);
+    }
+    // claculated output - desired output
+    MATH_VECT_SUB(count, temporary, labels, derivatives);
 }

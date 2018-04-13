@@ -79,105 +79,105 @@ cog.outl("};")
 ]]] */
 const NeuronalNetwork_t network =
 {
-.layer_0 =
+.layer_0 = 
 {
 // convolutional
 .input_activation_offset = 0,
 .input_activation_count = 7840,
 .output_activation_offset = 0,
-.output_activation_count = 463500,
+.output_activation_count = 92700,
 .filter_feature_input_count = 1,
 .filter_feature_input_count = 1,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 60,
+.filter_feature_output_count = 12,
 .batch_count = 10,
 .filter_matrix_width = 25,
 .input_matrix_height = 5,
 .input_matrix_width = 1545,
 .input_matrix_toplayer_elements_count = 28,
-.partial_output_matrix_count = 92700,
+.partial_output_matrix_count = 18540,
 .full_output_matrix_width = 7725,
-.weights_total_count = 1560,
+.weights_total_count = 312,
 .weights_offset = 0,
-.biases_offset = 1500,
+.biases_offset = 300,
 },
-.layer_1 =
+.layer_1 = 
 {
 // maxpooling
 .input_activation_offset = 0,
-.input_activation_count = 463500,
-.output_activation_offset = 463504,
-.output_activation_count = 86400,
-.pooling_layout =
+.input_activation_count = 92700,
+.output_activation_offset = 92704,
+.output_activation_count = 17280,
+.pooling_layout = 
 {
-.relevant_entries_count = 345600,
-.num_of_lines = 86400,
+.relevant_entries_count = 69120,
+.num_of_lines = 17280,
 .relevant_columns_per_line = 4,
 .relevant_columns_offset = 0
 },
-.weight_shape =
+.weight_shape = 
 {
-.relevant_entries_count = 86400,
+.relevant_entries_count = 17280,
 .relevant_entries_offset = 0
 }
 },
-.layer_2 =
+.layer_2 = 
 {
 // convolutional
-.input_activation_offset = 463504,
-.input_activation_count = 86400,
-.output_activation_offset = 549904,
-.output_activation_count = 111200,
-.filter_feature_input_count = 60,
-.filter_feature_input_count = 60,
+.input_activation_offset = 92704,
+.input_activation_count = 17280,
+.output_activation_offset = 109984,
+.output_activation_count = 22240,
+.filter_feature_input_count = 12,
+.filter_feature_input_count = 12,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 80,
+.filter_feature_output_count = 16,
 .batch_count = 10,
-.filter_matrix_width = 1500,
-.input_matrix_height = 300,
+.filter_matrix_width = 300,
+.input_matrix_height = 60,
 .input_matrix_width = 278,
-.input_matrix_toplayer_elements_count = 720,
-.partial_output_matrix_count = 22240,
+.input_matrix_toplayer_elements_count = 144,
+.partial_output_matrix_count = 4448,
 .full_output_matrix_width = 1390,
-.weights_total_count = 120080,
-.weights_offset = 1568,
-.biases_offset = 121568,
+.weights_total_count = 4816,
+.weights_offset = 320,
+.biases_offset = 5120,
 },
-.layer_3 =
+.layer_3 = 
 {
 // maxpooling
-.input_activation_offset = 549904,
-.input_activation_count = 111200,
-.output_activation_offset = 661104,
-.output_activation_count = 12800,
-.pooling_layout =
+.input_activation_offset = 109984,
+.input_activation_count = 22240,
+.output_activation_offset = 132224,
+.output_activation_count = 2560,
+.pooling_layout = 
 {
-.relevant_entries_count = 51200,
-.num_of_lines = 12800,
+.relevant_entries_count = 10240,
+.num_of_lines = 2560,
 .relevant_columns_per_line = 4,
-.relevant_columns_offset = 345600
+.relevant_columns_offset = 69120
 },
-.weight_shape =
+.weight_shape = 
 {
-.relevant_entries_count = 12800,
-.relevant_entries_offset = 86400
+.relevant_entries_count = 2560,
+.relevant_entries_offset = 17280
 }
 },
-.layer_4 =
+.layer_4 = 
 {
 // fully connected
-.input_activation_offset = 661104,
-.input_activation_count = 12800,
-.output_activation_offset = 673904,
+.input_activation_offset = 132224,
+.input_activation_count = 2560,
+.output_activation_offset = 134784,
 .output_activation_count = 100,
-.single_input_count = 1280,
+.single_input_count = 256,
 .single_output_count = 10,
 .batch_count = 10,
-.weights_count_total = 12810,
-.weights_offset = 121648,
-.biases_offset = 134448,
+.weights_count_total = 2570,
+.weights_offset = 5136,
+.biases_offset = 7696,
 }
 };
 // [[[end]]]

@@ -107,13 +107,15 @@ void network_derive_cost(const NeuronalNetwork_p network, NetState_p netstate, c
     import cog
     from network_descriptor.NetInstance import net
     cog.out("get_cost_derivatives(")
-    cog.out(str(net.get_output_shape().get_count_total()))
+    cog.out(str(net.get_output_shape().get_count_probes()))
+    cog.out(", ")
+    cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
     cog.out(", netstate->activations + network->layer_")
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_offset, labels, netstate->activations_errors + network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset);")
+    cog.out(".output_activation_offset, shared_tmp_floats);")
     ]]] */
-    get_cost_derivatives(100, netstate->activations + network->layer_4.output_activation_offset, labels, netstate->activations_errors + network->layer_4.output_activation_offset);
+    get_cost_derivatives(10, 10, netstate->activations + network->layer_4.output_activation_offset, labels, netstate->activations_errors + network->layer_4.output_activation_offset, shared_tmp_floats);
     // [[[end]]]
 }

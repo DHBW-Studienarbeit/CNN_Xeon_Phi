@@ -3,7 +3,6 @@
 
 #include "settings.h"
 
-#define NUM_DATASETS_PER_FILE   1000
 #define FOLDERNAME_MAX_LENGTH   100
 
 /* [[[cog
@@ -23,12 +22,12 @@ cog.outl("#define DATASET_OUTPUT_SIZE " + str(net.get_output_shape().get_count_x
 #define DATASET_OUTPUT_SIZE 10
 // [[[end]]]
 
-#define NUM_BATCHES_PER_FILE	(NUM_DATASETS_PER_FILE / NUM_DATASETS_PER_BATCH)
+#define NUM_BATCHES_PER_FILE	(CONFIG_NUM_DATASETS_PER_FILE / NUM_DATASETS_PER_BATCH)
 
 
 typedef struct {
-	Float_t inputs[NUM_DATASETS_PER_FILE*DATASET_INPUT_SIZE];
-	Float_t labels[NUM_DATASETS_PER_FILE*DATASET_OUTPUT_SIZE];
+	Float_t inputs[CONFIG_NUM_DATASETS_PER_FILE*DATASET_INPUT_SIZE];
+	Float_t labels[CONFIG_NUM_DATASETS_PER_FILE*DATASET_OUTPUT_SIZE];
 	Int_t batch_index;
 	Int_t file_index;
 	Int_t num_of_files;
