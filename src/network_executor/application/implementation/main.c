@@ -7,6 +7,9 @@
 #include "weightgenerator.h"
 #include "testing.h"
 
+#include "mathematics.h"
+#include "shared_arrays.h"
+
 // initialize network structure based on net mode
 /* [[[cog
 import cog
@@ -86,115 +89,115 @@ cog.outl("};")
 ]]] */
 const NeuronalNetwork_t network =
 {
-.layer_0 =
+.layer_0 = 
 {
 // convolutional
 .input_activation_offset = 0,
 .input_activation_count = 7840,
 .output_activation_offset = 0,
-.output_activation_count = 92700,
+.output_activation_count = 247200,
 .filter_feature_input_count = 1,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 12,
+.filter_feature_output_count = 32,
 .batch_count = 10,
 .filter_matrix_width = 25,
 .input_matrix_height = 5,
 .input_matrix_width = 1545,
 .input_matrix_toplayer_elements_count = 28,
-.partial_output_matrix_count = 18540,
+.partial_output_matrix_count = 49440,
 .full_output_matrix_width = 7725,
 .input_x_count = 28,
 .input_xy_count = 784,
-.weights_total_count = 312,
+.weights_total_count = 832,
 .weights_offset = 0,
-.biases_offset = 300,
+.biases_offset = 800,
 },
-.layer_1 =
+.layer_1 = 
 {
 // maxpooling
 .input_activation_offset = 0,
-.input_activation_count = 92700,
-.output_activation_offset = 92704,
-.output_activation_count = 17280,
+.input_activation_count = 247200,
+.output_activation_offset = 247200,
+.output_activation_count = 46080,
 .output_p = 10,
 .output_y = 12,
 .output_x = 12,
-.output_f = 12,
-.pooling_layout =
+.output_f = 32,
+.pooling_layout = 
 {
-.relevant_entries_count = 69120,
-.num_of_lines = 17280,
+.relevant_entries_count = 184320,
+.num_of_lines = 46080,
 .relevant_columns_per_line = 4,
 .relevant_columns_offset = 0
 },
-.weight_shape =
+.weight_shape = 
 {
-.relevant_entries_count = 17280,
+.relevant_entries_count = 46080,
 .relevant_entries_offset = 0
 }
 },
-.layer_2 =
+.layer_2 = 
 {
 // convolutional
-.input_activation_offset = 92704,
-.input_activation_count = 17280,
-.output_activation_offset = 109984,
-.output_activation_count = 22240,
-.filter_feature_input_count = 12,
+.input_activation_offset = 247200,
+.input_activation_count = 46080,
+.output_activation_offset = 293280,
+.output_activation_count = 88960,
+.filter_feature_input_count = 32,
 .filter_x_count = 5,
 .filter_y_count = 5,
-.filter_feature_output_count = 16,
+.filter_feature_output_count = 64,
 .batch_count = 10,
-.filter_matrix_width = 300,
-.input_matrix_height = 60,
+.filter_matrix_width = 800,
+.input_matrix_height = 160,
 .input_matrix_width = 278,
-.input_matrix_toplayer_elements_count = 144,
-.partial_output_matrix_count = 4448,
+.input_matrix_toplayer_elements_count = 384,
+.partial_output_matrix_count = 17792,
 .full_output_matrix_width = 1390,
 .input_x_count = 12,
 .input_xy_count = 144,
-.weights_total_count = 4816,
-.weights_offset = 320,
-.biases_offset = 5120,
+.weights_total_count = 51264,
+.weights_offset = 832,
+.biases_offset = 52032,
 },
-.layer_3 =
+.layer_3 = 
 {
 // maxpooling
-.input_activation_offset = 109984,
-.input_activation_count = 22240,
-.output_activation_offset = 132224,
-.output_activation_count = 2560,
+.input_activation_offset = 293280,
+.input_activation_count = 88960,
+.output_activation_offset = 382240,
+.output_activation_count = 10240,
 .output_p = 10,
 .output_y = 4,
 .output_x = 4,
-.output_f = 16,
-.pooling_layout =
+.output_f = 64,
+.pooling_layout = 
+{
+.relevant_entries_count = 40960,
+.num_of_lines = 10240,
+.relevant_columns_per_line = 4,
+.relevant_columns_offset = 184320
+},
+.weight_shape = 
 {
 .relevant_entries_count = 10240,
-.num_of_lines = 2560,
-.relevant_columns_per_line = 4,
-.relevant_columns_offset = 69120
-},
-.weight_shape =
-{
-.relevant_entries_count = 2560,
-.relevant_entries_offset = 17280
+.relevant_entries_offset = 46080
 }
 },
-.layer_4 =
+.layer_4 = 
 {
 // fully connected
-.input_activation_offset = 132224,
-.input_activation_count = 2560,
-.output_activation_offset = 134784,
+.input_activation_offset = 382240,
+.input_activation_count = 10240,
+.output_activation_offset = 392480,
 .output_activation_count = 100,
-.single_input_count = 256,
+.single_input_count = 1024,
 .single_output_count = 10,
 .batch_count = 10,
-.weights_count_total = 2570,
-.weights_offset = 5136,
-.biases_offset = 7696,
+.weights_count_total = 10250,
+.weights_offset = 52096,
+.biases_offset = 62336,
 }
 };
 // [[[end]]]
@@ -206,10 +209,13 @@ NetState_t netstate;
 
 int main(void)
 {
+    TestResult_t testresult;
     Int_t iteration;
-    Float_t test_accuracy;
+    Float_t last_cost;
+    Float_t learning_rate = CONFIG_LEARNING_RATE;
     printf("do some initialization stuff\n");
-    // allocate memory nor network execution
+    init_shared_arrays();
+    // allocate memory for network execution
     netstate_init(&network, &netstate);
     // generate weights for the network
     weightgen_generate(NETWORK_WEIGHTS_F_SIZE, netstate.weights_f);
@@ -217,18 +223,33 @@ int main(void)
     datasupply_init(&trainsupplier, CONFIG_NUM_TRAINFILES, CONFIG_DIR_TRAIN);
     datasupply_init(&testsupplier, CONFIG_NUM_TESTFILES, CONFIG_DIR_TEST);
     // test with random weights first; just for later comparison
-    test_accuracy = exec_testsession(&network, &netstate, &testsupplier, CONFIG_TESTS_PER_ITERATION);
-    printf("Initial accuracy: ");
-    printf(FLOAT_T_ESCAPE, test_accuracy);
+    exec_testsession(&network, &netstate, &testsupplier, CONFIG_TESTS_PER_ITERATION, &testresult);
+    printf("Iteration 0: ");
+    printf(FLOAT_T_ESCAPE, testresult.accuracy);
+    printf("\t");
+    printf(FLOAT_T_ESCAPE, testresult.cost);
     printf("\n");
+    last_cost = testresult.cost;
     // do iterations consisting of training and testing
     for(iteration=1; iteration<=CONFIG_NUM_OF_ITERATIONS; iteration++)
     {
-        exec_trainsession(&network, &netstate, &trainsupplier, CONFIG_TRAININGS_PER_ITERATION);
-        test_accuracy = exec_testsession(&network, &netstate, &testsupplier, CONFIG_TESTS_PER_ITERATION);
+        exec_trainsession(&network, &netstate, &trainsupplier, CONFIG_TRAININGS_PER_ITERATION, learning_rate);
+        exec_testsession(&network, &netstate, &testsupplier, CONFIG_TESTS_PER_ITERATION, &testresult);
         printf("Iteration %d: ", iteration);
-        printf(FLOAT_T_ESCAPE, test_accuracy);
+        printf(FLOAT_T_ESCAPE, testresult.accuracy);
+        printf("\t");
+        printf(FLOAT_T_ESCAPE, testresult.cost);
         printf("\n");
+#ifdef CONFIG_LEARNRATE_REDUCTION
+        if(testresult.cost > last_cost)
+        {
+            learning_rate *= CONFIG_LEARNRATE_REDUCTION;
+            printf("Setting learning rate to ");
+            printf(FLOAT_T_ESCAPE, learning_rate);
+            printf("\n");
+        }
+        last_cost = testresult.cost;
+#endif
     }
     return 0;
 }

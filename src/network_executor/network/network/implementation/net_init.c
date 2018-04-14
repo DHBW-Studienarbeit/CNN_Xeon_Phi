@@ -57,7 +57,7 @@ void netstate_init(const NeuronalNetwork_p network, NetState_p netstate)
     // layer_1
     current_layer = &(network->layer_1);
     #pragma omp parallel for
-    for(i=0; i<17280; i++)
+    for(i=0; i<46080; i++)
     {
     Int_t f_out = i % current_layer->output_f;
     Int_t inner = i / current_layer->output_f;
@@ -85,7 +85,7 @@ void netstate_init(const NeuronalNetwork_p network, NetState_p netstate)
     // layer_3
     current_layer = &(network->layer_3);
     #pragma omp parallel for
-    for(i=0; i<2560; i++)
+    for(i=0; i<10240; i++)
     {
     Int_t f_out = i % current_layer->output_f;
     Int_t inner = i / current_layer->output_f;
@@ -104,7 +104,7 @@ void netstate_init(const NeuronalNetwork_p network, NetState_p netstate)
     for(x_filter=0; x_filter<2; x_filter++)
     {
     x_in = 2 * x_out + x_filter;
-    netstate->weights_i[69120 + i*filter_size+j] = 
+    netstate->weights_i[184320 + i*filter_size+j] = 
     layer_conv_get_output_position(&(network->layer_2), netstate, p_out, y_in, x_in, f_out);
     j++;
     }

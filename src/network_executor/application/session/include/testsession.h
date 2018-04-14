@@ -6,7 +6,14 @@
 #include "network.h"
 #include "datasupplier.h"
 
-Float_t exec_testsession(const NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier, Int_t num_of_batches);
+
+typedef struct
+{
+    Float_t cost;
+    Float_t accuracy;
+} TestResult_t, *TestResult_p;
+
+void exec_testsession(const NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier, Int_t num_of_batches, TestResult_p result);
 
 
 #endif /* TESTSESSION_H_INCLUDED */

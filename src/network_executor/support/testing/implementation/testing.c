@@ -32,7 +32,7 @@ void dump_weights(NetState_p netstate)
     wait_for_user_ack();
 }
 
-
+/*
 void dump_output_labels(NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier)
 {
     Int_t i;
@@ -48,6 +48,7 @@ void dump_output_labels(NeuronalNetwork_p network, NetState_p netstate, DataSupp
     printf("\n");
     wait_for_user_ack();
 }
+*/
 
 void dump_f_array(const char *name, Int_t count, Float_p data)
 {

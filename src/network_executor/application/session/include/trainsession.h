@@ -6,6 +6,6 @@
 #include "network.h"
 #include "datasupplier.h"
 
-void exec_trainsession(const NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier, Int_t num_of_batches);
+void exec_trainsession(const NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier, Int_t num_of_batches, Float_t learnrate);
 
 #endif /* TRAINSESSION_H_INCLUDED */
