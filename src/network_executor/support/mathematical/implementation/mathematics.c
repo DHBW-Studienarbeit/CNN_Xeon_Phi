@@ -56,6 +56,7 @@ INLINE void get_cost_derivatives(Int_t count_probes, Int_t probe_size, Float_p o
     Int_t i;
     Int_t count = count_probes * probe_size;
     // do softmax first, scaled vector will be stored in temporary
+    /*
     #pragma omp parallel for
     for(i=0; i<count_probes; i++)
     {
@@ -64,6 +65,7 @@ INLINE void get_cost_derivatives(Int_t count_probes, Int_t probe_size, Float_p o
         sum = MATH_VECT_ELEM_SUM(probe_size, temporary+i*probe_size, 1);
         MATH_VECT_SCAL_MUL(probe_size, (1.0f/sum), temporary+i*probe_size, 1);
     }
+    */
     // claculated output - desired output
     MATH_VECT_SUB(count, temporary, labels, derivatives);
 }

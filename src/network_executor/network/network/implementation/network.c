@@ -25,6 +25,7 @@ void network_forward(const NeuronalNetwork_p network, NetState_p netstate, const
     layer_conv_forward(&(network->layer_2), netstate);
     layer_maxpool_forward(&(network->layer_3), netstate);
     layer_fullcon_forward(&(network->layer_4), netstate);
+    layer_fullcon_forward(&(network->layer_5), netstate);
     // [[[end]]]
 }
 
@@ -46,6 +47,7 @@ void network_backward(const NeuronalNetwork_p network, NetState_p netstate, cons
             cog.out(", input")
         cog.outl(");")
     ]]] */
+    layer_fullcon_backward(&(network->layer_5), netstate);
     layer_fullcon_backward(&(network->layer_4), netstate);
     layer_maxpool_backward(&(network->layer_3), netstate);
     layer_conv_backward(&(network->layer_2), netstate);
@@ -78,7 +80,7 @@ Float_t network_get_cost(const NeuronalNetwork_p network, NetState_p netstate, c
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_offset, labels, shared_tmp_floats);")
     ]]] */
-    return get_cost(10, 10, netstate->activations + network->layer_4.output_activation_offset, labels, shared_tmp_floats);
+    return get_cost(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels, shared_tmp_floats);
     // [[[end]]]
 }
 
@@ -96,7 +98,7 @@ Float_t network_get_accuracy(const NeuronalNetwork_p network, NetState_p netstat
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_offset, labels);")
     ]]] */
-    return get_accuracy(10, 10, netstate->activations + network->layer_4.output_activation_offset, labels);
+    return get_accuracy(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels);
     // [[[end]]]
 }
 
@@ -116,6 +118,6 @@ void network_derive_cost(const NeuronalNetwork_p network, NetState_p netstate, c
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_offset, shared_tmp_floats);")
     ]]] */
-    get_cost_derivatives(10, 10, netstate->activations + network->layer_4.output_activation_offset, labels, netstate->activations_errors + network->layer_4.output_activation_offset, shared_tmp_floats);
+    get_cost_derivatives(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels, netstate->activations_errors + network->layer_5.output_activation_offset, shared_tmp_floats);
     // [[[end]]]
 }

@@ -13,10 +13,10 @@ cog.outl("#define NETWORK_POOLING_MEM_SIZE " + str(net._act_mem_i_size))
 cog.outl("#define NETWORK_WEIGHTS_F_SIZE " + str(net._weights_f_size))
 cog.outl("#define NETWORK_WEIGHTS_I_SIZE " + str(net._weights_i_size))
 ]]] */
-#define NETWORK_ACTIVATION_SIZE 392580
-#define NETWORK_POOLING_MEM_SIZE 56320
-#define NETWORK_WEIGHTS_F_SIZE 62352
-#define NETWORK_WEIGHTS_I_SIZE 225280
+#define NETWORK_ACTIVATION_SIZE 320848
+#define NETWORK_POOLING_MEM_SIZE 45056
+#define NETWORK_WEIGHTS_F_SIZE 1111952
+#define NETWORK_WEIGHTS_I_SIZE 180224
 // [[[end]]]
 
 typedef struct {

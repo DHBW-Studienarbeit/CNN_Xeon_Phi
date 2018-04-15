@@ -17,7 +17,7 @@ cog.outl("#define DATASET_OUTPUT_SIZE " + str(net.get_output_shape().get_count_x
  											* net.get_output_shape().get_count_y() \
 											* net.get_output_shape().get_count_features()))
 ]]] */
-#define NUM_DATASETS_PER_BATCH 10
+#define NUM_DATASETS_PER_BATCH 8
 #define DATASET_INPUT_SIZE 784
 #define DATASET_OUTPUT_SIZE 10
 // [[[end]]]

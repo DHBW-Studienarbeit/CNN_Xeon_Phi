@@ -24,6 +24,7 @@ typedef struct
     ConvolutionalLayer_t layer_2;
     MaxPoolingLayer_t layer_3;
     FullyConnectedLayer_t layer_4;
+    FullyConnectedLayer_t layer_5;
     // [[[end]]]
 } NeuronalNetwork_t, *NeuronalNetwork_p;
 

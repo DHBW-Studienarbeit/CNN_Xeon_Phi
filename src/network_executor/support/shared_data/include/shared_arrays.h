@@ -11,8 +11,8 @@ from network_descriptor.NetInstance import net
 cog.outl("#define SHARED_ARRAY_SIZE " + str(net._max_act_count))
 cog.outl("#define SHARED_TMP_ARRAY_SIZE " + str(2 * net._max_act_count))
 ]]] */
-#define SHARED_ARRAY_SIZE 247200
-#define SHARED_TMP_ARRAY_SIZE 494400
+#define SHARED_ARRAY_SIZE 197120
+#define SHARED_TMP_ARRAY_SIZE 394240
 // [[[end]]]
 
 extern Float_t shared_ones_floats[SHARED_ARRAY_SIZE];

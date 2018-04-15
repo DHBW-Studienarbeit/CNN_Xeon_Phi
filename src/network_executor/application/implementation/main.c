@@ -93,20 +93,20 @@ const NeuronalNetwork_t network =
 {
 // convolutional
 .input_activation_offset = 0,
-.input_activation_count = 7840,
+.input_activation_count = 6272,
 .output_activation_offset = 0,
-.output_activation_count = 247200,
+.output_activation_count = 197120,
 .filter_feature_input_count = 1,
 .filter_x_count = 5,
 .filter_y_count = 5,
 .filter_feature_output_count = 32,
-.batch_count = 10,
+.batch_count = 8,
 .filter_matrix_width = 25,
 .input_matrix_height = 5,
-.input_matrix_width = 1545,
+.input_matrix_width = 1232,
 .input_matrix_toplayer_elements_count = 28,
-.partial_output_matrix_count = 49440,
-.full_output_matrix_width = 7725,
+.partial_output_matrix_count = 39424,
+.full_output_matrix_width = 6160,
 .input_x_count = 28,
 .input_xy_count = 784,
 .weights_total_count = 832,
@@ -117,44 +117,44 @@ const NeuronalNetwork_t network =
 {
 // maxpooling
 .input_activation_offset = 0,
-.input_activation_count = 247200,
-.output_activation_offset = 247200,
-.output_activation_count = 46080,
-.output_p = 10,
+.input_activation_count = 197120,
+.output_activation_offset = 197120,
+.output_activation_count = 36864,
+.output_p = 8,
 .output_y = 12,
 .output_x = 12,
 .output_f = 32,
 .pooling_layout = 
 {
-.relevant_entries_count = 184320,
-.num_of_lines = 46080,
+.relevant_entries_count = 147456,
+.num_of_lines = 36864,
 .relevant_columns_per_line = 4,
 .relevant_columns_offset = 0
 },
 .weight_shape = 
 {
-.relevant_entries_count = 46080,
+.relevant_entries_count = 36864,
 .relevant_entries_offset = 0
 }
 },
 .layer_2 = 
 {
 // convolutional
-.input_activation_offset = 247200,
-.input_activation_count = 46080,
-.output_activation_offset = 293280,
-.output_activation_count = 88960,
+.input_activation_offset = 197120,
+.input_activation_count = 36864,
+.output_activation_offset = 233984,
+.output_activation_count = 70400,
 .filter_feature_input_count = 32,
 .filter_x_count = 5,
 .filter_y_count = 5,
 .filter_feature_output_count = 64,
-.batch_count = 10,
+.batch_count = 8,
 .filter_matrix_width = 800,
 .input_matrix_height = 160,
-.input_matrix_width = 278,
+.input_matrix_width = 220,
 .input_matrix_toplayer_elements_count = 384,
-.partial_output_matrix_count = 17792,
-.full_output_matrix_width = 1390,
+.partial_output_matrix_count = 14080,
+.full_output_matrix_width = 1100,
 .input_x_count = 12,
 .input_xy_count = 144,
 .weights_total_count = 51264,
@@ -164,40 +164,54 @@ const NeuronalNetwork_t network =
 .layer_3 = 
 {
 // maxpooling
-.input_activation_offset = 293280,
-.input_activation_count = 88960,
-.output_activation_offset = 382240,
-.output_activation_count = 10240,
-.output_p = 10,
+.input_activation_offset = 233984,
+.input_activation_count = 70400,
+.output_activation_offset = 304384,
+.output_activation_count = 8192,
+.output_p = 8,
 .output_y = 4,
 .output_x = 4,
 .output_f = 64,
 .pooling_layout = 
 {
-.relevant_entries_count = 40960,
-.num_of_lines = 10240,
+.relevant_entries_count = 32768,
+.num_of_lines = 8192,
 .relevant_columns_per_line = 4,
-.relevant_columns_offset = 184320
+.relevant_columns_offset = 147456
 },
 .weight_shape = 
 {
-.relevant_entries_count = 10240,
-.relevant_entries_offset = 46080
+.relevant_entries_count = 8192,
+.relevant_entries_offset = 36864
 }
 },
 .layer_4 = 
 {
 // fully connected
-.input_activation_offset = 382240,
-.input_activation_count = 10240,
-.output_activation_offset = 392480,
-.output_activation_count = 100,
+.input_activation_offset = 304384,
+.input_activation_count = 8192,
+.output_activation_offset = 312576,
+.output_activation_count = 8192,
+.single_input_count = 1024,
+.single_output_count = 1024,
+.batch_count = 8,
+.weights_count_total = 1049600,
+.weights_offset = 52096,
+.biases_offset = 1100672,
+},
+.layer_5 = 
+{
+// fully connected
+.input_activation_offset = 312576,
+.input_activation_count = 8192,
+.output_activation_offset = 320768,
+.output_activation_count = 80,
 .single_input_count = 1024,
 .single_output_count = 10,
-.batch_count = 10,
+.batch_count = 8,
 .weights_count_total = 10250,
-.weights_offset = 52096,
-.biases_offset = 62336,
+.weights_offset = 1101696,
+.biases_offset = 1111936,
 }
 };
 // [[[end]]]
