@@ -44,9 +44,9 @@ EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.
 EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libiomp5md.a
 
 CFLAGS := 
-CCFLAGS := -Wall -openmp
-CPPFLAGS := -Wall -openmp
-LINKFLAGS := -openmp -nodefaultlib:vcomp
+CCFLAGS := -Wall -qopenmp
+CPPFLAGS := -Wall -qopenmp -std=c++11
+LINKFLAGS := -qopenmp -nodefaultlib:vcomp
 
 
 
