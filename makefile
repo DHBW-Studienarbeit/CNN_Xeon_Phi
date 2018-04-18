@@ -1,6 +1,6 @@
-CC := icl
-CXX := icl
-LINK := icl
+CC := icc
+CXX := icc
+LINK := icc
 
 SRCDIR_BASE := src/network_executor/
 BUILDDIR_BASE := build/network_executor/
