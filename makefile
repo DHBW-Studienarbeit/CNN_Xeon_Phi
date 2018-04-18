@@ -37,16 +37,16 @@ INCLUDE_PATH += support/testing/include
 
 
 
-
-EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
-EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
-EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
+EXTLIBS := 
+#EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
+#EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
+#EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
 #EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
 
 CFLAGS := 
-CCFLAGS := -Wall -qopenmp
-CPPFLAGS := -Wall -qopenmp -std=c++11
-LINKFLAGS := -qopenmp -openmp=compat
+CCFLAGS := -Wall -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
+CPPFLAGS := -Wall -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
+LINKFLAGS := -qopenmp -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 MORELINKFLAGS := -link -nodefaultlib:vcomp
 
 
