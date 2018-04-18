@@ -1,5 +1,5 @@
 CC := icc
-CXX := icc
+CXX := icpc
 LINK := icc
 
 SRCDIR_BASE := src/network_executor/
@@ -35,15 +35,18 @@ INCLUDE_PATH += support/settings/include
 INCLUDE_PATH += support/shared_data/include
 INCLUDE_PATH += support/testing/include
 
-EXTLIBS := mkl_intel_lp64.lib
-EXTLIBS += mkl_intel_thread.lib
-EXTLIBS += mkl_core.lib
-EXTLIBS += libiomp5md.lib
+
+
+
+EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
+EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
+EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
+EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libiomp5md.a
 
 CFLAGS := 
-CCFLAGS := -Wall -Qopenmp
-CPPFLAGS := -Wall -Qopenmp
-LINKFLAGS := -Qopenmp -nodefaultlib:vcomp
+CCFLAGS := -Wall -openmp
+CPPFLAGS := -Wall -openmp
+LINKFLAGS := -openmp -nodefaultlib:vcomp
 
 
 
