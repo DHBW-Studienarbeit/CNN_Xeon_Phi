@@ -41,12 +41,13 @@ INCLUDE_PATH += support/testing/include
 EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
 EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
 EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
-EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
+#EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
 
 CFLAGS := 
 CCFLAGS := -Wall -qopenmp
 CPPFLAGS := -Wall -qopenmp -std=c++11
-LINKFLAGS := -qopenmp -nodefaultlib:vcomp
+LINKFLAGS := -qopenmp -openmp=compat
+MORELINKFLAGS := -link -nodefaultlib:vcomp
 
 
 
