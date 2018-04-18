@@ -3,7 +3,7 @@ CXX := icc
 LINK := icc
 
 SRCDIR_BASE := src/network_executor/
-BUILDDIR_BASE := build/network_executor/
+BUILDDIR_BASE := build/
 
 BIN_PATH := build/program
 
@@ -84,9 +84,13 @@ prebuild:
 $(BIN_PATH): $(C_OBJECTS) $(CPP_OBJECTS)
 	$(LINK) -o $@ $(CFLAGS) $(LINKFLAGS) $(C_OBJECTS) $(CPP_OBJECTS) $(EXTLIBS)
 
-$(C_OBJECTS): $(C_SRC_FULL) $(INC_FULLPATH)
+$(C_OBJECTS): $(C_SRC_FULL) $(INC_FULLPATH) objdirs
 	$(CC) -o $@ -c $(patsubst $(BUILDDIR_BASE)%.o, $(SRCDIR_BASE)%.c, $@) $(CFLAGS) $(CCFLAGS) $(INC_FLAGS)
 
-$(CPP_OBJECTS): $(CPP_SRC_FULL) $(INC_FULLPATH)
+$(CPP_OBJECTS): $(CPP_SRC_FULL) $(INC_FULLPATH) objdirs
 	$(CXX) -o $@ -c $(patsubst $(BUILDDIR_BASE)%.o, $(SRCDIR_BASE)%.cpp, $@) $(CFLAGS) $(CPPFLAGS) $(INC_FLAGS)
+
+.PHONY: objdirs
+objdirs: 
+	mkdir -p $(dir $(C_OBJECTS) $(CPP_OBJECTS))
 
