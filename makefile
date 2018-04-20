@@ -44,8 +44,8 @@ EXTLIBS :=
 CFLAGS :=
 CCFLAGS := -Wall -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
 CPPFLAGS := -Wall -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
-LINKFLAGS := -qopenmp -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
-MORELINKFLAGS := -link -nodefaultlib:vcomp
+LINKFLAGS := -qopenmp
+MORELINKFLAGS := -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 
 
 
@@ -84,7 +84,7 @@ prebuild:
 
 
 $(BIN_PATH): $(C_OBJECTS) $(CPP_OBJECTS)
-	$(LINK) -o $@ $(CFLAGS) $(LINKFLAGS) $(C_OBJECTS) $(CPP_OBJECTS) $(EXTLIBS)
+	$(LINK) -o $@ $(CFLAGS) $(LINKFLAGS) $(C_OBJECTS) $(CPP_OBJECTS) $(EXTLIBS) $(MORELINKFLAGS)
 
 $(C_OBJECTS): $(C_SRC_FULL) $(INC_FULLPATH) objdirs
 	$(CC) -o $@ -c $(patsubst $(BUILDDIR_BASE)%.o, $(SRCDIR_BASE)%.c, $@) $(CFLAGS) $(CCFLAGS) $(INC_FLAGS)
