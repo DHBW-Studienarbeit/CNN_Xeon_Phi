@@ -2,7 +2,6 @@
 #define TRAINSESSION_H_INCLUDED
 
 #include "settings.h"
-#include "layer_commons.h"
 #include "network.h"
 #include "datasupplier.h"
 

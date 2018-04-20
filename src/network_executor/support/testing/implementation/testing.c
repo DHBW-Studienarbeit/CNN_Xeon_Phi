@@ -19,6 +19,7 @@ static inline void wait_for_user_ack(void)
 #endif /* CONFIG_QUERY_USER_ACK */
 }
 
+/*
 void dump_weights(NetState_p netstate)
 {
     Int_t i;
@@ -32,7 +33,6 @@ void dump_weights(NetState_p netstate)
     wait_for_user_ack();
 }
 
-/*
 void dump_output_labels(NeuronalNetwork_p network, NetState_p netstate, DataSupplier_p supplier)
 {
     Int_t i;

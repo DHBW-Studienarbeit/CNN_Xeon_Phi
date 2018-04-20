@@ -1,17 +1,14 @@
 #include "maxpoollayer.h"
-#include "shared_arrays.h"
 #include "mathematics.h"
 
 
 static inline Int_t get_poolshape_entry(const MaxPoolingLayer_p layerinfo,
-                                        const Int_p int_weights_start,
                                         Int_t output_index,
                                         Int_t column_index
                                        )
 {
-    return layerinfo->input_activation_offset
-     + int_weights_start[layerinfo->pooling_layout.relevant_columns_offset
-         + output_index*(layerinfo->pooling_layout.relevant_columns_per_line)
+    return layerinfo->pooling_layout.relevant_columns_start[
+        output_index * layerinfo->pooling_layout.relevant_columns_per_line
          + column_index ];
 }
 
@@ -24,14 +21,16 @@ INLINE void layer_maxpool_forward(const MaxPoolingLayer_p layerinfo)
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
         // initialize with first relevant input
-        Int_t current_index;
-        Int_t max_index = 0;
         Float_t current_value;
-        Float_t max_value = netstate->activations[get_poolshape_entry(layerinfo, netstate->weights_i, i, 0)];
+        Float_t max_value;
+        Int_t current_index;
+        Int_t max_index = get_poolshape_entry(layerinfo, i, 0);
+        max_value = layerinfo->input_activation_start[max_index];
         // find max relevant input
         for(current_index=1; current_index < layerinfo->pooling_layout.relevant_columns_per_line; current_index++)
         {
-            current_value = netstate->activations[get_poolshape_entry(layerinfo, netstate->weights_i, i, current_index)];
+            current_index = get_poolshape_entry(layerinfo, i, current_index);
+            current_value = layerinfo->input_activation_start[current_index];
             if(current_value > max_value)
             {
                 max_value = current_value;
@@ -39,8 +38,8 @@ INLINE void layer_maxpool_forward(const MaxPoolingLayer_p layerinfo)
             }
         }
         // write max relevant input to output activation and pooling_mem(for reusing it during backpropagation)
-        netstate->pooling_mem[layerinfo->weight_shape.relevant_entries_offset + i] = get_poolshape_entry(layerinfo, netstate->weights_i, i, max_index);
-        netstate->activations[layerinfo->output_activation_offset + i] = max_value;
+        layerinfo->pooling_mem.relevant_entries_start[i] = max_index;
+        layerinfo->output_activation_start[i] = max_value;
     }
 }
 
@@ -51,15 +50,15 @@ INLINE void layer_maxpool_backward(const MaxPoolingLayer_p layerinfo)
     #pragma omp parallel for
     for(i=0; i<layerinfo->input_activation_count; i++)
     {
-        netstate->activations_errors[layerinfo->input_activation_offset + i] = 0.0f;
+        layerinfo->input_activation_error_start[i] = 0.0f;
     }
     // for each output of the whole batch (parallel)
     #pragma omp parallel for
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
         // copy the output error to the responsible input error (position found in pooling_mem)
-        netstate->activations_errors[ netstate->pooling_mem[layerinfo->weight_shape.relevant_entries_offset + i] ]
-         = netstate->activations_errors[layerinfo->output_activation_offset + i];
+        layerinfo->input_activation_error_start[layerinfo->pooling_mem.relevant_entries_start[i]]
+         = layerinfo->output_activation_error_start[i];
     }
 }
 
@@ -73,14 +72,16 @@ INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo,
     for(i=0; i<layerinfo->output_activation_count; i++)
     {
         // initialize with first relevant input
-        Int_t max_index = 0;
-        Int_t current_index;
         Float_t current_value;
-        Float_t max_value = input_start[get_poolshape_entry(layerinfo, netstate->weights_i, i, 0)];
+        Float_t max_value;
+        Int_t current_index;
+        Int_t max_index = get_poolshape_entry(layerinfo, i, 0);
+        max_value = layerinfo->input_activation_start[max_index];
         // find max relevant input
         for(current_index=1; current_index < layerinfo->pooling_layout.relevant_columns_per_line; current_index++)
         {
-            current_value = input_start[get_poolshape_entry(layerinfo, netstate->weights_i, i, current_index)];
+            current_index = get_poolshape_entry(layerinfo, i, current_index);
+            current_value = layerinfo->input_activation_start[current_index];
             if(current_value > max_value)
             {
                 max_value = current_value;
@@ -88,7 +89,7 @@ INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo,
             }
         }
         // write max relevant input to output activation; pooling_mem not needed
-        netstate->activations[layerinfo->output_activation_offset + i] = max_value;
+        layerinfo->output_activation_start[i] = max_value;
     }
 }
 
@@ -101,7 +102,7 @@ INLINE void layer_maxpool_first_backward(   const MaxPoolingLayer_p layerinfo,
 
 INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo)
 {
-    return netstate->activations + layerinfo->output_activation_offset;
+    return layerinfo->output_activation_start;
 }
 
 INLINE Int_t layer_maxpool_get_output_position( const MaxPoolingLayer_p layerinfo,

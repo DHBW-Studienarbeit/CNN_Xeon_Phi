@@ -1,5 +1,4 @@
 #include "convlayer.h"
-#include "shared_arrays.h"
 #include "mathematics.h"
 
 
@@ -105,7 +104,11 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo)
     // learn reduction factor
     // conv weights are used much more often than std weights
     // learn speed per use must be decreased
+    #ifdef REDUCE_CONV_LEARNRATE
     Float_t learn_reduction = 1.0f / (layerinfo->full_output_matrix_width);
+    #else
+    Float_t learn_reduction = 1.0f;
+    #endif
 
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
     MATH_MULT_MAT_VECT( CblasColMajor,
@@ -122,7 +125,9 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo)
                         1
                     );
     // calc cost_deriv_weights
+    #ifdef REDUCE_CONV_LEARNRATE
     learn_reduction = 1.0f / (layerinfo->input_matrix_width);
+    #endif
     beta=0.0f;
     for(j=0; j<layerinfo->filter_y_count; j++)
     {
@@ -233,7 +238,11 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
     // learn reduction factor
     // conv weights are used much more often than std weights
     // learn speed per use must be decreased
+    #ifdef REDUCE_CONV_LEARNRATE
     Float_t learn_reduction = 1.0f / (layerinfo->full_output_matrix_width);
+    #else
+    Float_t learn_reduction = 1.0f;
+    #endif
 
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
     MATH_MULT_MAT_VECT( CblasColMajor,
@@ -250,7 +259,9 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
                         1
                     );
     // calc cost_deriv_weights
+    #ifdef REDUCE_CONV_LEARNRATE
     learn_reduction = 1.0f / (layerinfo->input_matrix_width);
+    #endif
     Float_t beta=0.0f;
     for(j=0; j<layerinfo->filter_y_count; j++)
     {

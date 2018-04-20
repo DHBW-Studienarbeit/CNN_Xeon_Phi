@@ -2,7 +2,6 @@
 #define TESTSESSION_H_INCLUDED
 
 #include "settings.h"
-#include "netstate.h"
 #include "network.h"
 #include "datasupplier.h"
 

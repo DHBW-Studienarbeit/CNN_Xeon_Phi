@@ -9,6 +9,7 @@
 
 #define MATH_MALLOC_F_ARRAY(num_of_floats) ((Float_p)mkl_malloc(num_of_floats*sizeof(Float_t), CONFIG_ARRAY_ALIGNMENT*sizeof(Float_t)))
 #define MATH_MALLOC_I_ARRAY(num_of_ints) ((Int_p)mkl_malloc(num_of_ints*sizeof(Int_t), CONFIG_ARRAY_ALIGNMENT*sizeof(Int_t)))
+#define MATH_MALLOC_FP_ARRAY(num_of_ints) ((Float_p*)mkl_malloc(num_of_ints*sizeof(Float_p), CONFIG_ARRAY_ALIGNMENT*sizeof(Float_p)))
 
 
 #ifdef CONFIG_FLOATTYPE_DOUBLE

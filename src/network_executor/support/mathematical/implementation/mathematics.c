@@ -1,18 +1,20 @@
 #include "mathematics.h"
-#include "shared_arrays.h"
+
+
+Float_p math_shared_ones_floats;
 
 
 INLINE void sigmoid(Int_t count, Float_p input, Float_p output)
 {
     MATH_VECT_SCAL_MUL(count, 0.5f, input, 1);
     MATH_VECT_TANH(count, input, output);
-    MATH_VECT_VECT_SCAL_ADD_MUL(count, 0.5f, shared_ones_floats, 1, 0.5f, output, 1);
+    MATH_VECT_VECT_SCAL_ADD_MUL(count, 0.5f, math_shared_ones_floats, 1, 0.5f, output, 1);
     MATH_VECT_SCAL_MUL(count, 2.0f, input, 1);
 }
 
 INLINE void sigmoid_derivation(Int_t count, Float_p activation, Float_p derivation, Float_p tmp)
 {
-    MATH_VECT_SUB(count, shared_ones_floats, activation, tmp);
+    MATH_VECT_SUB(count, math_shared_ones_floats, activation, tmp);
     MATH_VECT_MUL(count, tmp, activation, derivation);
 }
 
@@ -53,10 +55,10 @@ INLINE Float_t get_accuracy(Int_t count_probes, Int_t probe_size, Float_p output
 
 INLINE void get_cost_derivatives(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels, Float_p derivatives, Float_p temporary)
 {
-    Int_t i;
     Int_t count = count_probes * probe_size;
     // do softmax first, scaled vector will be stored in temporary
     /*
+    Int_t i;
     #pragma omp parallel for
     for(i=0; i<count_probes; i++)
     {
@@ -67,5 +69,5 @@ INLINE void get_cost_derivatives(Int_t count_probes, Int_t probe_size, Float_p o
     }
     */
     // claculated output - desired output
-    MATH_VECT_SUB(count, temporary, labels, derivatives);
+    MATH_VECT_SUB(count, output, labels, derivatives);
 }

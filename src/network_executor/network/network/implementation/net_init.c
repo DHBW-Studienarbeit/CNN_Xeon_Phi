@@ -1,9 +1,10 @@
 #include "settings.h"
-#include "netstate.h"
 #include "network.h"
 #include "mathematics.h"
 
-extern const Int_t net_weights_i[NETWORK_WEIGHTS_I_SIZE];
+
+extern Float_p math_shared_ones_floats;
+
 
 void network_init(const NeuronalNetwork_p network)
 {
@@ -14,7 +15,7 @@ void network_init(const NeuronalNetwork_p network)
     network->activations_errors = MATH_MALLOC_F_ARRAY(NETWORK_ACTIVATION_SIZE);
     network->weights_f = MATH_MALLOC_F_ARRAY(NETWORK_WEIGHTS_F_SIZE);
     network->weights_f_errors = MATH_MALLOC_F_ARRAY(NETWORK_WEIGHTS_F_SIZE);
-    network->weights_i = MATH_MALLOC_I_ARRAY(NETWORK_WEIGHTS_I_SIZE);
+    network->pooling_layout = MATH_MALLOC_I_ARRAY(NETWORK_POOLING_LAYOUT_SIZE);
     network->pooling_mem = MATH_MALLOC_I_ARRAY(NETWORK_POOLING_MEM_SIZE);
 
     network->shared_ones_floats = MATH_MALLOC_F_ARRAY(SHARED_ARRAY_SIZE);
@@ -23,8 +24,9 @@ void network_init(const NeuronalNetwork_p network)
 
     for(i=0; i<SHARED_ARRAY_SIZE; i++)
     {
-        shared_ones_floats[i] = 1.0f;
+        network->shared_ones_floats[i] = 1.0f;
     }
+    math_shared_ones_floats = network->shared_ones_floats;
 
 
     /* [[[cog
@@ -76,14 +78,16 @@ void network_init(const NeuronalNetwork_p network)
             cog.outl(prefix + ".weights_start = network->weights_f + " + str(current._weight_off) + ";")
             cog.outl(prefix + ".weights_error_start = network->weights_f_errors + " + str(current._weight_off) + ";")
             cog.outl(prefix + ".biases_start = network->weights_f + " + str(current._bias_off) + ";")
-            cog.outl(prefix + ".biases_error_start = network->weights_f_errors + " + str(current._bias_off) + ";")        
+            cog.outl(prefix + ".biases_error_start = network->weights_f_errors + " + str(current._bias_off) + ";")
             cog.outl(prefix + ".shared_tmp_floats = network->shared_tmp_floats;")
             cog.outl(prefix + ".shared_ones_floats = network->shared_ones_floats;")
         if current.__class__.__name__ == "MaxPoolingLayer":
             cog.outl("// maxpooling")
-            cog.outl(prefix + ".input_activation_offset = " + str(current._act_in_off) + ";")
+            cog.outl(prefix + ".input_activation_start = network->activations + " + str(current._act_in_off) + ";")
+            cog.outl(prefix + ".input_activation_error_start = network->activations_errors + " + str(current._act_in_off) + ";")
             cog.outl(prefix + ".input_activation_count = " + str(current.get_input_shape().get_count_total()) + ";")
-            cog.outl(prefix + ".output_activation_offset = " + str(current._act_out_off) + ";")
+            cog.outl(prefix + ".output_activation_start = network->activations + " + str(current._act_out_off) + ";")
+            cog.outl(prefix + ".output_activation_error_start = network->activations_errors + " + str(current._act_out_off) + ";")
             cog.outl(prefix + ".output_activation_count = " + str(current.get_output_shape().get_count_total()) + ";")
             cog.outl(prefix + ".output_p = " + str(current.get_output_shape().get_count_probes()) + ";")
             cog.outl(prefix + ".output_y = " + str(current.get_output_shape().get_count_y()) + ";")
@@ -92,15 +96,17 @@ void network_init(const NeuronalNetwork_p network)
             cog.outl(prefix + ".pooling_layout.relevant_entries_count = " + str(current.get_weight_shape().get_count_total()) + ";")
             cog.outl(prefix + ".pooling_layout.num_of_lines = " + str(current.get_weight_shape().get_count_output()) + ";")
             cog.outl(prefix + ".pooling_layout.relevant_columns_per_line = " + str(current._filter_size_x * current._filter_size_y) + ";")
-            cog.outl(prefix + ".pooling_layout.relevant_columns_offset = " + str(current._weight_off) + ";")
-            cog.outl(prefix + ".weight_shape.relevant_entries_count = " + str(current.get_weight_shape().get_count_output()) + ";")
-            cog.outl(prefix + ".weight_shape.relevant_entries_offset = " + str(current._act_mem_i_off) + ";")
+            cog.outl(prefix + ".pooling_layout.relevant_columns_start = network->pooling_layout + " + str(current._weight_off) + ";")
+            cog.outl(prefix + ".pooling_mem.relevant_entries_count = " + str(current.get_weight_shape().get_count_output()) + ";")
+            cog.outl(prefix + ".pooling_mem.relevant_entries_start = network->pooling_mem + " + str(current._act_mem_i_off) + ";")
         i = i + 1
     ]]] */
     // convolutional
-    network->layer_0.input_activation_offset = 0;
+    network->layer_0.input_activation_start = network->activations + 0;
+    network->layer_0.input_activation_error_start = network->activations_errors + 0;
     network->layer_0.input_activation_count = 6272;
-    network->layer_0.output_activation_offset = 0;
+    network->layer_0.output_activation_start = network->activations + 0;
+    network->layer_0.output_activation_error_start = network->activations_errors + 0;
     network->layer_0.output_activation_count = 197120;
     network->layer_0.filter_feature_input_count = 1;
     network->layer_0.filter_x_count = 5;
@@ -116,12 +122,18 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_0.input_x_count = 28;
     network->layer_0.input_xy_count = 784;
     network->layer_0.weights_total_count = 832;
-    network->layer_0.weights_offset = 0;
-    network->layer_0.biases_offset = 800;
+    network->layer_0.weights_start = network->weights_f + 0;
+    network->layer_0.weights_error_start = network->weights_f_errors + 0;
+    network->layer_0.biases_start = network->weights_f + 800;
+    network->layer_0.biases_error_start = network->weights_f_errors + 800;
+    network->layer_0.shared_tmp_floats = network->shared_tmp_floats;
+    network->layer_0.shared_ones_floats = network->shared_ones_floats;
     // maxpooling
-    network->layer_1.input_activation_offset = 0;
+    network->layer_1.input_activation_start = network->activations + 0;
+    network->layer_1.input_activation_error_start = network->activations_errors + 0;
     network->layer_1.input_activation_count = 197120;
-    network->layer_1.output_activation_offset = 197120;
+    network->layer_1.output_activation_start = network->activations + 197120;
+    network->layer_1.output_activation_error_start = network->activations_errors + 197120;
     network->layer_1.output_activation_count = 36864;
     network->layer_1.output_p = 8;
     network->layer_1.output_y = 12;
@@ -130,13 +142,15 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_1.pooling_layout.relevant_entries_count = 147456;
     network->layer_1.pooling_layout.num_of_lines = 36864;
     network->layer_1.pooling_layout.relevant_columns_per_line = 4;
-    network->layer_1.pooling_layout.relevant_columns_offset = 0;
-    network->layer_1.weight_shape.relevant_entries_count = 36864;
-    network->layer_1.weight_shape.relevant_entries_offset = 0;
+    network->layer_1.pooling_layout.relevant_columns_start = network->pooling_layout + 0;
+    network->layer_1.pooling_mem.relevant_entries_count = 36864;
+    network->layer_1.pooling_mem.relevant_entries_start = network->pooling_mem + 0;
     // convolutional
-    network->layer_2.input_activation_offset = 197120;
+    network->layer_2.input_activation_start = network->activations + 197120;
+    network->layer_2.input_activation_error_start = network->activations_errors + 197120;
     network->layer_2.input_activation_count = 36864;
-    network->layer_2.output_activation_offset = 233984;
+    network->layer_2.output_activation_start = network->activations + 233984;
+    network->layer_2.output_activation_error_start = network->activations_errors + 233984;
     network->layer_2.output_activation_count = 70400;
     network->layer_2.filter_feature_input_count = 32;
     network->layer_2.filter_x_count = 5;
@@ -152,12 +166,18 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_2.input_x_count = 12;
     network->layer_2.input_xy_count = 144;
     network->layer_2.weights_total_count = 51264;
-    network->layer_2.weights_offset = 832;
-    network->layer_2.biases_offset = 52032;
+    network->layer_2.weights_start = network->weights_f + 832;
+    network->layer_2.weights_error_start = network->weights_f_errors + 832;
+    network->layer_2.biases_start = network->weights_f + 52032;
+    network->layer_2.biases_error_start = network->weights_f_errors + 52032;
+    network->layer_2.shared_tmp_floats = network->shared_tmp_floats;
+    network->layer_2.shared_ones_floats = network->shared_ones_floats;
     // maxpooling
-    network->layer_3.input_activation_offset = 233984;
+    network->layer_3.input_activation_start = network->activations + 233984;
+    network->layer_3.input_activation_error_start = network->activations_errors + 233984;
     network->layer_3.input_activation_count = 70400;
-    network->layer_3.output_activation_offset = 304384;
+    network->layer_3.output_activation_start = network->activations + 304384;
+    network->layer_3.output_activation_error_start = network->activations_errors + 304384;
     network->layer_3.output_activation_count = 8192;
     network->layer_3.output_p = 8;
     network->layer_3.output_y = 4;
@@ -166,9 +186,9 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_3.pooling_layout.relevant_entries_count = 32768;
     network->layer_3.pooling_layout.num_of_lines = 8192;
     network->layer_3.pooling_layout.relevant_columns_per_line = 4;
-    network->layer_3.pooling_layout.relevant_columns_offset = 147456;
-    network->layer_3.weight_shape.relevant_entries_count = 8192;
-    network->layer_3.weight_shape.relevant_entries_offset = 36864;
+    network->layer_3.pooling_layout.relevant_columns_start = network->pooling_layout + 147456;
+    network->layer_3.pooling_mem.relevant_entries_count = 8192;
+    network->layer_3.pooling_mem.relevant_entries_start = network->pooling_mem + 36864;
     // fully connected
     network->layer_4.input_activation_start = network->activations + 304384;
     network->layer_4.input_activation_error_start = network->activations_errors + 304384;
@@ -184,6 +204,8 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_4.weights_error_start = network->weights_f_errors + 52096;
     network->layer_4.biases_start = network->weights_f + 1100672;
     network->layer_4.biases_error_start = network->weights_f_errors + 1100672;
+    network->layer_4.shared_tmp_floats = network->shared_tmp_floats;
+    network->layer_4.shared_ones_floats = network->shared_ones_floats;
     // fully connected
     network->layer_5.input_activation_start = network->activations + 312576;
     network->layer_5.input_activation_error_start = network->activations_errors + 312576;
@@ -199,6 +221,8 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_5.weights_error_start = network->weights_f_errors + 1101696;
     network->layer_5.biases_start = network->weights_f + 1111936;
     network->layer_5.biases_error_start = network->weights_f_errors + 1111936;
+    network->layer_5.shared_tmp_floats = network->shared_tmp_floats;
+    network->layer_5.shared_ones_floats = network->shared_ones_floats;
     // [[[end]]]
 
     // prepare weights for maxpooling
@@ -231,8 +255,8 @@ void network_init(const NeuronalNetwork_p network)
             cog.outl("for(x_filter=0; x_filter<" + str(current._filter_size_x) + "; x_filter++)")
             cog.outl("{")
             cog.outl("x_in = " + str(current._filter_size_x) + " * x_out + x_filter;")
-            cog.outl("netstate->weights_i[" + str(current._weight_off) + " + i*filter_size+j] = ")
-            cog.outl(previous.get_C_outputname() + "_position(&(network->layer_" + str(i-1) + "), netstate, p_out, y_in, x_in, f_out);")
+            cog.outl("current_layer->pooling_layout.relevant_columns_start[i*filter_size+j] = ")
+            cog.outl(previous.get_C_outputname() + "_position(&(network->layer_" + str(i-1) + "), p_out, y_in, x_in, f_out);")
             cog.outl("j++;")
             cog.outl("}")
             cog.outl("}")
@@ -261,8 +285,8 @@ void network_init(const NeuronalNetwork_p network)
     for(x_filter=0; x_filter<2; x_filter++)
     {
     x_in = 2 * x_out + x_filter;
-    netstate->weights_i[0 + i*filter_size+j] =
-    layer_conv_get_output_position(&(network->layer_0), netstate, p_out, y_in, x_in, f_out);
+    current_layer->pooling_layout.relevant_columns_start[i*filter_size+j] = 
+    layer_conv_get_output_position(&(network->layer_0), p_out, y_in, x_in, f_out);
     j++;
     }
     }
@@ -289,8 +313,8 @@ void network_init(const NeuronalNetwork_p network)
     for(x_filter=0; x_filter<2; x_filter++)
     {
     x_in = 2 * x_out + x_filter;
-    netstate->weights_i[147456 + i*filter_size+j] =
-    layer_conv_get_output_position(&(network->layer_2), netstate, p_out, y_in, x_in, f_out);
+    current_layer->pooling_layout.relevant_columns_start[i*filter_size+j] = 
+    layer_conv_get_output_position(&(network->layer_2), p_out, y_in, x_in, f_out);
     j++;
     }
     }

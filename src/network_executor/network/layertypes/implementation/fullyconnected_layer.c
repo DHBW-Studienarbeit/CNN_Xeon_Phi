@@ -1,5 +1,4 @@
 #include "fullyconnected_layer.h"
-#include "shared_arrays.h"
 #include "mathematics.h"
 
 

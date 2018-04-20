@@ -10,7 +10,6 @@ inc_dir_list = [ \
 'src/network_executor/network/weightgenerator/include', \
 'src/network_executor/support/mathematical/include', \
 'src/network_executor/support/settings/include', \
-'src/network_executor/support/shared_data/include', \
 'src/network_executor/support/testing/include' \
 ]
 inc_path = []
@@ -31,7 +30,6 @@ source_file_list = [ \
 'build/network_executor/support/mathematical/implementation/mathematics.c', \
 'build/network_executor/support/mathematical/implementation/mkl_vector_prl.c', \
 'build/network_executor/network/network/implementation/net_init.c', \
-'build/network_executor/support/shared_data/implementation/shared_arrays.c', \
 'build/network_executor/support/testing/implementation/testing.c'\
 ]
 sources_list = []

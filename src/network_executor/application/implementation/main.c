@@ -6,9 +6,8 @@
 #include "network.h"
 #include "weightgenerator.h"
 #include "testing.h"
-
 #include "mathematics.h"
-#include "shared_arrays.h"
+
 
 
 DataSupplier_t trainsupplier, testsupplier;

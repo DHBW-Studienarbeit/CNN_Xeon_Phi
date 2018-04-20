@@ -1,6 +1,5 @@
 #include "network.h"
 #include "mathematics.h"
-#include "shared_arrays.h"
 
 
 void network_forward(const NeuronalNetwork_p network, const Float_p input)
@@ -13,19 +12,19 @@ void network_forward(const NeuronalNetwork_p network, const Float_p input)
     first = True
     for current in net._layers:
         cog.out(current.get_C_forwardname(first) + "(&(network->layer_" \
-                + str(i) + "), netstate")
+                + str(i) + ")")
         if first==True:
             cog.out(", input")
         cog.outl(");")
         i=i+1
         first = False
     ]]] */
-    layer_conv_first_forward(&(network->layer_0), netstate, input);
-    layer_maxpool_forward(&(network->layer_1), netstate);
-    layer_conv_forward(&(network->layer_2), netstate);
-    layer_maxpool_forward(&(network->layer_3), netstate);
-    layer_fullcon_forward(&(network->layer_4), netstate);
-    layer_fullcon_forward(&(network->layer_5), netstate);
+    layer_conv_first_forward(&(network->layer_0), input);
+    layer_maxpool_forward(&(network->layer_1));
+    layer_conv_forward(&(network->layer_2));
+    layer_maxpool_forward(&(network->layer_3));
+    layer_fullcon_forward(&(network->layer_4));
+    layer_fullcon_forward(&(network->layer_5));
     // [[[end]]]
 }
 
@@ -42,17 +41,17 @@ void network_backward(const NeuronalNetwork_p network, const Float_p input)
         if i == 0:
             first = True
         cog.out(current.get_C_backwardname(first) + "(&(network->layer_" \
-                + str(i) + "), netstate")
+                + str(i) + ")")
         if first==True:
             cog.out(", input")
         cog.outl(");")
     ]]] */
-    layer_fullcon_backward(&(network->layer_5), netstate);
-    layer_fullcon_backward(&(network->layer_4), netstate);
-    layer_maxpool_backward(&(network->layer_3), netstate);
-    layer_conv_backward(&(network->layer_2), netstate);
-    layer_maxpool_backward(&(network->layer_1), netstate);
-    layer_conv_first_backward(&(network->layer_0), netstate, input);
+    layer_fullcon_backward(&(network->layer_5));
+    layer_fullcon_backward(&(network->layer_4));
+    layer_maxpool_backward(&(network->layer_3));
+    layer_conv_backward(&(network->layer_2));
+    layer_maxpool_backward(&(network->layer_1));
+    layer_conv_first_backward(&(network->layer_0), input);
     // [[[end]]]
 }
 
@@ -76,11 +75,11 @@ Float_t network_get_cost(const NeuronalNetwork_p network, const Float_p labels)
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", network->activations + network->layer_")
+    cog.out(", network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, labels, network->shared_tmp_floats);")
+    cog.out(".output_activation_start, labels, network->shared_tmp_floats);")
     ]]] */
-    return get_cost(8, 10, network->activations + network->layer_5.output_activation_offset, labels, network->shared_tmp_floats);
+    return get_cost(8, 10, network->layer_5.output_activation_start, labels, network->shared_tmp_floats);
     // [[[end]]]
 }
 
@@ -94,11 +93,11 @@ Float_t network_get_accuracy(const NeuronalNetwork_p network, const Float_p labe
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", network->activations + network->layer_")
+    cog.out(", network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, labels);")
+    cog.out(".output_activation_start, labels);")
     ]]] */
-    return get_accuracy(8, 10, network->activations + network->layer_5.output_activation_offset, labels);
+    return get_accuracy(8, 10, network->layer_5.output_activation_start, labels);
     // [[[end]]]
 }
 
@@ -112,12 +111,12 @@ void network_derive_cost(const NeuronalNetwork_p network, const Float_p labels)
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", network->activations + network->layer_")
+    cog.out(", network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, labels, network->activations_errors + network->layer_")
+    cog.out(".output_activation_start, labels, network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, network->shared_tmp_floats);")
+    cog.out(".output_activation_error_start, network->shared_tmp_floats);")
     ]]] */
-    get_cost_derivatives(8, 10, network->activations + network->layer_5.output_activation_offset, labels, network->activations_errors + network->layer_5.output_activation_offset, network->shared_tmp_floats);
+    get_cost_derivatives(8, 10, network->layer_5.output_activation_start, labels, network->layer_5.output_activation_error_start, network->shared_tmp_floats);
     // [[[end]]]
 }
