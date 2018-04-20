@@ -65,12 +65,12 @@ int main(void)
         last_cost = testresult.cost;
 #endif
     }
-    
+
     exec_testsession(&network, &testsupplier, CONFIG_NUM_FINAL_TESTS, &testresult);
 #ifdef CONFIG_OUTPUT_VERBOSE
     printf("\n+++ SUMMARY +++");
 #endif
-    printf("%d Iterations performed\nfinal accuracy: ", iteration);
+    printf("%d Iterations performed\nfinal accuracy: ", CONFIG_NUM_OF_ITERATIONS);
     printf(FLOAT_T_ESCAPE, testresult.accuracy);
     printf("\nfinal cost per picture: ");
     printf(FLOAT_T_ESCAPE, testresult.cost);

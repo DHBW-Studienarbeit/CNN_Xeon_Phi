@@ -6,3 +6,6 @@ build/**
 
 # ignore python caches
 **/__pycache__/**
+
+#ignore test reports
+report.txt

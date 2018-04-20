@@ -70,7 +70,7 @@ all: prebuild $(BIN_PATH)
 	echo "build done"
 
 .PHONY: execute
-execute: preexecute $(REPORT_PATH)
+execute: all preexecute $(REPORT_PATH)
 	echo "execution done"
 
 .PHONY: rebuild
