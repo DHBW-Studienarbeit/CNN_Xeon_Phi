@@ -1,11 +1,13 @@
 CC := icc
 CXX := icpc
 LINK := icc
+TIME_MEASUREMENT := /usr/bin/time
 
 SRCDIR_BASE := src/network_executor/
 BUILDDIR_BASE := build/
 
 BIN_PATH := build/program
+REPORT_PATH := report.txt
 
 
 C_SOURCES := application/implementation/main.c
@@ -67,6 +69,11 @@ CPP_OBJECTS := $(patsubst %.cpp, $(BUILDDIR_BASE)%.o, $(CPP_SOURCES))
 all: prebuild $(BIN_PATH)
 	echo "build done"
 
+.PHONY: execute
+execute: preexecute $(REPORT_PATH)
+	echo "execution done"
+
+.PHONY: rebuild
 rebuild: clean prebuild $(BIN_PATH)
 	echo "rebuild done"
 
@@ -82,6 +89,14 @@ clean:
 prebuild:
 	echo "building files"
 
+.PHONY: preexecute
+preexecute:
+	echo "executing program"
+
+
+
+$(REPORT_PATH): $(BIN_PATH)
+	$(TIME_MEASUREMENT) --verbose --append -o $@ $(BIN_PATH) > $@
 
 $(BIN_PATH): $(C_OBJECTS) $(CPP_OBJECTS)
 	$(LINK) -o $@ $(CFLAGS) $(LINKFLAGS) $(C_OBJECTS) $(CPP_OBJECTS) $(EXTLIBS) $(MORELINKFLAGS)

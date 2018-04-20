@@ -12,9 +12,9 @@ for key in net._netconfig:
     cog.out(' ')
     cog.outl(net._netconfig[key])
 ]]] */
-#define CONFIG_FLOATTYPE_DOUBLE 
-#define CONFIG_LEARNING_RATE (0.005f)
-#define CONFIG_LEARNRATE_REDUCTION (0.995f)
+#define CONFIG_FLOATTYPE_FLOAT 
+#define CONFIG_LEARNING_RATE (0.008f)
+#define CONFIG_LEARNRATE_REDUCTION (0.99f)
 #define REDUCE_CONV_LEARNRATE 
 #define CONFIG_NUM_OF_ITERATIONS 500
 #define CONFIG_TRAININGS_PER_ITERATION 256
@@ -30,6 +30,7 @@ for key in net._netconfig:
 #define CONFIG_MATH_VECT_PARALLEL 
 #define CONFIC_VECT_NUM_THREADS 48
 #define CONFIG_ARRAY_ALIGNMENT 64
+#define CONFIG_NUM_FINAL_TESTS 625
 // [[[end]]]
 
 

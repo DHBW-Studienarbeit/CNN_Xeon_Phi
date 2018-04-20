@@ -35,7 +35,7 @@ INLINE Float_t get_cost(Int_t count_probes, Int_t probe_size, Float_p output, Fl
     // calculate cost by cross entropy
     MATH_VECT_LOG(count, temporary, temp2);
     MATH_VECT_MUL(count, temp2, labels, temporary);
-    return MATH_VECT_ELEM_SUM(count, temporary, 1);
+    return MATH_VECT_ELEM_SUM(count, temporary, 1) / count_probes;
 }
 
 INLINE Float_t get_accuracy(Int_t count_probes, Int_t probe_size, Float_p output, Float_p labels)
