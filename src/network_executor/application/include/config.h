@@ -29,7 +29,7 @@ for key in net._netconfig:
 #define CONFIG_RANDGEN_RANGESIZE 0.1f
 #define CONFIG_MATH_VECT_PARALLEL 
 #define CONFIC_VECT_NUM_THREADS 48
-#define CONFIG_ARRAY_ALIGNMENT 32
+#define CONFIG_ARRAY_ALIGNMENT 64
 // [[[end]]]
 
 
