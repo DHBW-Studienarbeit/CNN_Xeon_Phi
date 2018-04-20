@@ -12,10 +12,10 @@ for key in net._netconfig:
     cog.out(' ')
     cog.outl(net._netconfig[key])
 ]]] */
-#define CONFIG_FLOATTYPE_DOUBLE 
+#define CONFIG_FLOATTYPE_FLOAT 
 #define CONFIG_LEARNING_RATE (0.01f)
 #define CONFIG_LEARNRATE_REDUCTION (0.99f)
-#define REDUCE_CONV_LEARNRATE 
+#define REDUCE_CONV_LEARNRATE
 #define CONFIG_NUM_OF_ITERATIONS 50
 #define CONFIG_TRAININGS_PER_ITERATION 80
 #define CONFIG_TESTS_PER_ITERATION 8
@@ -27,7 +27,7 @@ for key in net._netconfig:
 #define CONFIG_RANDGEN_SEED 777
 #define CONFIG_RANDGEN_MEAN 0.0f
 #define CONFIG_RANDGEN_RANGESIZE 0.1f
-#define CONFIG_MATH_VECT_PARALLEL 
+#define CONFIG_MATH_VECT_PARALLEL
 #define CONFIC_VECT_NUM_THREADS 60
 #define CONFIG_ARRAY_ALIGNMENT 32
 // [[[end]]]
