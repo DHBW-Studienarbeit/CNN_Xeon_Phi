@@ -3,11 +3,9 @@
 #include "mathematics.h"
 
 
-INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo,
-                                NetState_p netstate
-                              )
+INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo)
 {
-    Float_p z_vector_start = shared_tmp_floats;
+    Float_p z_vector_start = layerinfo->shared_tmp_floats;
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
     Int_t i, j;
@@ -22,10 +20,9 @@ INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo,
                                 layerinfo->input_matrix_width,
                                 layerinfo->input_matrix_height,
                                 1.0f,
-                                netstate->weights_f + layerinfo->weights_offset + j * layerinfo->input_matrix_height,
+                                layerinfo->weights_start + j * layerinfo->input_matrix_height,
                                 layerinfo->filter_matrix_width,
-                                netstate->activations
-                                 + layerinfo->input_activation_offset
+                                layerinfo->input_activation_start
                                  + i * layerinfo->filter_feature_input_count
                                  + j * layerinfo->input_matrix_toplayer_elements_count,
                                 layerinfo->input_matrix_height,
@@ -44,9 +41,9 @@ INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo,
                         layerinfo->input_matrix_width,
                         1,
                         1.0f,
-                        netstate->weights_f + layerinfo->biases_offset,
+                        layerinfo->biases_start,
                         layerinfo->filter_feature_output_count,
-                        shared_ones_floats,
+                        layerinfo->shared_ones_floats,
                         1,
                         1.0f,
                         z_vector_start,
@@ -55,28 +52,26 @@ INLINE void layer_conv_forward( const ConvolutionalLayer_p layerinfo,
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
                 z_vector_start,
-                netstate->activations + layerinfo->output_activation_offset
+                layerinfo->output_activation_start
             ) ;
 }
 
-INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
-                                NetState_p netstate
-                               )
+INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo)
 {
-    Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
+    Float_p y_deriv_z = layerinfo->shared_tmp_floats;
+    Float_p rev_sigmoid_buffer = y_deriv_z + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     Int_t i, j;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
-                        netstate->activations + layerinfo->output_activation_offset,
+                        layerinfo->output_activation_start,
                         y_deriv_z,
                         rev_sigmoid_buffer
                       );
     // calc cost_deriv_z from y_deriv_z and cost_deriv_y
     MATH_VECT_MUL(  layerinfo->output_activation_count,
                     y_deriv_z,
-                    netstate->activations_errors + layerinfo->output_activation_offset,
+                    layerinfo->output_activation_error_start,
                     cost_deriv_z
                  );
     // calc cost_deriv_x from cost_deriv_z and weights
@@ -93,13 +88,12 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
                             layerinfo->input_matrix_width,
                             layerinfo->filter_feature_output_count,
                             1.0f,
-                            netstate->weights_f + layerinfo->weights_offset + j * layerinfo->input_matrix_height,
+                            layerinfo->weights_start + j * layerinfo->input_matrix_height,
                             layerinfo->filter_matrix_width,
                             cost_deriv_z + i * layerinfo->partial_output_matrix_count,
                             layerinfo->filter_feature_output_count,
                             beta,
-                            netstate->activations_errors
-                            + layerinfo->input_activation_offset
+                            layerinfo->input_activation_error_start
                             + i * layerinfo->filter_feature_input_count
                             + j * layerinfo->input_matrix_toplayer_elements_count,
                             layerinfo->input_matrix_height
@@ -121,10 +115,10 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
                         learn_reduction,
                         cost_deriv_z,
                         layerinfo->filter_feature_output_count,
-                        shared_ones_floats,
+                        layerinfo->shared_ones_floats,
                         1,
                         0.0f,
-                        netstate->weights_f_errors + layerinfo->biases_offset,
+                        layerinfo->biases_error_start,
                         1
                     );
     // calc cost_deriv_weights
@@ -144,14 +138,12 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
                                 cost_deriv_z
                                  + i * layerinfo->partial_output_matrix_count,
                                 layerinfo->filter_feature_output_count,
-                                netstate->activations
-                                 + layerinfo->input_activation_offset
+                                layerinfo->input_activation_start
                                  + i * layerinfo->filter_feature_input_count
                                  + j * layerinfo->input_matrix_toplayer_elements_count,
                                 layerinfo->input_matrix_height,
                                 beta,
-                                netstate->weights_f_errors
-                                 + layerinfo->weights_offset
+                                layerinfo->weights_error_start
                                  + j * layerinfo->input_matrix_height,
                                 layerinfo->filter_matrix_width
                      );
@@ -162,11 +154,10 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo,
 
 
 INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
-                                        NetState_p netstate,
                                         const Float_p input_start
                                     )
 {
-    Float_p z_vector_start = shared_tmp_floats;
+    Float_p z_vector_start = layerinfo->shared_tmp_floats;
     // matrix products are summed up, but cleaned in the beginning
     Float_t beta=0.0f;
     Int_t i, j;
@@ -181,10 +172,9 @@ INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
                                 layerinfo->input_matrix_width,
                                 layerinfo->input_matrix_height,
                                 1.0f,
-                                netstate->weights_f + layerinfo->weights_offset + j * layerinfo->input_matrix_height,
+                                layerinfo->weights_start + j * layerinfo->input_matrix_height,
                                 layerinfo->filter_matrix_width,
                                 input_start
-                                 + layerinfo->input_activation_offset
                                  + i * layerinfo->filter_feature_input_count
                                  + j * layerinfo->input_matrix_toplayer_elements_count,
                                 layerinfo->input_matrix_height,
@@ -203,9 +193,9 @@ INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
                         layerinfo->input_matrix_width,
                         1,
                         1.0f,
-                        netstate->weights_f + layerinfo->biases_offset,
+                        layerinfo->biases_start,
                         layerinfo->filter_feature_output_count,
-                        shared_ones_floats,
+                        layerinfo->shared_ones_floats,
                         1,
                         1.0f,
                         z_vector_start,
@@ -214,30 +204,29 @@ INLINE void layer_conv_first_forward(   const ConvolutionalLayer_p layerinfo,
     // apply sigmoid to result
     sigmoid(    layerinfo->output_activation_count,
                 z_vector_start,
-                netstate->activations + layerinfo->output_activation_offset
+                layerinfo->output_activation_start
             ) ;
 }
 
 
 INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
-                                        NetState_p netstate,
                                         const Float_p input_start
                                      )
 {
-    Float_p y_deriv_z = shared_tmp_floats;
-    Float_p rev_sigmoid_buffer = shared_tmp_floats + layerinfo->output_activation_count;
+    Float_p y_deriv_z = layerinfo->shared_tmp_floats;
+    Float_p rev_sigmoid_buffer = y_deriv_z + layerinfo->output_activation_count;
     Float_p cost_deriv_z = rev_sigmoid_buffer;
     Int_t i, j;
     // calc y_deriv_z from y
     sigmoid_derivation( layerinfo->output_activation_count,
-                        netstate->activations + layerinfo->output_activation_offset,
+                        layerinfo->output_activation_start,
                         y_deriv_z,
                         rev_sigmoid_buffer
                       );
     // calc cost_deriv_z from y_deriv_z and cost_deriv_y
     MATH_VECT_MUL(  layerinfo->output_activation_count,
                     y_deriv_z,
-                    netstate->activations_errors + layerinfo->output_activation_offset,
+                    layerinfo->output_activation_error_start,
                     cost_deriv_z
                  );
 
@@ -254,10 +243,10 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
                         learn_reduction,
                         cost_deriv_z,
                         layerinfo->filter_feature_output_count,
-                        shared_ones_floats,
+                        layerinfo->shared_ones_floats,
                         1,
                         0.0f,
-                        netstate->weights_f_errors + layerinfo->biases_offset,
+                        layerinfo->biases_error_start,
                         1
                     );
     // calc cost_deriv_weights
@@ -282,8 +271,7 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
                                  + j * layerinfo->input_matrix_toplayer_elements_count,
                                 layerinfo->input_matrix_height,
                                 beta,
-                                netstate->weights_f_errors
-                                 + layerinfo->weights_offset
+                                layerinfo->weights_error_start
                                  + j * layerinfo->input_matrix_height,
                                 layerinfo->filter_matrix_width
                      );
@@ -293,15 +281,12 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
 }
 
 
-INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo,
-                                     NetState_p netstate
-                                    )
+INLINE Float_p layer_conv_get_output(const ConvolutionalLayer_p layerinfo)
 {
-    return netstate->activations + layerinfo->output_activation_offset;
+    return layerinfo->output_activation_start;
 }
 
 INLINE Int_t layer_conv_get_output_position(const ConvolutionalLayer_p layerinfo,
-                                            NetState_p netstate,
                                             Int_t p,
                                             Int_t y,
                                             Int_t x,

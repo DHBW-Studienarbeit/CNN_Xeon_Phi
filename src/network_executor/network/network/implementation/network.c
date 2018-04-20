@@ -3,7 +3,7 @@
 #include "shared_arrays.h"
 
 
-void network_forward(const NeuronalNetwork_p network, NetState_p netstate, const Float_p input)
+void network_forward(const NeuronalNetwork_p network, const Float_p input)
 {
     /* [[[cog
     import cog
@@ -29,7 +29,7 @@ void network_forward(const NeuronalNetwork_p network, NetState_p netstate, const
     // [[[end]]]
 }
 
-void network_backward(const NeuronalNetwork_p network, NetState_p netstate, const Float_p input)
+void network_backward(const NeuronalNetwork_p network, const Float_p input)
 {
     /* [[[cog
     import cog
@@ -57,17 +57,17 @@ void network_backward(const NeuronalNetwork_p network, NetState_p netstate, cons
 }
 
 
-void network_gradient_descent(const NeuronalNetwork_p network, NetState_p netstate, Float_t learn_rate)
+void network_gradient_descent(const NeuronalNetwork_p network, Float_t learn_rate)
 {
     MATH_VECT_VECT_SCAL_ADD(    NETWORK_WEIGHTS_F_SIZE,
                                 (-1.0f)*learn_rate,
-                                netstate->weights_f_errors,
+                                network->weights_f_errors,
                                 1,
-                                netstate->weights_f,
+                                network->weights_f,
                                 1 );
 }
 
-Float_t network_get_cost(const NeuronalNetwork_p network, NetState_p netstate, const Float_p labels)
+Float_t network_get_cost(const NeuronalNetwork_p network, const Float_p labels)
 {
     /* [[[cog
     import cog
@@ -76,16 +76,16 @@ Float_t network_get_cost(const NeuronalNetwork_p network, NetState_p netstate, c
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", netstate->activations + network->layer_")
+    cog.out(", network->activations + network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, labels, shared_tmp_floats);")
+    cog.out(".output_activation_offset, labels, network->shared_tmp_floats);")
     ]]] */
-    return get_cost(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels, shared_tmp_floats);
+    return get_cost(8, 10, network->activations + network->layer_5.output_activation_offset, labels, network->shared_tmp_floats);
     // [[[end]]]
 }
 
 
-Float_t network_get_accuracy(const NeuronalNetwork_p network, NetState_p netstate, const Float_p labels)
+Float_t network_get_accuracy(const NeuronalNetwork_p network, const Float_p labels)
 {
     /* [[[cog
     import cog
@@ -94,16 +94,16 @@ Float_t network_get_accuracy(const NeuronalNetwork_p network, NetState_p netstat
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", netstate->activations + network->layer_")
+    cog.out(", network->activations + network->layer_")
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_offset, labels);")
     ]]] */
-    return get_accuracy(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels);
+    return get_accuracy(8, 10, network->activations + network->layer_5.output_activation_offset, labels);
     // [[[end]]]
 }
 
 
-void network_derive_cost(const NeuronalNetwork_p network, NetState_p netstate, const Float_p labels)
+void network_derive_cost(const NeuronalNetwork_p network, const Float_p labels)
 {
     /* [[[cog
     import cog
@@ -112,12 +112,12 @@ void network_derive_cost(const NeuronalNetwork_p network, NetState_p netstate, c
     cog.out(str(net.get_output_shape().get_count_probes()))
     cog.out(", ")
     cog.out(str(net.get_output_shape().get_count_total()//net.get_output_shape().get_count_probes()))
-    cog.out(", netstate->activations + network->layer_")
+    cog.out(", network->activations + network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, labels, netstate->activations_errors + network->layer_")
+    cog.out(".output_activation_offset, labels, network->activations_errors + network->layer_")
     cog.out(str(len(net._layers)-1))
-    cog.out(".output_activation_offset, shared_tmp_floats);")
+    cog.out(".output_activation_offset, network->shared_tmp_floats);")
     ]]] */
-    get_cost_derivatives(8, 10, netstate->activations + network->layer_5.output_activation_offset, labels, netstate->activations_errors + network->layer_5.output_activation_offset, shared_tmp_floats);
+    get_cost_derivatives(8, 10, network->activations + network->layer_5.output_activation_offset, labels, network->activations_errors + network->layer_5.output_activation_offset, network->shared_tmp_floats);
     // [[[end]]]
 }

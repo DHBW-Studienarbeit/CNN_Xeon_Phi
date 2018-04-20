@@ -43,20 +43,14 @@ typedef struct
 } MaxPoolingLayer_t, *MaxPoolingLayer_p;
 
 
-INLINE void layer_maxpool_forward(  const MaxPoolingLayer_p layerinfo,
-                                    NetState_p netstate);
-INLINE void layer_maxpool_backward( const MaxPoolingLayer_p layerinfo,
-                                    NetState_p netstate);
+INLINE void layer_maxpool_forward(  const MaxPoolingLayer_p layerinfo);
+INLINE void layer_maxpool_backward( const MaxPoolingLayer_p layerinfo);
 INLINE void layer_maxpool_first_forward(const MaxPoolingLayer_p layerinfo,
-                                        NetState_p netstate,
                                         const Float_p input_start);
 INLINE void layer_maxpool_first_backward(   const MaxPoolingLayer_p layerinfo,
-                                            NetState_p netstate,
                                             const Float_p input_start);
-INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo,
-                                        NetState_p netstate);
+INLINE Float_p layer_maxpool_get_output(const MaxPoolingLayer_p layerinfo,);
 INLINE Int_t layer_maxpool_get_output_position( const MaxPoolingLayer_p layerinfo,
-                                                NetState_p netstate,
                                                 Int_t p,
                                                 Int_t y,
                                                 Int_t x,
