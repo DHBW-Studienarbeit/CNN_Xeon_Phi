@@ -19,7 +19,6 @@ C_SOURCES += network/layertypes/implementation/maxpoollayer.c
 C_SOURCES += support/mathematical/implementation/mathematics.c
 C_SOURCES += support/mathematical/implementation/mkl_vector_prl.c
 C_SOURCES += network/network/implementation/net_init.c
-C_SOURCES += support/shared_data/implementation/shared_arrays.c
 C_SOURCES += support/testing/implementation/testing.c
 
 CPP_SOURCES := datasupply/csvsupplier/implementation/csvsupplier.cpp
@@ -32,18 +31,17 @@ INCLUDE_PATH += network/network/include
 INCLUDE_PATH += network/weightgenerator/include
 INCLUDE_PATH += support/mathematical/include
 INCLUDE_PATH += support/settings/include
-INCLUDE_PATH += support/shared_data/include
 INCLUDE_PATH += support/testing/include
 
 
 
-EXTLIBS := 
+EXTLIBS :=
 #EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
 #EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
 #EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
 #EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
 
-CFLAGS := 
+CFLAGS :=
 CCFLAGS := -Wall -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
 CPPFLAGS := -Wall -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
 LINKFLAGS := -qopenmp -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
@@ -73,7 +71,7 @@ rebuild: clean prebuild $(BIN_PATH)
 	echo "rebuild done"
 
 .PHONY: clean
-clean: 
+clean:
 	echo "deleting build files"
 	rm $(C_OBJECTS)
 	rm $(CPP_OBJECTS)
@@ -81,7 +79,7 @@ clean:
 	echo "done deleting"
 
 .PHONY: prebuild
-prebuild: 
+prebuild:
 	echo "building files"
 
 
@@ -95,6 +93,5 @@ $(CPP_OBJECTS): $(CPP_SRC_FULL) $(INC_FULLPATH) objdirs
 	$(CXX) -o $@ -c $(patsubst $(BUILDDIR_BASE)%.o, $(SRCDIR_BASE)%.cpp, $@) $(CFLAGS) $(CPPFLAGS) $(INC_FLAGS)
 
 .PHONY: objdirs
-objdirs: 
+objdirs:
 	mkdir -p $(dir $(C_OBJECTS) $(CPP_OBJECTS))
-

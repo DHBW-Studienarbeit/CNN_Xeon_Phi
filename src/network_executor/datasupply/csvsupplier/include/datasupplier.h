@@ -3,35 +3,12 @@
 
 #include "settings.h"
 
-#define FOLDERNAME_MAX_LENGTH   100
-
-/* [[[cog
-import cog
-from network_descriptor.NetInstance import net
-
-cog.outl("#define NUM_DATASETS_PER_BATCH " + str(net.get_input_shape().get_count_probes()))
-cog.outl("#define DATASET_INPUT_SIZE " + str(net.get_input_shape().get_count_x() \
- 											* net.get_input_shape().get_count_y() \
-											* net.get_input_shape().get_count_features()))
-cog.outl("#define DATASET_OUTPUT_SIZE " + str(net.get_output_shape().get_count_x() \
- 											* net.get_output_shape().get_count_y() \
-											* net.get_output_shape().get_count_features()))
-]]] */
-#define NUM_DATASETS_PER_BATCH 8
-#define DATASET_INPUT_SIZE 784
-#define DATASET_OUTPUT_SIZE 10
-// [[[end]]]
-
-#define NUM_BATCHES_PER_FILE	(CONFIG_NUM_DATASETS_PER_FILE / NUM_DATASETS_PER_BATCH)
-
 
 typedef struct {
-	Float_t inputs[CONFIG_NUM_DATASETS_PER_FILE*DATASET_INPUT_SIZE];
-	Float_t labels[CONFIG_NUM_DATASETS_PER_FILE*DATASET_OUTPUT_SIZE];
-	Int_t batch_index;
-	Int_t file_index;
+	Float_p inputs;
+	Float_p labels;
+	Int_t dataset_index;
 	Int_t num_of_files;
-	char foldername[FOLDERNAME_MAX_LENGTH];
 } DataSupplier_t, *DataSupplier_p;
 
 
@@ -40,7 +17,7 @@ extern "C" {
 #endif
 
 
-void datasupply_init(DataSupplier_p supplier, Int_t num_of_files, char *foldername);
+void datasupply_init(DataSupplier_p supplier, Int_t num_of_files, const char *foldername);
 void datasupply_next_batch(DataSupplier_p supplier);
 Float_p datasupply_get_input(DataSupplier_p supplier);
 Float_p datasupply_get_output(DataSupplier_p supplier);
