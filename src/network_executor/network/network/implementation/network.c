@@ -79,7 +79,7 @@ Float_t network_get_cost(const NeuronalNetwork_p network, const Float_p labels)
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_start, labels, network->shared_tmp_floats);")
     ]]] */
-    return get_cost(8, 10, network->layer_5.output_activation_start, labels, network->shared_tmp_floats);
+    return get_cost(16, 10, network->layer_5.output_activation_start, labels, network->shared_tmp_floats);
     // [[[end]]]
 }
 
@@ -97,7 +97,7 @@ Float_t network_get_accuracy(const NeuronalNetwork_p network, const Float_p labe
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_start, labels);")
     ]]] */
-    return get_accuracy(8, 10, network->layer_5.output_activation_start, labels);
+    return get_accuracy(16, 10, network->layer_5.output_activation_start, labels);
     // [[[end]]]
 }
 
@@ -117,6 +117,6 @@ void network_derive_cost(const NeuronalNetwork_p network, const Float_p labels)
     cog.out(str(len(net._layers)-1))
     cog.out(".output_activation_error_start, network->shared_tmp_floats);")
     ]]] */
-    get_cost_derivatives(8, 10, network->layer_5.output_activation_start, labels, network->layer_5.output_activation_error_start, network->shared_tmp_floats);
+    get_cost_derivatives(16, 10, network->layer_5.output_activation_start, labels, network->layer_5.output_activation_error_start, network->shared_tmp_floats);
     // [[[end]]]
 }
