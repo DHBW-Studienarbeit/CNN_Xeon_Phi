@@ -44,10 +44,10 @@ EXTLIBS :=
 #EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
 
 CFLAGS :=
-CCFLAGS := -Wall -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
-CPPFLAGS := -Wall -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
+CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -mmic
+CPPFLAGS := -Wall -O3 -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include -mmic
 LINKFLAGS := -qopenmp
-MORELINKFLAGS := -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+MORELINKFLAGS := -L${MKLROOT}/lib/mic -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 
 
 
