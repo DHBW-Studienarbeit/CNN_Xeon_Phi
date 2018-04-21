@@ -1,3 +1,8 @@
+# native usage mode requires prebuilt libraries in this directory
+# ${MKLROOT}/lib/mic
+MK_PHI_USAGE_MODEL := autooffload
+#MK_PHI_USAGE_MODEL := native
+
 CC := icc
 CXX := icpc
 LINK := icc
@@ -35,20 +40,21 @@ INCLUDE_PATH += support/mathematical/include
 INCLUDE_PATH += support/settings/include
 INCLUDE_PATH += support/testing/include
 
-
-
 EXTLIBS :=
-#EXTLIBS := /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_lp64.a
-#EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_intel_thread.a
-#EXTLIBS += /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64/libmkl_core.a
-#EXTLIBS += /opt/intel/compilers_and_libraries/linux/lib/intel64/libiomp5.a
 
+ifeq ($(MK_PHI_USAGE_MODEL), native)
 CFLAGS :=
 CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -mmic
 CPPFLAGS := -Wall -O3 -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include -mmic
 LINKFLAGS := -qopenmp
 MORELINKFLAGS := -L${MKLROOT}/lib/mic -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
-
+else
+CFLAGS :=
+CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
+CPPFLAGS := -Wall -O3 -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
+LINKFLAGS := -qopenmp
+MORELINKFLAGS := -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+endif
 
 
 ###
@@ -67,31 +73,31 @@ CPP_OBJECTS := $(patsubst %.cpp, $(BUILDDIR_BASE)%.o, $(CPP_SOURCES))
 
 .PHONY: all
 all: prebuild $(BIN_PATH)
-	echo "build done"
+	@echo "+++ build done +++"
 
 .PHONY: execute
 execute: all preexecute $(REPORT_PATH)
-	echo "execution done"
+	@echo "+++ execution done +++"
 
 .PHONY: rebuild
 rebuild: clean prebuild $(BIN_PATH)
-	echo "rebuild done"
+	@echo "+++ rebuild done +++"
 
 .PHONY: clean
 clean:
-	echo "deleting build files"
-	rm $(C_OBJECTS)
-	rm $(CPP_OBJECTS)
-	rm $(BIN_PATH)
-	echo "done deleting"
+	echo "+++ deleting build files +++"
+	-rm $(C_OBJECTS)
+	-rm $(CPP_OBJECTS)
+	-rm $(BIN_PATH)
+	echo "+++ done deleting +++"
 
 .PHONY: prebuild
 prebuild:
-	echo "building files"
+	@echo "+++ building files +++"
 
 .PHONY: preexecute
 preexecute:
-	echo "executing program"
+	@echo "+++ executing program +++"
 
 
 
