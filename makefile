@@ -1,7 +1,7 @@
 # native usage mode requires prebuilt libraries in this directory
 # ${MKLROOT}/lib/mic
-MK_PHI_USAGE_MODEL := autooffload
-#MK_PHI_USAGE_MODEL := native
+MK_PHI_USAGE_MODEL ?= autooffload
+#MK_PHI_USAGE_MODEL ?= native
 
 CC := icc
 CXX := icpc
@@ -47,7 +47,7 @@ CFLAGS :=
 CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -mmic
 CPPFLAGS := -Wall -O3 -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include -mmic
 LINKFLAGS := -qopenmp
-MORELINKFLAGS := -L${MKLROOT}/lib/mic -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+MORELINKFLAGS := -L${MKLROOT}/lib/mic -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl -mmic
 else
 CFLAGS :=
 CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
