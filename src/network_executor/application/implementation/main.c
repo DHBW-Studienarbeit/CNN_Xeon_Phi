@@ -68,13 +68,13 @@ int main(void)
 
     exec_testsession(&network, &testsupplier, CONFIG_NUM_FINAL_TESTS, &testresult);
 #ifdef CONFIG_OUTPUT_VERBOSE
-    printf("\n+++ SUMMARY +++");
+    printf("\n+++ SUMMARY +++\n");
 #endif
     printf("%d Iterations performed\nfinal accuracy: ", CONFIG_NUM_OF_ITERATIONS);
     printf(FLOAT_T_ESCAPE, testresult.accuracy);
     printf("\nfinal cost per picture: ");
     printf(FLOAT_T_ESCAPE, testresult.cost);
-    printf("\nfinal learning rate");
+    printf("\nfinal learning rate: ");
     printf(FLOAT_T_ESCAPE, learning_rate);
     printf("\n");
 
