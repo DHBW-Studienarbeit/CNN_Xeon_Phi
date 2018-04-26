@@ -12,6 +12,7 @@ for key in net._netconfig:
     cog.out(' ')
     cog.outl(net._netconfig[key])
 ]]] */
+#define CONFIG_BATCHSIZE 50
 #define CONFIG_FLOATTYPE_FLOAT 
 #define CONFIG_LEARNING_RATE (0.008f)
 #define CONFIG_LEARNRATE_REDUCTION (0.992f)

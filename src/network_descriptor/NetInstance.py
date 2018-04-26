@@ -2,7 +2,7 @@ from network_descriptor.network.Network import Network
 from network_descriptor.activationshapes.StdActivationShape import StdActivationShape
 from network_descriptor.NetConfig import netconfig
 
-input_shape = StdActivationShape(16, 28, 28, 1)
+input_shape = StdActivationShape(int(netconfig['CONFIG_BATCHSIZE']), 28, 28, 1)
 net = Network(input_shape, netconfig)
 
 net.add_convolutional_layer(5, 5, 32)
