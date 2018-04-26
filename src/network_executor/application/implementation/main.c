@@ -19,7 +19,7 @@ int main(void)
     TestResult_t testresult;
     Int_t iteration;
     Float_t last_cost;
-    Float_t learning_rate = CONFIG_LEARNING_RATE / CONFIG_BATCHSIZE;
+    Float_t learning_rate = CONFIG_LEARNING_RATE;
 #ifdef CONFIG_OUTPUT_VERBOSE
     printf("do some initialization stuff\n");
 #endif
