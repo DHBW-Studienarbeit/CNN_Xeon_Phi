@@ -45,7 +45,8 @@ typedef struct
     Float_p shared_tmp_floats;
     Float_p shared_ones_floats;
     // learn_reduction
-    Float_t learn_reduction;
+    Float_t learn_reduction_weights;
+    Float_t learn_reduction_biases;
 } ConvolutionalLayer_t, *ConvolutionalLayer_p;
 
 

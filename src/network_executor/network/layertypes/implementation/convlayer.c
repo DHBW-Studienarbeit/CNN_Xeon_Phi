@@ -101,16 +101,12 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo)
         beta=1.0f;
     }
 
-    // learn reduction factor
-    // conv weights are used much more often than std weights
-    // learn speed per use must be decreased
-
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
     MATH_MULT_MAT_VECT( CblasColMajor,
                         CblasNoTrans,
                         layerinfo->filter_feature_output_count,
                         layerinfo->full_output_matrix_width,
-                        layerinfo->learn_reduction,
+                        layerinfo->learn_reduction_biases,
                         cost_deriv_z,
                         layerinfo->filter_feature_output_count,
                         layerinfo->shared_ones_floats,
@@ -131,7 +127,7 @@ INLINE void layer_conv_backward(const ConvolutionalLayer_p layerinfo)
                                 layerinfo->filter_feature_output_count,
                                 layerinfo->input_matrix_height,
                                 layerinfo->input_matrix_width,
-                                layerinfo->learn_reduction,
+                                layerinfo->learn_reduction_weights,
                                 cost_deriv_z
                                  + i * layerinfo->partial_output_matrix_count,
                                 layerinfo->filter_feature_output_count,
@@ -227,16 +223,12 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
                     cost_deriv_z
                  );
 
-    // learn reduction factor
-    // conv weights are used much more often than std weights
-    // learn speed per use must be decreased
-
     // add cost_deriv_z to cost_deriv_bias for all datasets of the batch
     MATH_MULT_MAT_VECT( CblasColMajor,
                         CblasNoTrans,
                         layerinfo->filter_feature_output_count,
                         layerinfo->full_output_matrix_width,
-                        layerinfo->learn_reduction,
+                        layerinfo->learn_reduction_biases,
                         cost_deriv_z,
                         layerinfo->filter_feature_output_count,
                         layerinfo->shared_ones_floats,
@@ -257,7 +249,7 @@ INLINE void layer_conv_first_backward(  const ConvolutionalLayer_p layerinfo,
                                 layerinfo->filter_feature_output_count,
                                 layerinfo->input_matrix_height,
                                 layerinfo->input_matrix_width,
-                                layerinfo->learn_reduction,
+                                layerinfo->learn_reduction_weights,
                                 cost_deriv_z
                                  + i * layerinfo->partial_output_matrix_count,
                                 layerinfo->filter_feature_output_count,

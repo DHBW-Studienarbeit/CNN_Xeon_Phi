@@ -82,7 +82,8 @@ void network_init(const NeuronalNetwork_p network)
             cog.outl(prefix + ".shared_tmp_floats = network->shared_tmp_floats;")
             cog.outl(prefix + ".shared_ones_floats = network->shared_ones_floats;")
             cog.outl("#ifdef REDUCE_CONV_LEARNRATE")
-            cog.outl(prefix + ".learn_reduction = ((Float_t)CONFIG_BATCHSIZE) / (" + prefix + ".full_output_matrix_width);")
+            cog.outl(prefix + ".learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (" + prefix + ".full_output_matrix_width);")
+            cog.outl(prefix + ".learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (" + prefix + ".input_matrix_width);")
             cog.outl("#else")
             cog.outl(prefix + ".learn_reduction = 1.0f;")
             cog.outl("#endif")
@@ -134,7 +135,8 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_0.shared_tmp_floats = network->shared_tmp_floats;
     network->layer_0.shared_ones_floats = network->shared_ones_floats;
     #ifdef REDUCE_CONV_LEARNRATE
-    network->layer_0.learn_reduction = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_0.full_output_matrix_width);
+    network->layer_0.learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_0.full_output_matrix_width);
+    network->layer_0.learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_0.input_matrix_width);
     #else
     network->layer_0.learn_reduction = 1.0f;
     #endif
@@ -183,7 +185,8 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_2.shared_tmp_floats = network->shared_tmp_floats;
     network->layer_2.shared_ones_floats = network->shared_ones_floats;
     #ifdef REDUCE_CONV_LEARNRATE
-    network->layer_2.learn_reduction = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_2.full_output_matrix_width);
+    network->layer_2.learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_2.full_output_matrix_width);
+    network->layer_2.learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_2.input_matrix_width);
     #else
     network->layer_2.learn_reduction = 1.0f;
     #endif
