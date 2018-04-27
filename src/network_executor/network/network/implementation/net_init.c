@@ -110,21 +110,21 @@ void network_init(const NeuronalNetwork_p network)
     // convolutional
     network->layer_0.input_activation_start = network->activations + 0;
     network->layer_0.input_activation_error_start = network->activations_errors + 0;
-    network->layer_0.input_activation_count = 25088;
+    network->layer_0.input_activation_count = 50176;
     network->layer_0.output_activation_start = network->activations + 0;
     network->layer_0.output_activation_error_start = network->activations_errors + 0;
-    network->layer_0.output_activation_count = 799200;
+    network->layer_0.output_activation_count = 1601920;
     network->layer_0.filter_feature_input_count = 1;
     network->layer_0.filter_x_count = 5;
     network->layer_0.filter_y_count = 5;
     network->layer_0.filter_feature_output_count = 32;
-    network->layer_0.batch_count = 32;
+    network->layer_0.batch_count = 64;
     network->layer_0.filter_matrix_width = 25;
     network->layer_0.input_matrix_height = 5;
-    network->layer_0.input_matrix_width = 4995;
+    network->layer_0.input_matrix_width = 10012;
     network->layer_0.input_matrix_toplayer_elements_count = 28;
-    network->layer_0.partial_output_matrix_count = 159840;
-    network->layer_0.full_output_matrix_width = 24975;
+    network->layer_0.partial_output_matrix_count = 320384;
+    network->layer_0.full_output_matrix_width = 50060;
     network->layer_0.input_x_count = 28;
     network->layer_0.input_xy_count = 784;
     network->layer_0.weights_total_count = 832;
@@ -143,38 +143,38 @@ void network_init(const NeuronalNetwork_p network)
     // maxpooling
     network->layer_1.input_activation_start = network->activations + 0;
     network->layer_1.input_activation_error_start = network->activations_errors + 0;
-    network->layer_1.input_activation_count = 799200;
-    network->layer_1.output_activation_start = network->activations + 799232;
-    network->layer_1.output_activation_error_start = network->activations_errors + 799232;
-    network->layer_1.output_activation_count = 147456;
-    network->layer_1.output_p = 32;
+    network->layer_1.input_activation_count = 1601920;
+    network->layer_1.output_activation_start = network->activations + 1601920;
+    network->layer_1.output_activation_error_start = network->activations_errors + 1601920;
+    network->layer_1.output_activation_count = 294912;
+    network->layer_1.output_p = 64;
     network->layer_1.output_y = 12;
     network->layer_1.output_x = 12;
     network->layer_1.output_f = 32;
-    network->layer_1.pooling_layout.relevant_entries_count = 589824;
-    network->layer_1.pooling_layout.num_of_lines = 147456;
+    network->layer_1.pooling_layout.relevant_entries_count = 1179648;
+    network->layer_1.pooling_layout.num_of_lines = 294912;
     network->layer_1.pooling_layout.relevant_columns_per_line = 4;
     network->layer_1.pooling_layout.relevant_columns_start = network->pooling_layout + 0;
-    network->layer_1.pooling_mem.relevant_entries_count = 147456;
+    network->layer_1.pooling_mem.relevant_entries_count = 294912;
     network->layer_1.pooling_mem.relevant_entries_start = network->pooling_mem + 0;
     // convolutional
-    network->layer_2.input_activation_start = network->activations + 799232;
-    network->layer_2.input_activation_error_start = network->activations_errors + 799232;
-    network->layer_2.input_activation_count = 147456;
-    network->layer_2.output_activation_start = network->activations + 946688;
-    network->layer_2.output_activation_error_start = network->activations_errors + 946688;
-    network->layer_2.output_activation_count = 291840;
+    network->layer_2.input_activation_start = network->activations + 1601920;
+    network->layer_2.input_activation_error_start = network->activations_errors + 1601920;
+    network->layer_2.input_activation_count = 294912;
+    network->layer_2.output_activation_start = network->activations + 1896832;
+    network->layer_2.output_activation_error_start = network->activations_errors + 1896832;
+    network->layer_2.output_activation_count = 586560;
     network->layer_2.filter_feature_input_count = 32;
     network->layer_2.filter_x_count = 5;
     network->layer_2.filter_y_count = 5;
     network->layer_2.filter_feature_output_count = 64;
-    network->layer_2.batch_count = 32;
+    network->layer_2.batch_count = 64;
     network->layer_2.filter_matrix_width = 800;
     network->layer_2.input_matrix_height = 160;
-    network->layer_2.input_matrix_width = 912;
+    network->layer_2.input_matrix_width = 1833;
     network->layer_2.input_matrix_toplayer_elements_count = 384;
-    network->layer_2.partial_output_matrix_count = 58368;
-    network->layer_2.full_output_matrix_width = 4560;
+    network->layer_2.partial_output_matrix_count = 117312;
+    network->layer_2.full_output_matrix_width = 9165;
     network->layer_2.input_x_count = 12;
     network->layer_2.input_xy_count = 144;
     network->layer_2.weights_total_count = 51264;
@@ -191,32 +191,32 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_2.learn_reduction = 1.0f;
     #endif
     // maxpooling
-    network->layer_3.input_activation_start = network->activations + 946688;
-    network->layer_3.input_activation_error_start = network->activations_errors + 946688;
-    network->layer_3.input_activation_count = 291840;
-    network->layer_3.output_activation_start = network->activations + 1238528;
-    network->layer_3.output_activation_error_start = network->activations_errors + 1238528;
-    network->layer_3.output_activation_count = 32768;
-    network->layer_3.output_p = 32;
+    network->layer_3.input_activation_start = network->activations + 1896832;
+    network->layer_3.input_activation_error_start = network->activations_errors + 1896832;
+    network->layer_3.input_activation_count = 586560;
+    network->layer_3.output_activation_start = network->activations + 2483392;
+    network->layer_3.output_activation_error_start = network->activations_errors + 2483392;
+    network->layer_3.output_activation_count = 65536;
+    network->layer_3.output_p = 64;
     network->layer_3.output_y = 4;
     network->layer_3.output_x = 4;
     network->layer_3.output_f = 64;
-    network->layer_3.pooling_layout.relevant_entries_count = 131072;
-    network->layer_3.pooling_layout.num_of_lines = 32768;
+    network->layer_3.pooling_layout.relevant_entries_count = 262144;
+    network->layer_3.pooling_layout.num_of_lines = 65536;
     network->layer_3.pooling_layout.relevant_columns_per_line = 4;
-    network->layer_3.pooling_layout.relevant_columns_start = network->pooling_layout + 589824;
-    network->layer_3.pooling_mem.relevant_entries_count = 32768;
-    network->layer_3.pooling_mem.relevant_entries_start = network->pooling_mem + 147456;
+    network->layer_3.pooling_layout.relevant_columns_start = network->pooling_layout + 1179648;
+    network->layer_3.pooling_mem.relevant_entries_count = 65536;
+    network->layer_3.pooling_mem.relevant_entries_start = network->pooling_mem + 294912;
     // fully connected
-    network->layer_4.input_activation_start = network->activations + 1238528;
-    network->layer_4.input_activation_error_start = network->activations_errors + 1238528;
-    network->layer_4.input_activation_count = 32768;
-    network->layer_4.output_activation_start = network->activations + 1271296;
-    network->layer_4.output_activation_error_start = network->activations_errors + 1271296;
-    network->layer_4.output_activation_count = 32768;
+    network->layer_4.input_activation_start = network->activations + 2483392;
+    network->layer_4.input_activation_error_start = network->activations_errors + 2483392;
+    network->layer_4.input_activation_count = 65536;
+    network->layer_4.output_activation_start = network->activations + 2548928;
+    network->layer_4.output_activation_error_start = network->activations_errors + 2548928;
+    network->layer_4.output_activation_count = 65536;
     network->layer_4.single_input_count = 1024;
     network->layer_4.single_output_count = 1024;
-    network->layer_4.batch_count = 32;
+    network->layer_4.batch_count = 64;
     network->layer_4.weights_count_total = 1049600;
     network->layer_4.weights_start = network->weights_f + 52096;
     network->layer_4.weights_error_start = network->weights_f_errors + 52096;
@@ -225,15 +225,15 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_4.shared_tmp_floats = network->shared_tmp_floats;
     network->layer_4.shared_ones_floats = network->shared_ones_floats;
     // fully connected
-    network->layer_5.input_activation_start = network->activations + 1271296;
-    network->layer_5.input_activation_error_start = network->activations_errors + 1271296;
-    network->layer_5.input_activation_count = 32768;
-    network->layer_5.output_activation_start = network->activations + 1304064;
-    network->layer_5.output_activation_error_start = network->activations_errors + 1304064;
-    network->layer_5.output_activation_count = 320;
+    network->layer_5.input_activation_start = network->activations + 2548928;
+    network->layer_5.input_activation_error_start = network->activations_errors + 2548928;
+    network->layer_5.input_activation_count = 65536;
+    network->layer_5.output_activation_start = network->activations + 2614464;
+    network->layer_5.output_activation_error_start = network->activations_errors + 2614464;
+    network->layer_5.output_activation_count = 640;
     network->layer_5.single_input_count = 1024;
     network->layer_5.single_output_count = 10;
-    network->layer_5.batch_count = 32;
+    network->layer_5.batch_count = 64;
     network->layer_5.weights_count_total = 10250;
     network->layer_5.weights_start = network->weights_f + 1101696;
     network->layer_5.weights_error_start = network->weights_f_errors + 1101696;
@@ -284,7 +284,7 @@ void network_init(const NeuronalNetwork_p network)
     // layer_1
     current_layer = &(network->layer_1);
     #pragma omp parallel for
-    for(i=0; i<147456; i++)
+    for(i=0; i<294912; i++)
     {
     Int_t f_out = i % current_layer->output_f;
     Int_t inner = i / current_layer->output_f;
@@ -312,7 +312,7 @@ void network_init(const NeuronalNetwork_p network)
     // layer_3
     current_layer = &(network->layer_3);
     #pragma omp parallel for
-    for(i=0; i<32768; i++)
+    for(i=0; i<65536; i++)
     {
     Int_t f_out = i % current_layer->output_f;
     Int_t inner = i / current_layer->output_f;
