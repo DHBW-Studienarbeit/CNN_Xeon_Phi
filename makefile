@@ -14,6 +14,8 @@ BUILDDIR_BASE := build/
 BIN_PATH := build/program
 REPORT_PATH := report.txt
 
+MKLROOT := /opt/intel/compilers_and_libraries_2017.5.239/linux/mkl/lib/mic
+
 
 C_SOURCES := application/implementation/main.c
 C_SOURCES += network/weightgenerator/randgenerator/implementation/randgenerator.c
@@ -53,7 +55,8 @@ CFLAGS :=
 CCFLAGS := -Wall -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include
 CPPFLAGS := -Wall -O3 -qopenmp -std=c++11 -DMKL_ILP64 -I${MKLROOT}/include
 LINKFLAGS := -qopenmp
-MORELINKFLAGS := -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+MORELINKFLAGS := -Wl,--start-group ${MKLROOT}/lib/mic/libmkl_intel_ilp64.a ${MKLROOT}/lib/mic/libmkl_intel_thread.a $(MKLROOT)/lib/mic/libmkl_core.a -Wl,--end-group -liomp5 -lpthread -lm -ldl
+#MORELINKFLAGS := -L$(MKLROOT)/lib/intel64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 endif
 
 
