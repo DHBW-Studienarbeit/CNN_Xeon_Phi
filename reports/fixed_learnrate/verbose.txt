@@ -1,0 +1,789 @@
+do some initialization stuff
+Iteration 0: 0.09375	2.35717
+Iteration 1: 0.10254	2.30200
+Iteration 2: 0.11328	2.29896
+Iteration 3: 0.19531	2.28571
+Iteration 4: 0.32520	2.24124
+Iteration 5: 0.62891	2.15027
+Iteration 6: 0.70605	2.08740
+Iteration 7: 0.75684	2.05199
+Iteration 8: 0.85547	1.95767
+Iteration 9: 0.78320	1.94533
+Iteration 10: 0.79785	1.93871
+Iteration 11: 0.82031	1.91751
+Iteration 12: 0.81738	1.89627
+Iteration 13: 0.80957	1.88885
+Iteration 14: 0.86719	1.84647
+Iteration 15: 0.90234	1.80596
+Iteration 16: 0.89355	1.82269
+Setting learning rate to 0.00100
+Iteration 17: 0.88477	1.82244
+Iteration 18: 0.93359	1.78283
+Iteration 19: 0.81641	1.87856
+Setting learning rate to 0.00100
+Iteration 20: 0.83105	1.87453
+Iteration 21: 0.82520	1.85245
+Iteration 22: 0.84863	1.83984
+Iteration 23: 0.82520	1.83620
+Iteration 24: 0.91699	1.77878
+Iteration 25: 0.89160	1.77482
+Iteration 26: 0.86328	1.82234
+Setting learning rate to 0.00100
+Iteration 27: 0.88770	1.79917
+Iteration 28: 0.89355	1.80947
+Setting learning rate to 0.00100
+Iteration 29: 0.81543	1.86726
+Setting learning rate to 0.00100
+Iteration 30: 0.79395	1.87158
+Setting learning rate to 0.00100
+Iteration 31: 0.82812	1.84392
+Iteration 32: 0.82324	1.84395
+Setting learning rate to 0.00100
+Iteration 33: 0.80273	1.83510
+Iteration 34: 0.88086	1.76497
+Iteration 35: 0.86328	1.76967
+Setting learning rate to 0.00100
+Iteration 36: 0.85938	1.77029
+Setting learning rate to 0.00100
+Iteration 37: 0.89551	1.73792
+Iteration 38: 0.87402	1.76316
+Setting learning rate to 0.00100
+Iteration 39: 0.84570	1.78285
+Setting learning rate to 0.00100
+Iteration 40: 0.81836	1.78979
+Setting learning rate to 0.00100
+Iteration 41: 0.86621	1.76043
+Iteration 42: 0.84668	1.76466
+Setting learning rate to 0.00100
+Iteration 43: 0.85352	1.75319
+Iteration 44: 0.90625	1.69599
+Iteration 45: 0.92383	1.68219
+Iteration 46: 0.89648	1.71606
+Setting learning rate to 0.00100
+Iteration 47: 0.92383	1.68137
+Iteration 48: 0.87598	1.74532
+Setting learning rate to 0.00100
+Iteration 49: 0.83203	1.78796
+Setting learning rate to 0.00100
+Iteration 50: 0.84180	1.78428
+Iteration 51: 0.85059	1.78281
+Iteration 52: 0.83203	1.79836
+Setting learning rate to 0.00100
+Iteration 53: 0.86816	1.75702
+Iteration 54: 0.88086	1.73398
+Iteration 55: 0.89355	1.75614
+Setting learning rate to 0.00100
+Iteration 56: 0.85645	1.76119
+Setting learning rate to 0.00100
+Iteration 57: 0.92676	1.70031
+Iteration 58: 0.80957	1.81607
+Setting learning rate to 0.00100
+Iteration 59: 0.81934	1.81054
+Iteration 60: 0.82520	1.79567
+Iteration 61: 0.84961	1.77384
+Iteration 62: 0.82129	1.78774
+Setting learning rate to 0.00100
+Iteration 63: 0.89355	1.72379
+Iteration 64: 0.89355	1.71645
+Iteration 65: 0.90039	1.72212
+Setting learning rate to 0.00100
+Iteration 66: 0.88770	1.72629
+Setting learning rate to 0.00100
+Iteration 67: 0.90625	1.71062
+Iteration 68: 0.84766	1.76965
+Setting learning rate to 0.00100
+Iteration 69: 0.83105	1.76969
+Setting learning rate to 0.00100
+Iteration 70: 0.84961	1.75352
+Iteration 71: 0.84180	1.75436
+Setting learning rate to 0.00100
+Iteration 72: 0.83984	1.75852
+Setting learning rate to 0.00100
+Iteration 73: 0.89941	1.69126
+Iteration 74: 0.87305	1.71744
+Setting learning rate to 0.00100
+Iteration 75: 0.88672	1.71888
+Setting learning rate to 0.00100
+Iteration 76: 0.90137	1.69453
+Iteration 77: 0.86035	1.74322
+Setting learning rate to 0.00100
+Iteration 78: 0.84277	1.75198
+Setting learning rate to 0.00100
+Iteration 79: 0.82324	1.77167
+Setting learning rate to 0.00100
+Iteration 80: 0.84375	1.75248
+Iteration 81: 0.83203	1.75671
+Setting learning rate to 0.00100
+Iteration 82: 0.84082	1.75305
+Iteration 83: 0.88672	1.69912
+Iteration 84: 0.90039	1.68401
+Iteration 85: 0.87891	1.71985
+Setting learning rate to 0.00100
+Iteration 86: 0.90137	1.69123
+Iteration 87: 0.87598	1.71020
+Setting learning rate to 0.00100
+Iteration 88: 0.82715	1.74377
+Setting learning rate to 0.00100
+Iteration 89: 0.84961	1.73934
+Iteration 90: 0.85742	1.74284
+Setting learning rate to 0.00100
+Iteration 91: 0.84277	1.75386
+Setting learning rate to 0.00100
+Iteration 92: 0.88965	1.70280
+Iteration 93: 0.90918	1.68129
+Iteration 94: 0.90625	1.68573
+Setting learning rate to 0.00100
+Iteration 95: 0.87988	1.71773
+Setting learning rate to 0.00100
+Iteration 96: 0.92871	1.63702
+Iteration 97: 0.85645	1.73491
+Setting learning rate to 0.00100
+Iteration 98: 0.84668	1.74443
+Setting learning rate to 0.00100
+Iteration 99: 0.86719	1.74211
+Iteration 100: 0.87109	1.72905
+Iteration 101: 0.83301	1.75398
+Setting learning rate to 0.00100
+Iteration 102: 0.90039	1.68817
+Iteration 103: 0.87891	1.68724
+Iteration 104: 0.89355	1.69842
+Setting learning rate to 0.00100
+Iteration 105: 0.89746	1.69119
+Iteration 106: 0.90137	1.68076
+Iteration 107: 0.84961	1.73073
+Setting learning rate to 0.00100
+Iteration 108: 0.81934	1.75605
+Setting learning rate to 0.00100
+Iteration 109: 0.85840	1.74184
+Iteration 110: 0.83887	1.74568
+Setting learning rate to 0.00100
+Iteration 111: 0.84082	1.74937
+Setting learning rate to 0.00100
+Iteration 112: 0.90039	1.68758
+Iteration 113: 0.87402	1.71126
+Setting learning rate to 0.00100
+Iteration 114: 0.87891	1.71746
+Setting learning rate to 0.00100
+Iteration 115: 0.91699	1.67195
+Iteration 116: 0.87695	1.70990
+Setting learning rate to 0.00100
+Iteration 117: 0.84375	1.72934
+Setting learning rate to 0.00100
+Iteration 118: 0.83887	1.75474
+Setting learning rate to 0.00100
+Iteration 119: 0.85840	1.73522
+Iteration 120: 0.84180	1.73786
+Setting learning rate to 0.00100
+Iteration 121: 0.82715	1.74401
+Setting learning rate to 0.00100
+Iteration 122: 0.87305	1.70811
+Iteration 123: 0.89844	1.67514
+Iteration 124: 0.86719	1.73692
+Setting learning rate to 0.00100
+Iteration 125: 0.90625	1.68852
+Iteration 126: 0.86621	1.72543
+Setting learning rate to 0.00100
+Iteration 127: 0.80957	1.76036
+Setting learning rate to 0.00100
+Iteration 128: 0.82812	1.76084
+Setting learning rate to 0.00100
+Iteration 129: 0.84375	1.74909
+Iteration 130: 0.82910	1.76343
+Setting learning rate to 0.00100
+Iteration 131: 0.86523	1.71159
+Iteration 132: 0.86328	1.71246
+Setting learning rate to 0.00100
+Iteration 133: 0.89648	1.70854
+Iteration 134: 0.85938	1.73876
+Setting learning rate to 0.00100
+Iteration 135: 0.90918	1.66185
+Iteration 136: 0.83789	1.74422
+Setting learning rate to 0.00100
+Iteration 137: 0.81152	1.77056
+Setting learning rate to 0.00100
+Iteration 138: 0.81934	1.75146
+Iteration 139: 0.85742	1.75237
+Setting learning rate to 0.00100
+Iteration 140: 0.81445	1.76932
+Setting learning rate to 0.00100
+Iteration 141: 0.87012	1.72337
+Iteration 142: 0.86719	1.72539
+Setting learning rate to 0.00100
+Iteration 143: 0.87207	1.72559
+Setting learning rate to 0.00100
+Iteration 144: 0.86816	1.72595
+Setting learning rate to 0.00100
+Iteration 145: 0.87598	1.72055
+Iteration 146: 0.83789	1.76510
+Setting learning rate to 0.00100
+Iteration 147: 0.83203	1.76811
+Setting learning rate to 0.00100
+Iteration 148: 0.83887	1.74902
+Iteration 149: 0.83105	1.74896
+Iteration 150: 0.82422	1.75384
+Setting learning rate to 0.00100
+Iteration 151: 0.88379	1.71124
+Iteration 152: 0.85254	1.73530
+Setting learning rate to 0.00100
+Iteration 153: 0.84668	1.76364
+Setting learning rate to 0.00100
+Iteration 154: 0.88574	1.71946
+Iteration 155: 0.84766	1.75054
+Setting learning rate to 0.00100
+Iteration 156: 0.80859	1.76508
+Setting learning rate to 0.00100
+Iteration 157: 0.80176	1.79288
+Setting learning rate to 0.00100
+Iteration 158: 0.82617	1.75964
+Iteration 159: 0.82031	1.75426
+Iteration 160: 0.82422	1.75799
+Setting learning rate to 0.00100
+Iteration 161: 0.86035	1.73173
+Iteration 162: 0.87500	1.71039
+Iteration 163: 0.87988	1.74388
+Setting learning rate to 0.00100
+Iteration 164: 0.90918	1.69816
+Iteration 165: 0.85547	1.72685
+Setting learning rate to 0.00100
+Iteration 166: 0.81055	1.75786
+Setting learning rate to 0.00100
+Iteration 167: 0.83789	1.74197
+Iteration 168: 0.85352	1.74085
+Iteration 169: 0.83301	1.75217
+Setting learning rate to 0.00100
+Iteration 170: 0.87109	1.70274
+Iteration 171: 0.87793	1.71241
+Setting learning rate to 0.00100
+Iteration 172: 0.88184	1.70730
+Iteration 173: 0.88672	1.73155
+Setting learning rate to 0.00100
+Iteration 174: 0.92676	1.66407
+Iteration 175: 0.84570	1.73961
+Setting learning rate to 0.00100
+Iteration 176: 0.82617	1.74822
+Setting learning rate to 0.00100
+Iteration 177: 0.85742	1.73296
+Iteration 178: 0.85938	1.72441
+Iteration 179: 0.84375	1.73954
+Setting learning rate to 0.00100
+Iteration 180: 0.90527	1.66999
+Iteration 181: 0.89941	1.66945
+Iteration 182: 0.89941	1.67906
+Setting learning rate to 0.00100
+Iteration 183: 0.92676	1.65556
+Iteration 184: 0.91992	1.66093
+Setting learning rate to 0.00100
+Iteration 185: 0.85938	1.71574
+Setting learning rate to 0.00100
+Iteration 186: 0.83008	1.72729
+Setting learning rate to 0.00100
+Iteration 187: 0.86914	1.71183
+Iteration 188: 0.84766	1.71586
+Setting learning rate to 0.00100
+Iteration 189: 0.86035	1.71525
+Iteration 190: 0.90527	1.65873
+Iteration 191: 0.89062	1.67444
+Setting learning rate to 0.00100
+Iteration 192: 0.88770	1.70495
+Setting learning rate to 0.00100
+Iteration 193: 0.93262	1.66976
+Iteration 194: 0.88184	1.69864
+Setting learning rate to 0.00100
+Iteration 195: 0.85156	1.71758
+Setting learning rate to 0.00100
+Iteration 196: 0.83301	1.73700
+Setting learning rate to 0.00100
+Iteration 197: 0.86133	1.72002
+Iteration 198: 0.85254	1.72082
+Setting learning rate to 0.00100
+Iteration 199: 0.85254	1.72218
+Setting learning rate to 0.00100
+Iteration 200: 0.89160	1.69331
+Iteration 201: 0.89551	1.68137
+Iteration 202: 0.86816	1.72434
+Setting learning rate to 0.00100
+Iteration 203: 0.90137	1.68780
+Iteration 204: 0.87598	1.69809
+Setting learning rate to 0.00100
+Iteration 205: 0.81445	1.75450
+Setting learning rate to 0.00100
+Iteration 206: 0.84570	1.74247
+Iteration 207: 0.84180	1.74562
+Setting learning rate to 0.00100
+Iteration 208: 0.84375	1.75133
+Setting learning rate to 0.00100
+Iteration 209: 0.85352	1.71712
+Iteration 210: 0.83984	1.73132
+Setting learning rate to 0.00100
+Iteration 211: 0.86719	1.72316
+Iteration 212: 0.84961	1.74788
+Setting learning rate to 0.00100
+Iteration 213: 0.89746	1.69728
+Iteration 214: 0.80078	1.78295
+Setting learning rate to 0.00100
+Iteration 215: 0.76562	1.82159
+Setting learning rate to 0.00100
+Iteration 216: 0.78516	1.81646
+Iteration 217: 0.79004	1.80697
+Iteration 218: 0.80176	1.81551
+Setting learning rate to 0.00100
+Iteration 219: 0.80664	1.80064
+Iteration 220: 0.82812	1.79934
+Iteration 221: 0.83008	1.79944
+Setting learning rate to 0.00100
+Iteration 222: 0.82520	1.78318
+Iteration 223: 0.85645	1.76849
+Iteration 224: 0.78027	1.83059
+Setting learning rate to 0.00100
+Iteration 225: 0.77246	1.83275
+Setting learning rate to 0.00100
+Iteration 226: 0.79199	1.82549
+Iteration 227: 0.79004	1.80756
+Iteration 228: 0.77539	1.81954
+Setting learning rate to 0.00100
+Iteration 229: 0.86719	1.75521
+Iteration 230: 0.82227	1.78639
+Setting learning rate to 0.00100
+Iteration 231: 0.82715	1.79515
+Setting learning rate to 0.00100
+Iteration 232: 0.85938	1.75057
+Iteration 233: 0.81934	1.79728
+Setting learning rate to 0.00100
+Iteration 234: 0.77930	1.82546
+Setting learning rate to 0.00100
+Iteration 235: 0.76562	1.85390
+Setting learning rate to 0.00100
+Iteration 236: 0.77539	1.82866
+Iteration 237: 0.76953	1.84692
+Setting learning rate to 0.00100
+Iteration 238: 0.76758	1.84882
+Setting learning rate to 0.00100
+Iteration 239: 0.80859	1.81350
+Iteration 240: 0.82324	1.79921
+Iteration 241: 0.79395	1.84278
+Setting learning rate to 0.00100
+Iteration 242: 0.83496	1.80465
+Iteration 243: 0.78516	1.82758
+Setting learning rate to 0.00100
+Iteration 244: 0.71484	1.87564
+Setting learning rate to 0.00100
+Iteration 245: 0.75586	1.85901
+Iteration 246: 0.74121	1.85577
+Iteration 247: 0.74609	1.88136
+Setting learning rate to 0.00100
+Iteration 248: 0.78320	1.84578
+Iteration 249: 0.78613	1.82939
+Iteration 250: 0.79688	1.84523
+Setting learning rate to 0.00100
+Iteration 251: 0.75586	1.88228
+Setting learning rate to 0.00100
+Iteration 252: 0.78809	1.84839
+Iteration 253: 0.71777	1.91486
+Setting learning rate to 0.00100
+Iteration 254: 0.66992	1.93250
+Setting learning rate to 0.00100
+Iteration 255: 0.65332	1.92746
+Iteration 256: 0.67090	1.93232
+Setting learning rate to 0.00100
+Iteration 257: 0.66016	1.94502
+Setting learning rate to 0.00100
+Iteration 258: 0.70117	1.92710
+Iteration 259: 0.71387	1.91993
+Iteration 260: 0.69531	1.91994
+Setting learning rate to 0.00100
+Iteration 261: 0.72168	1.92299
+Setting learning rate to 0.00100
+Iteration 262: 0.74805	1.88803
+Iteration 263: 0.73730	1.89757
+Setting learning rate to 0.00100
+Iteration 264: 0.69922	1.89645
+Iteration 265: 0.73633	1.87821
+Iteration 266: 0.71680	1.88999
+Setting learning rate to 0.00100
+Iteration 267: 0.74512	1.87621
+Iteration 268: 0.77344	1.83882
+Iteration 269: 0.76758	1.84309
+Setting learning rate to 0.00100
+Iteration 270: 0.79590	1.84774
+Setting learning rate to 0.00100
+Iteration 271: 0.82422	1.81054
+Iteration 272: 0.76172	1.84346
+Setting learning rate to 0.00100
+Iteration 273: 0.75684	1.84849
+Setting learning rate to 0.00100
+Iteration 274: 0.72949	1.87829
+Setting learning rate to 0.00100
+Iteration 275: 0.76367	1.85459
+Iteration 276: 0.75488	1.84937
+Iteration 277: 0.76172	1.84705
+Iteration 278: 0.78906	1.80725
+Iteration 279: 0.81738	1.78066
+Iteration 280: 0.81641	1.82521
+Setting learning rate to 0.00100
+Iteration 281: 0.85645	1.76487
+Iteration 282: 0.81641	1.79604
+Setting learning rate to 0.00100
+Iteration 283: 0.75000	1.82883
+Setting learning rate to 0.00100
+Iteration 284: 0.76172	1.82178
+Iteration 285: 0.77734	1.80673
+Iteration 286: 0.77734	1.81755
+Setting learning rate to 0.00100
+Iteration 287: 0.83887	1.76467
+Iteration 288: 0.84668	1.73971
+Iteration 289: 0.83789	1.74879
+Setting learning rate to 0.00100
+Iteration 290: 0.86426	1.75260
+Setting learning rate to 0.00100
+Iteration 291: 0.91504	1.68767
+Iteration 292: 0.80664	1.79488
+Setting learning rate to 0.00100
+Iteration 293: 0.79590	1.80227
+Setting learning rate to 0.00100
+Iteration 294: 0.79883	1.79705
+Iteration 295: 0.83398	1.77773
+Iteration 296: 0.79980	1.79927
+Setting learning rate to 0.00100
+Iteration 297: 0.84375	1.75326
+Iteration 298: 0.85645	1.74748
+Iteration 299: 0.87793	1.76362
+Setting learning rate to 0.00100
+Iteration 300: 0.87500	1.73210
+Iteration 301: 0.87109	1.73134
+Iteration 302: 0.81543	1.77801
+Setting learning rate to 0.00100
+Iteration 303: 0.78320	1.79894
+Setting learning rate to 0.00100
+Iteration 304: 0.83691	1.75962
+Iteration 305: 0.83887	1.76058
+Setting learning rate to 0.00100
+Iteration 306: 0.81543	1.76211
+Setting learning rate to 0.00100
+Iteration 307: 0.87988	1.70110
+Iteration 308: 0.86816	1.70912
+Setting learning rate to 0.00100
+Iteration 309: 0.88477	1.72233
+Setting learning rate to 0.00100
+Iteration 310: 0.92188	1.66389
+Iteration 311: 0.87109	1.70647
+Setting learning rate to 0.00100
+Iteration 312: 0.83105	1.74554
+Setting learning rate to 0.00100
+Iteration 313: 0.80078	1.76472
+Setting learning rate to 0.00100
+Iteration 314: 0.83691	1.74801
+Iteration 315: 0.83105	1.74935
+Setting learning rate to 0.00100
+Iteration 316: 0.82910	1.74323
+Iteration 317: 0.87695	1.70251
+Iteration 318: 0.90234	1.68990
+Iteration 319: 0.88770	1.71101
+Setting learning rate to 0.00100
+Iteration 320: 0.90430	1.67443
+Iteration 321: 0.85254	1.73295
+Setting learning rate to 0.00100
+Iteration 322: 0.80664	1.77602
+Setting learning rate to 0.00100
+Iteration 323: 0.80371	1.78045
+Setting learning rate to 0.00100
+Iteration 324: 0.82715	1.75576
+Iteration 325: 0.81250	1.76254
+Setting learning rate to 0.00100
+Iteration 326: 0.87207	1.70324
+Iteration 327: 0.86426	1.70450
+Setting learning rate to 0.00100
+Iteration 328: 0.88379	1.70547
+Setting learning rate to 0.00100
+Iteration 329: 0.89746	1.70267
+Iteration 330: 0.91797	1.64406
+Iteration 331: 0.82031	1.75934
+Setting learning rate to 0.00100
+Iteration 332: 0.80957	1.76464
+Setting learning rate to 0.00100
+Iteration 333: 0.82910	1.75722
+Iteration 334: 0.83594	1.74710
+Iteration 335: 0.79590	1.76760
+Setting learning rate to 0.00100
+Iteration 336: 0.84863	1.71899
+Iteration 337: 0.86523	1.70877
+Iteration 338: 0.86523	1.72979
+Setting learning rate to 0.00100
+Iteration 339: 0.88672	1.71200
+Iteration 340: 0.85742	1.71764
+Setting learning rate to 0.00100
+Iteration 341: 0.82520	1.77551
+Setting learning rate to 0.00100
+Iteration 342: 0.79004	1.80208
+Setting learning rate to 0.00100
+Iteration 343: 0.79492	1.78074
+Iteration 344: 0.80469	1.77669
+Iteration 345: 0.78516	1.79150
+Setting learning rate to 0.00100
+Iteration 346: 0.87305	1.70977
+Iteration 347: 0.84961	1.74036
+Setting learning rate to 0.00100
+Iteration 348: 0.86328	1.74122
+Setting learning rate to 0.00100
+Iteration 349: 0.88965	1.70364
+Iteration 350: 0.82520	1.75556
+Setting learning rate to 0.00100
+Iteration 351: 0.79980	1.78165
+Setting learning rate to 0.00100
+Iteration 352: 0.77539	1.80841
+Setting learning rate to 0.00100
+Iteration 353: 0.82031	1.76308
+Iteration 354: 0.79980	1.78006
+Setting learning rate to 0.00100
+Iteration 355: 0.81152	1.76856
+Iteration 356: 0.86035	1.72937
+Iteration 357: 0.89062	1.70351
+Iteration 358: 0.86328	1.73655
+Setting learning rate to 0.00100
+Iteration 359: 0.86523	1.70339
+Iteration 360: 0.84473	1.74578
+Setting learning rate to 0.00100
+Iteration 361: 0.80078	1.77541
+Setting learning rate to 0.00100
+Iteration 362: 0.80273	1.76076
+Iteration 363: 0.81738	1.75003
+Iteration 364: 0.81348	1.76047
+Setting learning rate to 0.00100
+Iteration 365: 0.84766	1.70893
+Iteration 366: 0.86133	1.70565
+Iteration 367: 0.88086	1.70114
+Iteration 368: 0.88379	1.71341
+Setting learning rate to 0.00100
+Iteration 369: 0.91016	1.66338
+Iteration 370: 0.82422	1.74771
+Setting learning rate to 0.00100
+Iteration 371: 0.80859	1.76693
+Setting learning rate to 0.00100
+Iteration 372: 0.82422	1.74751
+Iteration 373: 0.84570	1.74530
+Iteration 374: 0.80664	1.76527
+Setting learning rate to 0.00100
+Iteration 375: 0.87012	1.69807
+Iteration 376: 0.85938	1.70320
+Setting learning rate to 0.00100
+Iteration 377: 0.86719	1.71502
+Setting learning rate to 0.00100
+Iteration 378: 0.89453	1.67216
+Iteration 379: 0.88574	1.67825
+Setting learning rate to 0.00100
+Iteration 380: 0.83105	1.74369
+Setting learning rate to 0.00100
+Iteration 381: 0.79883	1.77132
+Setting learning rate to 0.00100
+Iteration 382: 0.84570	1.73213
+Iteration 383: 0.83789	1.74870
+Setting learning rate to 0.00100
+Iteration 384: 0.81250	1.75455
+Setting learning rate to 0.00100
+Iteration 385: 0.88477	1.67736
+Iteration 386: 0.86914	1.70219
+Setting learning rate to 0.00100
+Iteration 387: 0.86230	1.71574
+Setting learning rate to 0.00100
+Iteration 388: 0.90820	1.66886
+Iteration 389: 0.87109	1.71247
+Setting learning rate to 0.00100
+Iteration 390: 0.82324	1.73761
+Setting learning rate to 0.00100
+Iteration 391: 0.78906	1.77248
+Setting learning rate to 0.00100
+Iteration 392: 0.85352	1.73287
+Iteration 393: 0.82715	1.74151
+Setting learning rate to 0.00100
+Iteration 394: 0.83203	1.73153
+Iteration 395: 0.86133	1.70833
+Iteration 396: 0.90234	1.68018
+Iteration 397: 0.87988	1.70120
+Setting learning rate to 0.00100
+Iteration 398: 0.90039	1.67576
+Iteration 399: 0.85547	1.71962
+Setting learning rate to 0.00100
+Iteration 400: 0.80176	1.76086
+Setting learning rate to 0.00100
+Iteration 401: 0.81445	1.76140
+Setting learning rate to 0.00100
+Iteration 402: 0.82715	1.73814
+Iteration 403: 0.79980	1.76471
+Setting learning rate to 0.00100
+Iteration 404: 0.85254	1.72302
+Iteration 405: 0.87109	1.71312
+Iteration 406: 0.87012	1.70941
+Iteration 407: 0.86914	1.71445
+Setting learning rate to 0.00100
+Iteration 408: 0.89844	1.67800
+Iteration 409: 0.79199	1.78414
+Setting learning rate to 0.00100
+Iteration 410: 0.77148	1.79136
+Setting learning rate to 0.00100
+Iteration 411: 0.80273	1.77504
+Iteration 412: 0.81836	1.77246
+Iteration 413: 0.76465	1.81514
+Setting learning rate to 0.00100
+Iteration 414: 0.81934	1.74811
+Iteration 415: 0.79688	1.76102
+Setting learning rate to 0.00100
+Iteration 416: 0.82715	1.76890
+Setting learning rate to 0.00100
+Iteration 417: 0.81641	1.77517
+Setting learning rate to 0.00100
+Iteration 418: 0.82129	1.77390
+Iteration 419: 0.77051	1.80544
+Setting learning rate to 0.00100
+Iteration 420: 0.73340	1.82410
+Setting learning rate to 0.00100
+Iteration 421: 0.78711	1.80165
+Iteration 422: 0.76855	1.80155
+Iteration 423: 0.75684	1.80783
+Setting learning rate to 0.00100
+Iteration 424: 0.82422	1.75507
+Iteration 425: 0.82129	1.78699
+Setting learning rate to 0.00100
+Iteration 426: 0.79688	1.80342
+Setting learning rate to 0.00100
+Iteration 427: 0.85059	1.75028
+Iteration 428: 0.78223	1.78307
+Setting learning rate to 0.00100
+Iteration 429: 0.77148	1.81639
+Setting learning rate to 0.00100
+Iteration 430: 0.73730	1.82049
+Setting learning rate to 0.00100
+Iteration 431: 0.78418	1.80094
+Iteration 432: 0.75977	1.80848
+Setting learning rate to 0.00100
+Iteration 433: 0.78125	1.78992
+Iteration 434: 0.80469	1.78158
+Iteration 435: 0.83008	1.76145
+Iteration 436: 0.81055	1.81315
+Setting learning rate to 0.00100
+Iteration 437: 0.85938	1.73698
+Iteration 438: 0.80078	1.76854
+Setting learning rate to 0.00100
+Iteration 439: 0.76074	1.82285
+Setting learning rate to 0.00100
+Iteration 440: 0.77734	1.79850
+Iteration 441: 0.78027	1.80616
+Setting learning rate to 0.00100
+Iteration 442: 0.77734	1.79431
+Iteration 443: 0.82422	1.75680
+Iteration 444: 0.82617	1.77492
+Setting learning rate to 0.00100
+Iteration 445: 0.82520	1.78137
+Setting learning rate to 0.00100
+Iteration 446: 0.82129	1.79846
+Setting learning rate to 0.00100
+Iteration 447: 0.86719	1.73296
+Iteration 448: 0.77637	1.81500
+Setting learning rate to 0.00100
+Iteration 449: 0.75293	1.82446
+Setting learning rate to 0.00100
+Iteration 450: 0.78027	1.80749
+Iteration 451: 0.78320	1.79273
+Iteration 452: 0.74121	1.82360
+Setting learning rate to 0.00100
+Iteration 453: 0.83398	1.76491
+Iteration 454: 0.82812	1.78642
+Setting learning rate to 0.00100
+Iteration 455: 0.78906	1.81708
+Setting learning rate to 0.00100
+Iteration 456: 0.80566	1.81271
+Iteration 457: 0.81543	1.79120
+Iteration 458: 0.76465	1.82623
+Setting learning rate to 0.00100
+Iteration 459: 0.74609	1.82641
+Setting learning rate to 0.00100
+Iteration 460: 0.78027	1.80506
+Iteration 461: 0.74707	1.82463
+Setting learning rate to 0.00100
+Iteration 462: 0.75781	1.82464
+Setting learning rate to 0.00100
+Iteration 463: 0.82812	1.79218
+Iteration 464: 0.78223	1.81791
+Setting learning rate to 0.00100
+Iteration 465: 0.77051	1.83983
+Setting learning rate to 0.00100
+Iteration 466: 0.80176	1.80821
+Iteration 467: 0.76855	1.81979
+Setting learning rate to 0.00100
+Iteration 468: 0.71680	1.83585
+Setting learning rate to 0.00100
+Iteration 469: 0.71094	1.85965
+Setting learning rate to 0.00100
+Iteration 470: 0.73340	1.82263
+Iteration 471: 0.74316	1.82974
+Setting learning rate to 0.00100
+Iteration 472: 0.73926	1.83815
+Setting learning rate to 0.00100
+Iteration 473: 0.78613	1.81693
+Iteration 474: 0.78613	1.78627
+Iteration 475: 0.75781	1.85223
+Setting learning rate to 0.00100
+Iteration 476: 0.81836	1.77922
+Iteration 477: 0.77246	1.80403
+Setting learning rate to 0.00100
+Iteration 478: 0.71191	1.85727
+Setting learning rate to 0.00100
+Iteration 479: 0.74609	1.83692
+Iteration 480: 0.74316	1.83069
+Iteration 481: 0.73047	1.84618
+Setting learning rate to 0.00100
+Iteration 482: 0.79004	1.79110
+Iteration 483: 0.77441	1.81132
+Setting learning rate to 0.00100
+Iteration 484: 0.76660	1.83078
+Setting learning rate to 0.00100
+Iteration 485: 0.78906	1.83929
+Setting learning rate to 0.00100
+Iteration 486: 0.83789	1.77568
+Iteration 487: 0.73535	1.85212
+Setting learning rate to 0.00100
+Iteration 488: 0.70996	1.87027
+Setting learning rate to 0.00100
+Iteration 489: 0.73145	1.85500
+Iteration 490: 0.71484	1.85483
+Iteration 491: 0.73535	1.85340
+Iteration 492: 0.78613	1.80478
+Iteration 493: 0.74805	1.83894
+Setting learning rate to 0.00100
+Iteration 494: 0.75879	1.85513
+Setting learning rate to 0.00100
+Iteration 495: 0.78125	1.81796
+Iteration 496: 0.80273	1.80582
+Iteration 497: 0.74707	1.83498
+Setting learning rate to 0.00100
+Iteration 498: 0.71582	1.85723
+Setting learning rate to 0.00100
+Iteration 499: 0.73145	1.83398
+Iteration 500: 0.73340	1.83351
+
++++ SUMMARY +++
+500 Iterations performed
+final accuracy: 0.76122
+final cost per picture: 1.82507
+final learning rate: 0.00100
+	Command being timed: "build/program"
+	User time (seconds): 49796.28
+	System time (seconds): 1378.49
+	Percent of CPU this job got: 4779%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 17:50.80
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 374556
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 370353
+	Voluntary context switches: 2614
+	Involuntary context switches: 91943
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 48
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
