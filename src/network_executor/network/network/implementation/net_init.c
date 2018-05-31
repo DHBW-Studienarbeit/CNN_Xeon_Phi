@@ -81,11 +81,12 @@ void network_init(const NeuronalNetwork_p network)
             cog.outl(prefix + ".biases_error_start = network->weights_f_errors + " + str(current._bias_off) + ";")
             cog.outl(prefix + ".shared_tmp_floats = network->shared_tmp_floats;")
             cog.outl(prefix + ".shared_ones_floats = network->shared_ones_floats;")
-            cog.outl("#ifdef REDUCE_CONV_LEARNRATE")
+            cog.outl("#ifdef CONFIG_REDUCE_CONV_LEARNRATE")
             cog.outl(prefix + ".learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (" + prefix + ".full_output_matrix_width);")
             cog.outl(prefix + ".learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (" + prefix + ".input_matrix_width);")
             cog.outl("#else")
-            cog.outl(prefix + ".learn_reduction = 1.0f;")
+            cog.outl(prefix + ".learn_reduction_weights = 1.0f;")
+            cog.outl(prefix + ".learn_reduction_biases = 1.0f;")
             cog.outl("#endif")
         if current.__class__.__name__ == "MaxPoolingLayer":
             cog.outl("// maxpooling")
@@ -134,11 +135,12 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_0.biases_error_start = network->weights_f_errors + 800;
     network->layer_0.shared_tmp_floats = network->shared_tmp_floats;
     network->layer_0.shared_ones_floats = network->shared_ones_floats;
-    #ifdef REDUCE_CONV_LEARNRATE
+    #ifdef CONFIG_REDUCE_CONV_LEARNRATE
     network->layer_0.learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_0.full_output_matrix_width);
     network->layer_0.learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_0.input_matrix_width);
     #else
-    network->layer_0.learn_reduction = 1.0f;
+    network->layer_0.learn_reduction_weights = 1.0f;
+    network->layer_0.learn_reduction_biases = 1.0f;
     #endif
     // maxpooling
     network->layer_1.input_activation_start = network->activations + 0;
@@ -184,11 +186,12 @@ void network_init(const NeuronalNetwork_p network)
     network->layer_2.biases_error_start = network->weights_f_errors + 52032;
     network->layer_2.shared_tmp_floats = network->shared_tmp_floats;
     network->layer_2.shared_ones_floats = network->shared_ones_floats;
-    #ifdef REDUCE_CONV_LEARNRATE
+    #ifdef CONFIG_REDUCE_CONV_LEARNRATE
     network->layer_2.learn_reduction_weights = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_2.full_output_matrix_width);
     network->layer_2.learn_reduction_biases = ((Float_t)CONFIG_BATCHSIZE) / (network->layer_2.input_matrix_width);
     #else
-    network->layer_2.learn_reduction = 1.0f;
+    network->layer_2.learn_reduction_weights = 1.0f;
+    network->layer_2.learn_reduction_biases = 1.0f;
     #endif
     // maxpooling
     network->layer_3.input_activation_start = network->activations + 1896832;
