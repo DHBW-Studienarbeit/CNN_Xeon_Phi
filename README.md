@@ -18,14 +18,14 @@
 ### recommended tools:
 - Python-Interpreter for code generation and to run Tensorflow example code (installed on it-phi)
 - Tensor Flow (prerequesits installed on it-phi; tensor flow itself is in users home directory; follow instructions for ubuntu here: https://www.tensorflow.org/versions/r1.1/install/)
-- Tensor Flow MNIST example(TODO: link to repo)
+- Tensor Flow MNIST example(https://www.tensorflow.org/tutorials/layers)
 - cog to generate source code (not installed on it-phi; without this, you cannot change network model and batchsize, but still some other parameters like learnrate, verbosity etc. )
 
 
 ## Notes
 - The application uses relatives paths to access train and test data. Please invoke the application by invoking `./build/program` from the project root directory. You can also edit configurqation and use absolute paths on demand. 
 - it is recommended to edit configuration in python scripts and generate c code using cog. You can also edit the file `src/network_executer/application/include/config.h` directly for changes not affecting network model or batchsize, but regard this unsafe and eventually causing undefined behaviour in future versions. 
-- You need to change an environment variable to get code generation running: TODO
+- You need to change an environment variable to get code generation running: PYTHONPATH has to contain the absolute path of `src` this is necessary so that the generation code can find the python module for network description
 
 
 ## Usage: 
