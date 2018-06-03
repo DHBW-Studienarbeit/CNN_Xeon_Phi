@@ -36,7 +36,7 @@
 
 ### edit network configuration
 The network model is defined in the file `src/network_descriptor/NetInstance.py`. This file is pretty self-explaining. Also, there is not really a need to change it unless you want to do other things than MNIST data recognition with this program.
-The network configuration is defined in the file `src/network_descriptor/Net`Config.py`.
+The network configuration is defined in the file `src/network_descriptor/Net_Config.py`.
 This file defines a dictionary of config keys to control the program behaviour.
 Lets look at these config keys more carefully:
 - CONFIG_BATCHSIZE: size of a minibatch. This value has a heavy impact on memory usage of the application. works great with values up to 100, but might cause more page faults with higher values
